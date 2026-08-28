@@ -125,7 +125,6 @@ export type NavChild = { label: string; href: string; external?: boolean };
 export type NavItem = { label: string; href: string; children?: NavChild[] };
 
 export const utilityNav: NavChild[] = [
-  { label: "Join the Troop", href: "/join" },
   { label: "Calendar", href: "/calendar" },
   { label: "Resources", href: "/resources" },
 ];

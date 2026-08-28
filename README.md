@@ -45,6 +45,65 @@ things worth checking with the council.
 | `/join` | Five steps to join, when/where, who can join, cost, FAQ |
 | `/contact` | Contact details, message form, map, directions |
 | `/support` | Ways to give money or time |
+| `/login` `/signup` | Members-area sign in and account request |
+| `/dashboard` | Member overview: next event, meeting details, upcoming, key links |
+| `/dashboard/calendar` | Full filterable program-year calendar |
+| `/dashboard/forms` | Forms, pre-campout and summer-camp checklists, packing, dues |
+| `/dashboard/members` | Administrator only: approve accounts and set roles |
+
+## Members area
+
+`/login`, `/signup`, and `/dashboard/*` are a real, server-enforced members area.
+
+**How accounts work.** Anyone can request one, but nobody gets in automatically —
+each request lands as `pending` until an administrator approves it. The very
+first account created bootstraps as the administrator so there is somebody to do
+the approving.
+
+Roles are `pending` → `member` → `leader` → `admin`.
+
+**First run:**
+
+```bash
+npm run dev
+# visit http://localhost:3394/signup  — this first account becomes the admin
+```
+
+**Before you deploy** (both matter):
+
+1. **Set a session secret.** Copy `.env.example` to `.env.local` and fill it in:
+   ```bash
+   echo "SESSION_SECRET=$(openssl rand -base64 48)" > .env.local
+   ```
+   The app refuses to start in production without one. In development it
+   generates a secret into `.data/` so logins survive a restart.
+
+2. **Swap the user store for a database.** `src/lib/auth/store.ts` keeps members
+   in `.data/users.json`. That works on a normal server but **not on serverless
+   hosting** (Vercel, Netlify functions), where the filesystem is ephemeral and
+   per-instance. Replace the six query/mutation functions at the bottom of that
+   file — nothing else in the app touches the file layer.
+
+**How it's secured.**
+
+| | |
+|---|---|
+| Passwords | scrypt with a per-user random salt, compared in constant time |
+| Sessions | HMAC-SHA256 signed cookie — `httpOnly`, `sameSite=lax`, `secure` in production, 14-day expiry |
+| Authorization | Checked in the `/dashboard` **server layout**, not in middleware — so a member hitting `/dashboard/members` directly is redirected, not merely shown a hidden link |
+| Revocation | The user is re-read from the store on every request, so demoting or deleting an account takes effect immediately |
+| Brute force | Fixed-window rate limits per email and per IP on login, per IP on signup |
+| Enumeration | A wrong password and an unknown email return the identical message, and both run a hash comparison so they take similar time |
+| Indexing | `/dashboard`, `/login`, and `/signup` are `noindex` and disallowed in `robots.txt` |
+| Dependencies | Zero added — `node:crypto` only |
+
+**What it deliberately does not store.** Name, email, and how someone is
+connected to the troop. Nothing else. Advancement, health forms, and any other
+youth data belong in Scoutbook and the troop's physical files — not in a
+website's database.
+
+**Not built yet:** password reset by email (a leader sets a new password
+instead), and email notification on approval. Both need an email provider.
 
 ## Design
 

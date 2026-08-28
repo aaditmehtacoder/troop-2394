@@ -92,7 +92,7 @@ export function Header() {
                   <Link
                     key={l.href}
                     href={l.href}
-                    className="navlink px-3 py-2 text-white/90 transition hover:text-white"
+                    className="navlink whitespace-nowrap px-3 py-2 text-white/90 transition hover:text-white"
                   >
                     {l.label}
                   </Link>
@@ -101,7 +101,7 @@ export function Header() {
 
               <a
                 href={`tel:${troop.contact.phone.replace(/[^0-9+]/g, "")}`}
-                className="navlink hidden items-center gap-1.5 px-3 py-2 text-white/90 transition hover:text-white lg:flex"
+                className="navlink hidden items-center gap-1.5 whitespace-nowrap px-3 py-2 text-white/90 transition hover:text-white 2xl:flex"
               >
                 <IconPhone className="h-4 w-4" />
                 <span className="hidden 2xl:inline">{troop.contact.phone}</span>
@@ -113,11 +113,15 @@ export function Header() {
                   href={b.href}
                   target={b.external ? "_blank" : undefined}
                   rel={b.external ? "noopener noreferrer" : undefined}
-                  className="pill pill-white pill-sm hidden sm:inline-flex"
+                  className="pill pill-white pill-sm hidden xl:inline-flex"
                 >
                   {b.label}
                 </Link>
               ))}
+
+              <Link href="/login" className="pill pill-ghost pill-sm hidden whitespace-nowrap sm:inline-flex">
+                Members Area
+              </Link>
 
               <button
                 type="button"
@@ -253,13 +257,16 @@ export function Header() {
           </nav>
 
           <div className="grid gap-2 border-t border-white/15 p-4">
+            <Link href="/login" className="pill pill-white pill-sm w-full">
+              Members Area
+            </Link>
             {utilityButtons.map((b) => (
               <Link
                 key={b.href}
                 href={b.href}
                 target={b.external ? "_blank" : undefined}
                 rel={b.external ? "noopener noreferrer" : undefined}
-                className="pill pill-white pill-sm w-full"
+                className="pill pill-ghost pill-sm w-full"
               >
                 {b.label}
               </Link>

@@ -109,6 +109,7 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
+    white-space: nowrap;
     font-family: var(--font-slab);
     font-weight: 700;
     font-size: 15px;
