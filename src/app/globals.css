@@ -1,0 +1,236 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* ============================================================================
+   Troop 2/394 · Santa Clara — design tokens
+   Extracted from scouting.org via getComputedStyle(). See
+   docs/research/scouting-org/DESIGN_TOKENS.md for the audit trail.
+   ========================================================================= */
+
+@theme {
+  --color-navy: #003f87;
+  --color-navy-dark: #002a5c;
+  --color-navy-bar: #005696;
+  --color-blue: #067eeb;
+  --color-blue-dark: #0568c2;
+  --color-red: #ce1126;
+  --color-gold: #e1c04c;
+  --color-forest: #1e5631;
+  --color-tan: #d6cebd;
+  --color-tan-light: #e7e1d5;
+  --color-ink: #212121;
+  --color-slate: #33373d;
+  --color-mute: #515354;
+  --color-hair: #e0e0e0;
+  --color-shell: #f2f2f2;
+
+  --font-slab: var(--font-roboto-slab), Georgia, serif;
+  --font-sans: var(--font-roboto), system-ui, -apple-system, sans-serif;
+
+  --radius-pill: 28px;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: #fff;
+    color: var(--color-ink);
+    font-size: 16px;
+    line-height: 24px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-slab);
+    font-weight: 700;
+    color: var(--color-navy);
+  }
+
+  p {
+    margin-bottom: 16px;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-blue);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* Container — scouting.org content width is 1180px */
+  .shell {
+    width: 100%;
+    max-width: 1180px;
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+
+  /* Section heading: 40px / 700 / uppercase / navy */
+  .h-section {
+    font-size: clamp(28px, 4.2vw, 40px);
+    line-height: 1.15;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-navy);
+  }
+
+  /* Sub heading: 32px / 700 / sentence case */
+  .h-sub {
+    font-size: clamp(22px, 3vw, 32px);
+    line-height: 1.25;
+    font-weight: 700;
+    color: var(--color-navy);
+  }
+
+  /* H4: 24px / 700 / 0.8px tracking */
+  .h-four {
+    font-size: clamp(19px, 2.2vw, 24px);
+    line-height: 1.33;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: var(--color-navy);
+  }
+
+  /* Every button on scouting.org is a 28px pill in Roboto Slab 700 uppercase */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: var(--font-slab);
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    border-radius: 28px;
+    padding: 17px 34px;
+    border: 1px solid transparent;
+    transition:
+      background-color 0.22s ease,
+      color 0.22s ease,
+      border-color 0.22s ease,
+      transform 0.22s ease,
+      box-shadow 0.22s ease;
+    text-align: center;
+  }
+
+  .pill:hover {
+    transform: translateY(-1px);
+  }
+
+  .pill:active {
+    transform: translateY(0);
+  }
+
+  .pill-navy {
+    background: var(--color-navy);
+    color: #fff;
+    border-color: var(--color-navy);
+  }
+  .pill-navy:hover {
+    background: var(--color-navy-dark);
+    border-color: var(--color-navy-dark);
+    box-shadow: 0 6px 18px rgb(0 63 135 / 0.28);
+  }
+
+  .pill-outline {
+    background: #fff;
+    color: var(--color-blue);
+    border-color: var(--color-blue);
+  }
+  .pill-outline:hover {
+    background: var(--color-blue);
+    color: #fff;
+  }
+
+  .pill-white {
+    background: #fff;
+    color: var(--color-navy);
+    border-color: #fff;
+  }
+  .pill-white:hover {
+    background: var(--color-shell);
+    box-shadow: 0 6px 18px rgb(0 0 0 / 0.18);
+  }
+
+  .pill-ghost {
+    background: transparent;
+    color: #fff;
+    border-color: #fff;
+  }
+  .pill-ghost:hover {
+    background: #fff;
+    color: var(--color-navy);
+  }
+
+  .pill-sm {
+    font-size: 13px;
+    padding: 12px 20px;
+    letter-spacing: 0.8px;
+  }
+
+  /* Header nav link: Roboto Slab 11px 700 uppercase 1px tracking */
+  .navlink {
+    font-family: var(--font-slab);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1;
+    transition: color 0.18s ease;
+  }
+
+  .prose-troop p {
+    font-size: 16px;
+    line-height: 26px;
+    color: var(--color-ink);
+  }
+}
+
+/* Reveal-on-scroll: mirrors the fade-up entrances on scouting.org sections. */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .pill:hover {
+    transform: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
