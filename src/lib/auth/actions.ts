@@ -18,6 +18,13 @@ import {
 
 export type FormState = { error?: string; notice?: string } | null;
 
+/**
+ * A syntactically valid hash to compare against when no account matches, so
+ * login timing does not reveal whether an email is registered. The 16-byte
+ * salt and 64-byte digest match what hashPassword produces.
+ */
+const DECOY_HASH = `scrypt$64$${Buffer.alloc(16).toString("base64")}$${Buffer.alloc(64).toString("base64")}`;
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const MIN_PASSWORD = 10;
 
@@ -88,11 +95,13 @@ export async function loginAction(_prev: FormState, formData: FormData): Promise
 
   const user = await findByEmail(email);
 
-  // Always run a verification so a missing account and a wrong password take
-  // roughly the same time, and give the same message either way.
+  // Always run a real scrypt comparison so a missing account and a wrong
+  // password take roughly the same time, and give the same message either way.
+  // The decoy's digest must be exactly KEYLEN bytes, or verifyPassword bails
+  // out on the length check and never does the work.
   const ok = user
     ? await verifyPassword(password, user.passwordHash)
-    : await verifyPassword(password, "scrypt$64$AAAAAAAAAAAAAAAAAAAAAA==$" + "A".repeat(88));
+    : await verifyPassword(password, DECOY_HASH);
 
   if (!user || !ok) return { error: "That email and password don't match." };
 
