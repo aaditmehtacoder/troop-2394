@@ -1,5 +1,5 @@
 import { IconArrow, IconCheck } from "@/components/brand/Marks";
-import { resourceLinks, gearList, dues, troop } from "@/data/troop";
+import { resourceLinks, gearList, dues, troop, troopForms, uniformBank } from "@/data/troop";
 
 export const metadata = { title: "Forms" };
 
@@ -57,6 +57,29 @@ export default function FormsPage() {
             </a>
           ))}
         </div>
+      </section>
+
+      <section className="mt-11">
+        <h2 className="font-slab text-[13px] font-bold uppercase tracking-[1.6px] text-blue">
+          Troop 2/394 forms
+        </h2>
+        <p className="mt-2 mb-0 max-w-2xl text-[14px] leading-6 text-mute">
+          These are the troop&rsquo;s own paperwork, carried over from the old site. Ask a leader
+          at a meeting for current copies.
+        </p>
+        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {troopForms.map((f) => (
+            <div key={f.label} className="rounded-lg bg-white p-5 ring-1 ring-hair">
+              <p className="mb-1 font-slab text-[14.5px] font-bold leading-snug text-navy">
+                {f.label}
+              </p>
+              <p className="mb-0 text-[13px] leading-5 text-mute">{f.note}</p>
+            </div>
+          ))}
+        </div>
+        <p className="mt-4 mb-0 rounded-lg border-l-4 border-gold bg-gold/[0.1] p-5 text-[13.5px] leading-6 text-slate">
+          <strong className="text-navy">Uniform Bank.</strong> {uniformBank.note}
+        </p>
       </section>
 
       <section className="mt-11 grid gap-6 lg:grid-cols-2">

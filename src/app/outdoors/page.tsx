@@ -5,7 +5,7 @@ import { Reveal } from "@/components/site/Reveal";
 import { CTABand } from "@/components/site/CTABand";
 import { Scene, SceneTile } from "@/components/brand/Scenes";
 import { IconCheck, IconPin } from "@/components/brand/Marks";
-import { gearList, highAdventureBases, localTrips } from "@/data/troop";
+import { gearList, highAdventureBases, localTrips, summerCamp } from "@/data/troop";
 
 export const metadata: Metadata = {
   title: "Outdoors",
@@ -112,18 +112,20 @@ export default function OutdoorsPage() {
             <Reveal delay={80}>
               <div className="prose-troop mt-6">
                 <p>
-                  Six nights at{" "}
-                  <strong className="text-navy">Camp Hi-Sierra</strong> in Long Barn, our council
-                  camp in the Stanislaus National Forest. The troop has gone every July for
-                  decades. Scouts sleep in patrol sites and work merit badges on something close
-                  to a school schedule — cooking, camping, wilderness survival, nature, weather —
-                  with free shoot at the archery and rifle ranges in between.
+                  Six nights at <strong className="text-navy">{summerCamp.name}</strong>, the
+                  council&rsquo;s camp since {summerCamp.since}. {summerCamp.setting}
                 </p>
                 <p>
-                  Camp is run largely by Venturing Scouts, there is a campfire every night, and
-                  the week ends with the camp-wide games.{" "}
+                  It is the closest Scouting America camp to Yosemite, set in a historic logging
+                  camp and run as a fully themed frontier town. Scouts sleep in patrol sites and
+                  work merit badges on something close to a school schedule — cooking, camping,
+                  wilderness survival, nature, weather — with shooting sports, sailing, welding,
+                  and the observatory in between.
+                </p>
+                <p>
+                  There is a campfire every night, and the week ends with the camp-wide games.{" "}
                   <strong className="text-navy">
-                    Troop 2/394 has taken first place two years running.
+                    Troop 394 has taken first place two years running.
                   </strong>
                 </p>
                 <p className="mb-0">
@@ -134,6 +136,72 @@ export default function OutdoorsPage() {
               </div>
             </Reveal>
           </div>
+        </div>
+      </Section>
+
+      {/* 2027 camp sessions & fees, as published by the camp */}
+      <Section className="bg-shell">
+        <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+          <div>
+            <SectionHead align="left" eyebrow="Planning ahead" title="Camp Hi-Sierra 2027" />
+            <Reveal delay={70}>
+              <p className="mt-5 mb-0 text-[15px] leading-7 text-slate">
+                The camp publishes its sessions a year ahead. Troop 2/394 expects to be at{" "}
+                <strong className="text-navy">{summerCamp.troopWeek}</strong> — check with the
+                Scoutmaster before booking a family holiday around it.
+              </p>
+              <ul className="mt-6 grid gap-2 sm:grid-cols-2">
+                {summerCamp.weeks2027.map((w) => (
+                  <li
+                    key={w.week}
+                    className="flex items-baseline justify-between gap-3 rounded-lg bg-white px-4 py-3 ring-1 ring-hair"
+                  >
+                    <span className="font-slab text-[13px] font-bold uppercase tracking-[1px] text-blue">
+                      Week {w.week}
+                    </span>
+                    <span className="text-[14px] text-slate">{w.dates}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-5 mb-0 text-[13px] leading-6 text-mute">
+                Published by the camp at{" "}
+                <a
+                  href={summerCamp.reserveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue underline underline-offset-4"
+                >
+                  camphi-sierra.org
+                </a>
+                . Camp questions go to {summerCamp.contact}.
+              </p>
+            </Reveal>
+          </div>
+
+          <Reveal delay={110}>
+            <div className="rounded-xl bg-white p-8 shadow-sm ring-1 ring-hair">
+              <h3 className="font-slab text-[13px] font-bold uppercase tracking-[1.6px] text-blue">
+                2027 fees
+              </h3>
+              <ul className="mt-5 divide-y divide-hair border-y border-hair">
+                {[
+                  ["Youth, in council (with deposit)", `$${summerCamp.fees2027.youthInCouncil}`],
+                  ["Youth, booked before 15 Nov", `$${summerCamp.fees2027.youthBeforeNov15}`],
+                  ["Youth, booked after 15 Nov", `$${summerCamp.fees2027.youthAfterNov15}`],
+                  ["Adult leader", `$${summerCamp.fees2027.adult}`],
+                ].map(([k, v]) => (
+                  <li key={String(k)} className="flex items-center justify-between gap-4 py-3">
+                    <span className="text-[14px] text-slate">{k}</span>
+                    <span className="font-slab text-[14px] font-bold text-navy">{v}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-5 mb-0 text-[13px] leading-6 text-mute">
+                {summerCamp.fees2027.adultNote} No Scout is kept home over cost — ask the
+                Scoutmaster.
+              </p>
+            </div>
+          </Reveal>
         </div>
       </Section>
 

@@ -76,3 +76,68 @@ Both are quoted on the homepage with attribution. If either family would rather 
 The 2026–2027 calendar in `src/data/troop.ts` is built from the troop's **real
 annual rhythm** but the specific dates are inferred. Replace them with the
 calendar the Patrol Leaders' Council actually approves.
+
+---
+
+# Second research pass — 2026-08-29
+
+## Camp Hi-Sierra (camphi-sierra.org, read 2026-08-29)
+
+| Fact | Value |
+|---|---|
+| Operated by | SVMBC, **since 1949** (75+ years) |
+| Where | Off Highway 108 near **Long Barn, CA**; 100+ acres in the **Stanislaus National Forest near Pinecrest Lake, 5,000 ft**, North Fork Tuolumne River through camp |
+| Claim to fame | **Closest Scouting America camp to Yosemite**; set in a historic logging camp, run as a themed frontier town |
+| Scale | ~1,500 Scouts each summer |
+| Program | Shooting sports, sailing, welding, metalworking, climbing, observatory |
+| **2027 sessions** | Wk 1: Jun 20–26 · Wk 3: Jul 4–10 · Wk 4: Jul 11–17 · **Wk 5: Jul 18–24** · Wk 6: Jul 25–31 |
+| **2027 youth fee** | $850 in-council w/ deposit · $875 out-of-council · $875 before 15 Nov · $900 after |
+| **2027 adult fee** | $545. 1–9 Scouts: 1 free (min 2 adults). 10–100: 2 free. |
+| Contact | CHS@svmbc.org |
+
+**CONFIRM:** the site assumes **Week 5**. The troop's old meeting agenda shows a
+historic July 22–28 week, so Week 5 or 6 is likely — but check the actual reservation.
+
+## Troop rhythm recovered from the archived wiki
+
+- **June outing: Mammoth Lakes** (agenda showed "June 22–24")
+- **Summer camp: Camp High Sierra**, historically **July 22–28**
+- **Family Camp: Grant Ranch** (Joseph D. Grant County Park), late August — annual family campout and 5-mile hike
+- **CHS Work Weekend** each August — the troop helps clean and repair the camp
+- **Court of Honor in June** (agenda showed June 12), consistent with quarterly CoHs
+- **PLC yearly planning meeting** each August, then committee approval
+- Other documented outings: Sanborn County Park / Skyline ridge hike (with Pack 54), Mt. Madonna, Sunset Beach, Stanislaus River, 2015 skiing
+- **Virtual Campout, 17 April 2020** — "Troop 394/2394" ran a Zoom campout during COVID, with Scouts' Own service. Note the troop writes itself as **394/2394**.
+- Summer camp video archive on the old site runs **2002–2008**, so the CHS tradition is 20+ years deep
+
+## Troop's own forms (from the legacy wiki)
+
+Permission Slip · Scout Information Form · Driver Information Form · Expense
+Reimbursement · Activity Consent Form · Tour Plan Worksheet.
+The troop also runs a **Uniform Bank** with a request form covering Cub Scout,
+Scouts BSA, Venturing, and Varsity units.
+
+## Cub Scout Pack 54 — our feeder pack
+
+- Chartered by **St. Lawrence the Martyr Catholic Parish**, Santa Clara
+- Serves the Santa Clara and Sunnyvale areas, grades 1–5
+- Meets **6:30 PM, alternating Monday nights, in the Teen Center**
+- saintlawrence.org/cub-scouts
+- The troop has hiked with Pack 54 since at least 2008
+
+## Troop 2394
+
+- **No separate public beascout listing.** The Troop 0394 record is flagged
+  "Boys/Girls" and its description names 2394, so the two share one listing.
+- **Emerson Domke** — reported as Troop 2394's first Eagle Scout, passing her
+  board of review on 1 October, among the first young women in SVMBC to do so.
+  Source: a council volunteer's LinkedIn post, 2020. **CONFIRM with her family
+  before leaving this on a public page.**
+
+## Deliberately left off the site
+
+The archived wiki has blog posts written by Scouts between 2015 and 2020, signed
+with first and last names and in one case a personal email address. Those were
+children writing casually on a small unit site; their names are **not** carried
+over here. The three Eagle Scouts are different — those were public
+achievements reported in the local press or by council volunteers.

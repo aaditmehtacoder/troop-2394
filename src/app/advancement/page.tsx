@@ -4,7 +4,7 @@ import { Section, SectionHead } from "@/components/site/Section";
 import { Reveal } from "@/components/site/Reveal";
 import { CTABand } from "@/components/site/CTABand";
 import { FleurDeLis, IconArrow, IconCheck } from "@/components/brand/Marks";
-import { eagleProjects, eagleSteps, ranks, troop } from "@/data/troop";
+import { eagleProjects, eagleSteps, ranks, troop, troop2394Milestone } from "@/data/troop";
 
 export const metadata: Metadata = {
   title: "Advancement",
@@ -244,6 +244,23 @@ export default function AdvancementPage() {
             ))}
           </div>
         </div>
+
+        <Reveal delay={140}>
+          <div className="mt-6 rounded-lg border-l-4 border-gold bg-white/[0.09] p-7">
+            <p className="mb-1 font-slab text-[11px] font-bold uppercase tracking-[1.4px] text-white/65">
+              A first for the linked troop
+            </p>
+            <h4 className="font-slab text-[19px] font-bold !text-white">
+              {troop2394Milestone.name} — {troop2394Milestone.headline}
+            </h4>
+            <p className="mt-3 mb-0 text-[14px] leading-7 text-white/80">
+              {troop2394Milestone.detail}
+            </p>
+            <p className="mt-3 mb-0 text-[12.5px] text-white/55">
+              {troop2394Milestone.sourceNote}
+            </p>
+          </div>
+        </Reveal>
 
         <Reveal delay={160}>
           <div className="mt-12 rounded-lg bg-white/[0.07] p-8 text-center ring-1 ring-white/15">

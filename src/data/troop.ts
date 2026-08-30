@@ -511,20 +511,36 @@ export const calendar: TroopEvent[] = [
     note: "Crystal Cave with a ranger, the climb up Moro Rock, and the General Sherman tree.",
   },
   {
-    date: "2027-07-11",
-    endDate: "2027-07-17",
-    title: "Summer Camp — Camp Hi-Sierra",
-    kind: "High Adventure",
-    location: "Long Barn, Stanislaus National Forest",
-    note: "A full week at our council camp. Merit badges, archery, rifle, aquatics, and the camp-wide games.",
+    date: "2027-06-25",
+    endDate: "2027-06-27",
+    title: "June Outing — Mammoth Lakes",
+    kind: "Campout",
+    location: "Mammoth Lakes, Eastern Sierra",
+    note: "A long-standing June trip on the troop's calendar.",
   },
   {
-    date: "2027-08-13",
+    date: "2027-07-18",
+    endDate: "2027-07-24",
+    title: "Summer Camp — Camp Hi-Sierra (Week 5)",
+    kind: "High Adventure",
+    location: "Long Barn, Stanislaus National Forest",
+    note: "Six nights at our council camp near Pinecrest Lake. Merit badges, shooting sports, sailing, the observatory, and the camp-wide games.",
+  },
+  {
+    date: "2027-08-14",
     endDate: "2027-08-15",
-    title: "Family Camp",
+    title: "CHS Work Weekend",
+    kind: "Service",
+    location: "Camp Hi-Sierra",
+    note: "The troop goes up to help clean and repair the camp we use every July. Meals provided.",
+  },
+  {
+    date: "2027-08-28",
+    endDate: "2027-08-29",
+    title: "Family Camp — Grant Ranch",
     kind: "Campout",
-    location: "TBD",
-    note: "Siblings and parents welcome. Meetings run every other Tuesday through the summer.",
+    location: "Joseph D. Grant County Park",
+    note: "The annual family campout and hike. Siblings and parents welcome — bring more water than you think you need.",
   },
 ];
 
@@ -683,6 +699,67 @@ export const eagleProjects = [
   },
 ];
 
+/** A milestone for the linked troop. CONFIRM the details with her family. */
+export const troop2394Milestone = {
+  name: "Emerson Domke",
+  headline: "Troop 2394's first Eagle Scout",
+  detail:
+    "Scouts BSA opened to girls in 2019 and Troop 2394 was chartered alongside Troop 394. Emerson Domke passed her Eagle board of review on 1 October — among the first young women in the Silicon Valley Monterey Bay Council to do so.",
+  sourceNote: "Reported by a Silicon Valley Monterey Bay Council volunteer on LinkedIn, 2020.",
+};
+
+/* -------------------------------------------------------------------------
+   SUMMER CAMP — Camp Hi-Sierra
+   Facts and 2027 pricing from camphi-sierra.org, read 2026-08-29.
+   ---------------------------------------------------------------------- */
+
+export const summerCamp = {
+  name: "Camp Hi-Sierra",
+  url: "https://camphi-sierra.org/chs/",
+  reserveUrl: "https://camphi-sierra.org/chs/how-to-reserve/",
+  contact: "CHS@svmbc.org",
+  location: "Long Barn, California — off Highway 108",
+  setting:
+    "More than 100 acres in the Stanislaus National Forest near Pinecrest Lake, at 5,000 feet, with the North Fork Tuolumne River running through the middle of camp.",
+  since: 1949,
+  scale: "about 1,500 Scouts each summer",
+  notes: [
+    "The closest Scouting America camp to Yosemite National Park.",
+    "Set in a historic logging camp and run as a fully themed frontier town.",
+    "Shooting sports, sailing, welding, metalworking, climbing, and an observatory.",
+    "Open year-round now — four-season cabins and a new dining hall.",
+  ],
+  /** 2027 sessions, as published by the camp. */
+  weeks2027: [
+    { week: 1, dates: "June 20 – 26" },
+    { week: 3, dates: "July 4 – 10" },
+    { week: 4, dates: "July 11 – 17" },
+    { week: 5, dates: "July 18 – 24" },
+    { week: 6, dates: "July 25 – 31" },
+  ],
+  /** CONFIRM which week Troop 2/394 has actually reserved for 2027. */
+  troopWeek: "Week 5 · July 18 – 24, 2027",
+  fees2027: {
+    youthInCouncil: 850,
+    youthOutOfCouncil: 875,
+    youthBeforeNov15: 875,
+    youthAfterNov15: 900,
+    adult: 545,
+    adultNote:
+      "1–9 Scouts: one adult free (two adults minimum). 10–100 Scouts: two leaders free; additional adults $545.",
+  },
+} as const;
+
+/** Our feeder Cub Scout pack. */
+export const feederPack = {
+  name: "Cub Scout Pack 54",
+  charterOrg: "St. Lawrence the Martyr Catholic Parish, Santa Clara",
+  url: "https://saintlawrence.org/cub-scouts",
+  meets: "6:30 PM, alternating Monday nights, in the Teen Center",
+  serves: "the Santa Clara and Sunnyvale areas",
+  note: "Grades 1–5. Troop 394 and Pack 54 have hiked together for years; most of our new Scouts cross over from Pack 54.",
+};
+
 /* -------------------------------------------------------------------------
    OUTDOORS
    ---------------------------------------------------------------------- */
@@ -720,7 +797,7 @@ export const localTrips = [
     name: "Camp Hi-Sierra",
     location: "Long Barn, CA",
     blurb:
-      "Our council camp in the Stanislaus National Forest, and our summer camp every July. Merit badges, archery, rifle, climbing, blacksmithing, and the camp-wide games.",
+      "Our council camp since 1949 — 100 acres in the Stanislaus National Forest near Pinecrest Lake, at 5,000 feet, with the North Fork Tuolumne running through it. The troop has gone every July for over twenty years.",
   },
   {
     name: "Yosemite National Park",
@@ -734,6 +811,11 @@ export const localTrips = [
     blurb: "Crystal Cave with a ranger, the climb up Moro Rock, and the General Sherman tree.",
   },
   {
+    name: "Mammoth Lakes",
+    location: "Eastern Sierra",
+    blurb: "The June outing — high-country lakes on the dry side of the range.",
+  },
+  {
     name: "Truckee & Bear Valley",
     location: "Sierra Nevada",
     blurb: "The winter program — a ski expedition in January and the Bear Paw snow campout.",
@@ -745,10 +827,20 @@ export const localTrips = [
       "Home of the annual wilderness survival campout, where Scouts build a shelter from a tarp and sticks and hold a fire-building contest.",
   },
   {
-    name: "Lexington Reservoir & the coast range",
-    location: "Santa Clara County",
+    name: "Grant Ranch",
+    location: "Joseph D. Grant County Park",
+    blurb: "The late-August family campout — a five-mile hike, then a campfire that runs to quiet time.",
+  },
+  {
+    name: "Santa Cruz Mountains",
+    location: "Sanborn County Park & Skyline",
     blurb:
-      "The troop's cycling trips — a 25-mile day ride, and an overnight ride over the mountains to the ocean.",
+      "Day hikes along the ridge to Summit Rock and Indian Rock, often shared with our feeder Cub pack.",
+  },
+  {
+    name: "Mt. Madonna & Sunset Beach",
+    location: "Santa Cruz County",
+    blurb: "Shorter weekend trips close to home, plus rafting on the Stanislaus River.",
   },
 ];
 
@@ -809,6 +901,24 @@ export const resourceLinks = [
   { label: "Be A Scout", href: "https://beascout.scouting.org/", note: "The national unit finder — this is where Troop 394's official record lives." },
   { label: "Troop 394 on Facebook", href: "https://www.facebook.com/groups/troop394/", note: "The troop's parent and Scout group." },
 ];
+
+/** The troop's own forms, as listed on the legacy site. */
+export const troopForms = [
+  { label: "Permission Slip", note: "Signed and returned at the meeting before every campout." },
+  { label: "Scout Information Form", note: "One per Scout, updated each year at recharter." },
+  { label: "Driver Information Form", note: "Required before you drive Scouts anywhere." },
+  { label: "Expense Reimbursement", note: "For adults who front costs for a campout or event." },
+  { label: "Activity Consent Form", note: "Parent or guardian approval for specific activities." },
+  { label: "Tour Plan Worksheet", note: "Filed by leaders before travel, per BSA policy." },
+];
+
+/**
+ * The troop runs a Uniform Bank — a request form for donated uniform parts,
+ * open to Cub Scouts, Scouts BSA, Venturers, and Varsity Scouts.
+ */
+export const uniformBank = {
+  note: "Ask before you buy anything. The troop keeps donated shirts, neckerchiefs, slides, and pants, and the request form covers Cub Scout, Scouts BSA, Venturing, and Varsity units.",
+};
 
 export const dues = {
   /** [BEASCOUT] published cost for a youth to join. */

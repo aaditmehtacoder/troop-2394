@@ -6,7 +6,7 @@ import { Reveal } from "@/components/site/Reveal";
 import { CTABand } from "@/components/site/CTABand";
 import { Scene } from "@/components/brand/Scenes";
 import { IconClock, IconMail, IconPhone, IconPin } from "@/components/brand/Marks";
-import { dues, faqs, joinSteps, troop } from "@/data/troop";
+import { dues, faqs, feederPack, joinSteps, troop } from "@/data/troop";
 
 export const metadata: Metadata = {
   title: "Join Troop 2/394",
@@ -172,6 +172,48 @@ export default function JoinPage() {
               </ul>
 
               <p className="mt-5 mb-0 text-[13.5px] leading-6 text-mute">{dues.note}</p>
+            </div>
+          </Reveal>
+        </div>
+      </Section>
+
+      {/* LINKED TROOP + FEEDER PACK */}
+      <Section id="linked-troop">
+        <div className="grid gap-6 md:grid-cols-2">
+          <Reveal>
+            <div className="flex h-full flex-col rounded-xl border-l-4 border-forest bg-white p-8 shadow-sm ring-1 ring-hair">
+              <p className="mb-2 font-slab text-[11px] font-bold uppercase tracking-[1.4px] text-forest">
+                Our linked troop
+              </p>
+              <h2 className="font-slab text-[22px] font-bold text-navy">
+                Troop {troop.linkedTroop.number}
+              </h2>
+              <p className="mt-3 mb-0 flex-1 text-[15px] leading-7 text-slate">
+                {troop.linkedTroop.note} Scouts BSA troops are single-gender, so the two run as
+                one linked program — same night, same place, same campouts — which is why we
+                brand ourselves Troop {troop.displayNumber}.
+              </p>
+            </div>
+          </Reveal>
+
+          <Reveal delay={90}>
+            <div className="flex h-full flex-col rounded-xl border-l-4 border-gold bg-white p-8 shadow-sm ring-1 ring-hair">
+              <p className="mb-2 font-slab text-[11px] font-bold uppercase tracking-[1.4px] text-[#7a6212]">
+                Younger than fifth grade?
+              </p>
+              <h2 className="font-slab text-[22px] font-bold text-navy">{feederPack.name}</h2>
+              <p className="mt-3 mb-0 flex-1 text-[15px] leading-7 text-slate">
+                {feederPack.note} The pack is chartered by {feederPack.charterOrg}, serves{" "}
+                {feederPack.serves}, and meets at {feederPack.meets}.
+              </p>
+              <a
+                href={feederPack.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pill pill-outline mt-6 self-start"
+              >
+                Visit Pack 54
+              </a>
             </div>
           </Reveal>
         </div>
