@@ -1,18 +1,11 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { TroopEvent } from "@/data/troop";
+import { eventTag, type EventTag, type TroopEvent } from "@/data/troop";
 import { EventCard } from "@/components/site/EventCard";
 
-const KINDS: (TroopEvent["kind"] | "All")[] = [
-  "All",
-  "Campout",
-  "High Adventure",
-  "Service",
-  "Ceremony",
-  "Training",
-  "Meeting",
-];
+/** Four words, not seven. Most months only ever show two of them. */
+const TAGS: (EventTag | "All")[] = ["All", "Outing", "Meeting", "Service", "Ceremony"];
 
 function monthKey(iso: string) {
   const d = new Date(iso + "T12:00:00Z");
@@ -22,10 +15,10 @@ function monthKey(iso: string) {
 /** Filterable, month-grouped list. `events` comes from the database, with the
  *  committed calendar as the fallback (see lib/content.ts). */
 export function CalendarBrowser({ events }: { events: TroopEvent[] }) {
-  const [kind, setKind] = useState<(typeof KINDS)[number]>("All");
+  const [kind, setKind] = useState<(typeof TAGS)[number]>("All");
 
   const groups = useMemo(() => {
-    const filtered = kind === "All" ? events : events.filter((e) => e.kind === kind);
+    const filtered = kind === "All" ? events : events.filter((e) => eventTag(e.kind) === kind);
     const map = new Map<string, TroopEvent[]>();
     for (const e of filtered) {
       const k = monthKey(e.date);
@@ -36,10 +29,11 @@ export function CalendarBrowser({ events }: { events: TroopEvent[] }) {
     return [...map.entries()];
   }, [kind, events]);
 
-  const total = kind === "All" ? events.length : events.filter((e) => e.kind === kind).length;
+  const total =
+    kind === "All" ? events.length : events.filter((e) => eventTag(e.kind) === kind).length;
 
   // Only offer a filter when there is something behind it.
-  const available = KINDS.filter((k) => k === "All" || events.some((e) => e.kind === k));
+  const available = TAGS.filter((k) => k === "All" || events.some((e) => eventTag(e.kind) === k));
 
   return (
     <div>

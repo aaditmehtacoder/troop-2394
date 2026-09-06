@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { resourceLinks, troop } from "@/data/troop";
-import { TroopBadge, IconMail, IconPhone, IconPin } from "@/components/brand/Marks";
+import { TroopBadge, IconMail, IconPin } from "@/components/brand/Marks";
 import { photoCredits } from "@/data/photos";
 
 const columns = [
@@ -94,15 +94,6 @@ export function Footer() {
               <IconMail className="h-4 w-4 shrink-0 text-white/60" />
               <a className="underline-offset-4 hover:underline" href={`mailto:${troop.contact.email}`}>
                 {troop.contact.email}
-              </a>
-            </li>
-            <li className="flex items-center gap-2.5">
-              <IconPhone className="h-4 w-4 shrink-0 text-white/60" />
-              <a
-                className="underline-offset-4 hover:underline"
-                href={`tel:${troop.contact.phone.replace(/[^0-9+]/g, "")}`}
-              >
-                {troop.contact.phone}
               </a>
             </li>
           </ul>

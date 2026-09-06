@@ -4,7 +4,7 @@ import { Section, SectionHead } from "@/components/site/Section";
 import { Reveal } from "@/components/site/Reveal";
 import { ContactForm } from "@/components/sections/ContactForm";
 import { CTABand } from "@/components/site/CTABand";
-import { IconClock, IconMail, IconPhone, IconPin } from "@/components/brand/Marks";
+import { IconClock, IconMail, IconPin } from "@/components/brand/Marks";
 import { troop } from "@/data/troop";
 import { pageHeroPhoto } from "@/data/photos";
 
@@ -54,12 +54,6 @@ export default function ContactPage() {
                     t: "Scoutmaster",
                     v: troop.contact.scoutmasterEmail,
                     href: `mailto:${troop.contact.scoutmasterEmail}`,
-                  },
-                  {
-                    Icon: IconPhone,
-                    t: "Phone",
-                    v: troop.contact.phone,
-                    href: `tel:${troop.contact.phone.replace(/[^0-9+]/g, "")}`,
                   },
                 ].map(({ Icon, t, v, href }) => (
                   <li key={t} className="flex gap-4">

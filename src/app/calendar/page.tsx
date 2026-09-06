@@ -4,6 +4,7 @@ import { Section, SectionHead } from "@/components/site/Section";
 import { Reveal } from "@/components/site/Reveal";
 import { CTABand } from "@/components/site/CTABand";
 import { CalendarBrowser } from "@/components/sections/CalendarBrowser";
+import { siteUrl } from "@/lib/supabase/config";
 import { IconClock, IconPin } from "@/components/brand/Marks";
 import { troop } from "@/data/troop";
 import { pageHeroPhoto } from "@/data/photos";
@@ -66,6 +67,30 @@ export default async function CalendarPage() {
 
         <div className="mt-11">
           <CalendarBrowser events={events} />
+
+          <div className="mt-12 rounded-lg border border-hair bg-shell p-7 sm:p-8">
+            <h3 className="mt-0 font-slab text-[19px] font-bold text-navy">
+              Put the troop calendar in your own
+            </h3>
+            <p className="mt-2 mb-6 max-w-2xl text-[15px] leading-7 text-slate">
+              Subscribe once and every campout the Patrol Leaders&rsquo; Council adds afterwards
+              turns up on your phone. In Google Calendar, choose{" "}
+              <strong className="text-navy">Other calendars &rarr; From URL</strong> and paste the
+              address below. It works the same in Apple Calendar and Outlook.
+            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              <a
+                href="/calendar.ics"
+                className="pill pill-navy pill-sm"
+                aria-label="Download the troop calendar file"
+              >
+                Download the calendar file
+              </a>
+              <code className="select-all rounded-md border border-hair bg-white px-3 py-2 text-[13px] text-slate">
+                {`${siteUrl()}/calendar.ics`}
+              </code>
+            </div>
+          </div>
         </div>
       </Section>
 
@@ -74,7 +99,7 @@ export default async function CalendarPage() {
         body="Prospective families are welcome at any meeting, and on a campout as guests. Email us the week before so we can plan food and transport."
         primary={{ label: "Contact the troop", href: "/contact" }}
         secondary={{ label: "How to join", href: "/join" }}
-        photo="sunset-beach"
+        photo="lake-shore"
       />
     </>
   );

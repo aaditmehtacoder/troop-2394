@@ -66,7 +66,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     description,
     url: "https://troop394santaclara.org",
     email: troop.contact.email,
-    telephone: troop.contact.phone,
     foundingDate: String(troop.founded),
     address: {
       "@type": "PostalAddress",

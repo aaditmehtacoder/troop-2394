@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { mainNav, troop, utilityButtons, utilityNav } from "@/data/troop";
 import { TroopLockup } from "@/components/brand/Marks";
-import { IconChevron, IconClose, IconMenu, IconPhone } from "@/components/brand/Marks";
+import { IconChevron, IconClose, IconMenu, IconMail } from "@/components/brand/Marks";
 
 /**
  * Two-row fixed header, matching scouting.org:
@@ -100,11 +100,11 @@ export function Header() {
               </nav>
 
               <a
-                href={`tel:${troop.contact.phone.replace(/[^0-9+]/g, "")}`}
+                href={`mailto:${troop.contact.email}`}
                 className="navlink hidden items-center gap-1.5 whitespace-nowrap px-3 py-2 text-white/90 transition hover:text-white 2xl:flex"
               >
-                <IconPhone className="h-4 w-4" />
-                <span className="hidden 2xl:inline">{troop.contact.phone}</span>
+                <IconMail className="h-4 w-4" />
+                <span className="hidden 2xl:inline">{troop.contact.email}</span>
               </a>
 
               {utilityButtons.map((b) => (

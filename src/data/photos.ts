@@ -2,12 +2,20 @@
  * ============================================================================
  * PHOTOS
  * ============================================================================
- * Real photographs of the real places the troop goes, all under free licences
- * from Wikimedia Commons, resized to 1920px (full-bleed) and 960px (cards).
- * The credits below are shown in the footer; keep them when you swap a photo.
+ * The troop's own photographs come from the "Promotion Folder" album in the
+ * KindredPix group (Troops 394 and 2394). That folder is the troop's own
+ * selection of pictures it is happy to promote itself with, which is why these
+ * are the ones on the public pages. Credit them to Troop 394.
  *
- * To use the troop's own photos: drop a JPEG in /public/photos, add an entry
- * here with `credit.author` set to "Troop 2/394", and point a page at its key.
+ * Do NOT pull pictures from the other 152 albums onto a public page. Those are
+ * candid photographs of Scouts in a private, login-protected group, and using
+ * them needs the troop's photo permission first.
+ *
+ * The Wikimedia Commons landscapes below are kept for the places we have no
+ * troop picture of. They keep their original photographer and licence.
+ *
+ * To add one: drop a JPEG in /public/photos at up to 1600px wide plus a `-960`
+ * card copy, add an entry here, and point a page at its key.
  * ==========================================================================*/
 
 export type Photo = {
@@ -20,6 +28,185 @@ export type Photo = {
 };
 
 export const photos = {
+  /* ------------------ the troop's own, from the Promotion Folder --- */
+  "troop-lodge": {
+    src: "/photos/troop-lodge.jpg",
+    small: "/photos/troop-lodge-960.jpg",
+    alt: "The troop on the steps at Camp Hi-Sierra",
+    width: 1600,
+    height: 947,
+    credit: { author: "Troop 394", license: "Used with permission", licenseUrl: "https://www.kindredpix.com/beta/group.php?id=22", page: "https://www.kindredpix.com/beta/group.php?id=22" },
+  },
+  "sailing": {
+    src: "/photos/sailing.jpg",
+    small: "/photos/sailing-960.jpg",
+    alt: "Sailing on the lake at summer camp",
+    width: 1600,
+    height: 900,
+    credit: { author: "Troop 394", license: "Used with permission", licenseUrl: "https://www.kindredpix.com/beta/group.php?id=22", page: "https://www.kindredpix.com/beta/group.php?id=22" },
+  },
+  "scouts-camp": {
+    src: "/photos/scouts-camp.jpg",
+    small: "/photos/scouts-camp-960.jpg",
+    alt: "Scouts walking back through camp",
+    width: 768,
+    height: 1024,
+    credit: { author: "Troop 394", license: "Used with permission", licenseUrl: "https://www.kindredpix.com/beta/group.php?id=22", page: "https://www.kindredpix.com/beta/group.php?id=22" },
+  },
+  "lake-jump": {
+    src: "/photos/lake-jump.jpg",
+    small: "/photos/lake-jump-960.jpg",
+    alt: "Jumping into the swimming hole at camp",
+    width: 1600,
+    height: 900,
+    credit: { author: "Troop 394", license: "Used with permission", licenseUrl: "https://www.kindredpix.com/beta/group.php?id=22", page: "https://www.kindredpix.com/beta/group.php?id=22" },
+  },
+  "rafting-run": {
+    src: "/photos/rafting-run.jpg",
+    small: "/photos/rafting-run-960.jpg",
+    alt: "Running the whitewater on the spring rafting trip",
+    width: 1536,
+    height: 1024,
+    credit: { author: "Troop 394", license: "Used with permission", licenseUrl: "https://www.kindredpix.com/beta/group.php?id=22", page: "https://www.kindredpix.com/beta/group.php?id=22" },
+  },
+  "eagle-scouts": {
+    src: "/photos/eagle-scouts.jpg",
+    small: "/photos/eagle-scouts-960.jpg",
+    alt: "Eagle Scouts in full uniform at a court of honour",
+    width: 1600,
+    height: 900,
+    credit: { author: "Troop 394", license: "Used with permission", licenseUrl: "https://www.kindredpix.com/beta/group.php?id=22", page: "https://www.kindredpix.com/beta/group.php?id=22" },
+  },
+  "archery": {
+    src: "/photos/archery.jpg",
+    small: "/photos/archery-960.jpg",
+    alt: "Archery on the range at summer camp",
+    width: 1365,
+    height: 1024,
+    credit: { author: "Troop 394", license: "Used with permission", licenseUrl: "https://www.kindredpix.com/beta/group.php?id=22", page: "https://www.kindredpix.com/beta/group.php?id=22" },
+  },
+  "hi-sierra-gate": {
+    src: "/photos/hi-sierra-gate.jpg",
+    small: "/photos/hi-sierra-gate-960.jpg",
+    alt: "The Camp Hi-Sierra sign under the pines",
+    width: 1365,
+    height: 1024,
+    credit: { author: "Troop 394", license: "Used with permission", licenseUrl: "https://www.kindredpix.com/beta/group.php?id=22", page: "https://www.kindredpix.com/beta/group.php?id=22" },
+  },
+  "pinnacles-sign": {
+    src: "/photos/pinnacles-sign.jpg",
+    small: "/photos/pinnacles-sign-960.jpg",
+    alt: "The troop at the entrance to Pinnacles National Park",
+    width: 1365,
+    height: 1024,
+    credit: { author: "Troop 394", license: "Used with permission", licenseUrl: "https://www.kindredpix.com/beta/group.php?id=22", page: "https://www.kindredpix.com/beta/group.php?id=22" },
+  },
+  "pancake-griddle": {
+    src: "/photos/pancake-griddle.jpg",
+    small: "/photos/pancake-griddle-960.jpg",
+    alt: "Cooking at the troop's annual pancake breakfast",
+    width: 1178,
+    height: 1024,
+    credit: { author: "Troop 394", license: "Used with permission", licenseUrl: "https://www.kindredpix.com/beta/group.php?id=22", page: "https://www.kindredpix.com/beta/group.php?id=22" },
+  },
+  "camp-pines": {
+    src: "/photos/camp-pines.jpg",
+    small: "/photos/camp-pines-960.jpg",
+    alt: "The troop's campsite among the tall pines",
+    width: 1365,
+    height: 1024,
+    credit: { author: "Troop 394", license: "Used with permission", licenseUrl: "https://www.kindredpix.com/beta/group.php?id=22", page: "https://www.kindredpix.com/beta/group.php?id=22" },
+  },
+  "camp-lake": {
+    src: "/photos/camp-lake.jpg",
+    small: "/photos/camp-lake-960.jpg",
+    alt: "The lake at Camp Hi-Sierra on a summer afternoon",
+    width: 1365,
+    height: 1024,
+    credit: { author: "Troop 394", license: "Used with permission", licenseUrl: "https://www.kindredpix.com/beta/group.php?id=22", page: "https://www.kindredpix.com/beta/group.php?id=22" },
+  },
+  "blacksmithing": {
+    src: "/photos/blacksmithing.jpg",
+    small: "/photos/blacksmithing-960.jpg",
+    alt: "Working the anvil at the camp blacksmith shop",
+    width: 1365,
+    height: 1024,
+    credit: { author: "Troop 394", license: "Used with permission", licenseUrl: "https://www.kindredpix.com/beta/group.php?id=22", page: "https://www.kindredpix.com/beta/group.php?id=22" },
+  },
+  "snow-tents": {
+    src: "/photos/snow-tents.jpg",
+    small: "/photos/snow-tents-960.jpg",
+    alt: "Tents pitched in fresh snow on the winter campout",
+    width: 768,
+    height: 1024,
+    credit: { author: "Troop 394", license: "Used with permission", licenseUrl: "https://www.kindredpix.com/beta/group.php?id=22", page: "https://www.kindredpix.com/beta/group.php?id=22" },
+  },
+  "frost-branches": {
+    src: "/photos/frost-branches.jpg",
+    small: "/photos/frost-branches-960.jpg",
+    alt: "Frost on the branches on a winter morning",
+    width: 768,
+    height: 1024,
+    credit: { author: "Troop 394", license: "Used with permission", licenseUrl: "https://www.kindredpix.com/beta/group.php?id=22", page: "https://www.kindredpix.com/beta/group.php?id=22" },
+  },
+  "scouts-flag": {
+    src: "/photos/scouts-flag.jpg",
+    small: "/photos/scouts-flag-960.jpg",
+    alt: "Scouts with the troop flag before a district event",
+    width: 1600,
+    height: 900,
+    credit: { author: "Troop 394", license: "Used with permission", licenseUrl: "https://www.kindredpix.com/beta/group.php?id=22", page: "https://www.kindredpix.com/beta/group.php?id=22" },
+  },
+  "lake-shore": {
+    src: "/photos/lake-shore.jpg",
+    small: "/photos/lake-shore-960.jpg",
+    alt: "At the water's edge on a day outing",
+    width: 1365,
+    height: 1024,
+    credit: { author: "Troop 394", license: "Used with permission", licenseUrl: "https://www.kindredpix.com/beta/group.php?id=22", page: "https://www.kindredpix.com/beta/group.php?id=22" },
+  },
+  "t394-carved": {
+    src: "/photos/t394-carved.jpg",
+    small: "/photos/t394-carved-960.jpg",
+    alt: "T394 carved into the wood at camp",
+    width: 1365,
+    height: 1024,
+    credit: { author: "Troop 394", license: "Used with permission", licenseUrl: "https://www.kindredpix.com/beta/group.php?id=22", page: "https://www.kindredpix.com/beta/group.php?id=22" },
+  },
+  "coast-walk": {
+    src: "/photos/coast-walk.jpg",
+    small: "/photos/coast-walk-960.jpg",
+    alt: "Walking the cliff path on the Monterey coast",
+    width: 768,
+    height: 1024,
+    credit: { author: "Troop 394", license: "Used with permission", licenseUrl: "https://www.kindredpix.com/beta/group.php?id=22", page: "https://www.kindredpix.com/beta/group.php?id=22" },
+  },
+  "rafting-river": {
+    src: "/photos/rafting-river.jpg",
+    small: "/photos/rafting-river-960.jpg",
+    alt: "Rafts on the river on the spring trip",
+    width: 1600,
+    height: 747,
+    credit: { author: "Troop 394", license: "Used with permission", licenseUrl: "https://www.kindredpix.com/beta/group.php?id=22", page: "https://www.kindredpix.com/beta/group.php?id=22" },
+  },
+  "parade": {
+    src: "/photos/parade.jpg",
+    small: "/photos/parade-960.jpg",
+    alt: "The troop marching in the Parade of Champions",
+    width: 1600,
+    height: 747,
+    credit: { author: "Troop 394", license: "Used with permission", licenseUrl: "https://www.kindredpix.com/beta/group.php?id=22", page: "https://www.kindredpix.com/beta/group.php?id=22" },
+  },
+  "camp-night": {
+    src: "/photos/camp-night.jpg",
+    small: "/photos/camp-night-960.jpg",
+    alt: "The camp lodge lit up after dark",
+    width: 1365,
+    height: 1024,
+    credit: { author: "Troop 394", license: "Used with permission", licenseUrl: "https://www.kindredpix.com/beta/group.php?id=22", page: "https://www.kindredpix.com/beta/group.php?id=22" },
+  },
+
+  /* ------------------------------ Wikimedia Commons, still used --- */
   "sunset-beach": {
     src: "/photos/sunset-beach.jpg",
     small: "/photos/sunset-beach-960.jpg",
@@ -237,32 +424,32 @@ export const photoCredits = Object.values(photos)
 
 /** Backdrop for each interior page hero. */
 export const pageHeroPhoto = {
-  about: "grant-trail",
-  program: "sequoia",
-  advancement: "half-dome",
-  outdoors: "yosemite",
-  calendar: "grant-lake",
-  join: "sunset-beach-2",
-  resources: "hi-sierra-2",
-  safety: "uvas",
-  support: "campfire",
-  contact: "sunnyvale",
-  blog: "rafting",
-  feed: "pinnacles-view",
-  members: "hi-sierra-road",
-  login: "campfire-close",
-  signup: "snow-forest",
-  notFound: "glacier-point",
+  about: "troop-lodge",
+  program: "camp-pines",
+  advancement: "eagle-scouts",
+  outdoors: "camp-lake",
+  calendar: "lake-shore",
+  join: "scouts-flag",
+  resources: "hi-sierra-gate",
+  safety: "pinnacles-sign",
+  support: "pancake-griddle",
+  contact: "parade",
+  blog: "rafting-river",
+  feed: "lake-jump",
+  members: "camp-night",
+  login: "t394-carved",
+  signup: "sailing",
+  notFound: "archery",
 } as const satisfies Record<string, PhotoKey>;
 
 /** The home page mosaic: the places the troop actually goes, in its own words. */
 export const mosaic: { photo: PhotoKey; place: string; when: string; href: string; span?: "wide" | "tall" }[] = [
-  { photo: "sunset-beach", place: "Sunset State Beach", when: "The annual beach campout, every September", href: "/blog/sunset-beach-outing-2025", span: "wide" },
-  { photo: "pinnacles-hiker", place: "Pinnacles", when: "This November", href: "/calendar", span: "tall" },
-  { photo: "hi-sierra", place: "Camp Hi-Sierra", when: "A week at summer camp, every July", href: "/blog/summer-camp-2026-camp-hi-sierra" },
-  { photo: "rafting", place: "South Fork American River", when: "Rafting, every April", href: "/blog/white-water-rafting-2026" },
-  { photo: "snow-forest", place: "Bear Paw", when: "Snow trip, every winter", href: "/blog/bear-paw-outing-2026" },
-  { photo: "grant-trail", place: "Grant Ranch", when: "Ten-mile hikes and Iron Chef", href: "/outdoors" },
-  { photo: "uvas", place: "Uvas Canyon", when: "August overnight", href: "/outdoors" },
-  { photo: "campfire", place: "Any campsite", when: "Where every campout ends", href: "/outdoors", span: "wide" },
+  { photo: "rafting-run", place: "South Fork American River", when: "Rafting, every spring", href: "/outdoors", span: "wide" },
+  { photo: "scouts-camp", place: "Camp Hi-Sierra", when: "A week at summer camp, every July", href: "/outdoors", span: "tall" },
+  { photo: "archery", place: "The range at camp", when: "Shooting sports, every summer", href: "/program" },
+  { photo: "snow-tents", place: "The snow trip", when: "Winter camping, every year", href: "/outdoors" },
+  { photo: "blacksmithing", place: "The camp forge", when: "Metalwork and other merit badges", href: "/advancement" },
+  { photo: "coast-walk", place: "The Monterey coast", when: "Day hikes and kayaking", href: "/outdoors" },
+  { photo: "hi-sierra-gate", place: "Camp Hi-Sierra", when: "Every July since 2015", href: "/outdoors" },
+  { photo: "pancake-griddle", place: "The Elks Lodge", when: "The pancake breakfast the troop cooks every year", href: "/support", span: "wide" },
 ];

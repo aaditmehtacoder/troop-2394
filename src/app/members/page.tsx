@@ -5,8 +5,11 @@ import { PageHero } from "@/components/site/PageHero";
 import { Section } from "@/components/site/Section";
 import { SignOutButton } from "@/components/auth/SignOutButton";
 import { getProfile, isStaff } from "@/lib/supabase/profile";
+import { getArchivePosts } from "@/lib/content";
+import { StoryCard } from "@/components/site/StoryCard";
+import { Reveal } from "@/components/site/Reveal";
 import { supabaseConfigured } from "@/lib/supabase/config";
-import { troop, troopForms } from "@/data/troop";
+import { resourceLinks, troop, troopForms } from "@/data/troop";
 import { pageHeroPhoto } from "@/data/photos";
 
 export const metadata: Metadata = {
@@ -21,6 +24,7 @@ export default async function MembersPage() {
   if (!profile) redirect("/login?next=%2Fmembers");
 
   const staff = isStaff(profile);
+  const archive = await getArchivePosts();
   const firstName = (profile.full_name ?? profile.email ?? "there").split(/[\s@]/)[0];
 
   return (
@@ -72,8 +76,50 @@ export default async function MembersPage() {
             ))}
           </ul>
           <p className="mt-4 mb-0 text-[14px] text-mute">
-            Ask a leader at any Tuesday meeting, or call {troop.contact.phone}.
+            Ask a leader at any {troop.meeting.day} meeting, or email{" "}
+            <a href={`mailto:${troop.contact.email}`} className="underline underline-offset-4">
+              {troop.contact.email}
+            </a>
+            .
           </p>
+        </div>
+
+        <div className="mt-12">
+          <h2 className="h-four mb-1">Forms and official links</h2>
+          <p className="mt-0 mb-5 max-w-2xl text-[15px] leading-7 text-mute">
+            Straight to Scouting America and the council. Always download a form fresh rather than
+            reusing last year&rsquo;s PDF.
+          </p>
+          <ul className="m-0 grid list-none gap-3 p-0 sm:grid-cols-2">
+            {resourceLinks.map((l) => (
+              <li key={l.href}>
+                <a
+                  href={l.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block h-full rounded-lg border border-hair bg-white px-4 py-3.5 transition hover:border-blue/40 hover:shadow-sm"
+                >
+                  <p className="m-0 font-slab text-[15px] font-bold text-navy">{l.label}</p>
+                  <p className="m-0 mt-1 text-[13.5px] leading-6 text-mute">{l.note}</p>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="mt-14 border-t border-hair pt-10">
+          <h2 className="h-four mb-1">Every story</h2>
+          <p className="mt-0 mb-6 max-w-2xl text-[15px] leading-7 text-mute">
+            The whole archive, back to 2015. The public site shows three of these; the rest are
+            here.
+          </p>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {archive.map((post, i) => (
+              <Reveal key={post.slug} delay={(i % 3) * 70} className="h-full">
+                <StoryCard post={post} />
+              </Reveal>
+            ))}
+          </div>
         </div>
 
         <div className="mt-10 border-t border-hair pt-6">

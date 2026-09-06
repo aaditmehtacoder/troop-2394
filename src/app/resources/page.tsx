@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageHero } from "@/components/site/PageHero";
 import { Section, SectionHead } from "@/components/site/Section";
 import { Reveal } from "@/components/site/Reveal";
 import { CTABand } from "@/components/site/CTABand";
 import { IconArrow, IconCheck } from "@/components/brand/Marks";
-import { dues, gearShops, packingList, resourceLinks, troop } from "@/data/troop";
+import { dues, gearShops, packingList, troop } from "@/data/troop";
 import { pageHeroPhoto } from "@/data/photos";
 
 export const metadata: Metadata = {
@@ -55,31 +56,19 @@ export default function ResourcesPage() {
         crumb="Resources"
       />
 
-      {/* LINKS */}
+      {/* The forms themselves live behind the members' area. */}
       <Section>
-        <SectionHead
-          title="Forms &amp; official links"
-          lede="These all point to Scouting America and our council. They are the authoritative versions, always download the form fresh rather than reusing last year's PDF."
-        />
-        <div className="mt-11 grid gap-5 md:grid-cols-2">
-          {resourceLinks.map((l, i) => (
-            <Reveal key={l.href} delay={i * 60}>
-              <a
-                href={l.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex h-full items-start gap-4 rounded-lg border border-hair bg-white p-6 transition hover:-translate-y-0.5 hover:border-blue/40 hover:shadow-lg"
-              >
-                <div className="min-w-0 flex-1">
-                  <h3 className="font-slab text-[16px] font-bold leading-snug text-navy transition group-hover:text-blue">
-                    {l.label}
-                  </h3>
-                  <p className="mt-1.5 mb-0 text-[13.5px] leading-6 text-slate">{l.note}</p>
-                </div>
-                <IconArrow className="mt-1 h-5 w-5 shrink-0 -rotate-45 text-mute transition group-hover:translate-x-0.5 group-hover:text-blue" />
-              </a>
-            </Reveal>
-          ))}
+        <div className="mx-auto max-w-2xl rounded-lg border border-hair bg-shell p-8 text-center">
+          <h2 className="mt-0 font-slab text-[20px] font-bold text-navy">
+            Forms and official links
+          </h2>
+          <p className="mx-auto mt-2 mb-6 max-w-xl text-[15px] leading-7 text-slate">
+            Health forms, permission slips, Scoutbook and the council&rsquo;s own pages are in the
+            members&rsquo; area, so families have one place to look rather than two.
+          </p>
+          <Link href="/members" className="pill pill-navy pill-sm">
+            Open the members&rsquo; area
+          </Link>
         </div>
       </Section>
 

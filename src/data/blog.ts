@@ -70,15 +70,15 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "eagle-court-of-honor-adriana-chapa",
-    title: "Eagle Court of Honor for Adriana Chapa",
+    title: "Eagle Court of Honor for Adriana",
     date: "2026-08-07",
     author: "David Scharberg",
     kind: "Milestone",
     location: "Sunnyvale Elks Lodge",
     excerpt:
-      "The troop gathered on Friday, August 7 to celebrate Adriana Chapa achieving the rank of Eagle Scout.",
+      "The troop gathered on Friday, August 7 to celebrate Adriana achieving the rank of Eagle Scout.",
     body: [
-      "It’s an Eagle Court of Honor! We are holding a Court of Honor to celebrate Adriana Chapa achieving the rank of Eagle Scout, and I would like all Scouts and their families to come and help us celebrate.",
+      "It’s an Eagle Court of Honor! We are holding a Court of Honor to celebrate Adriana achieving the rank of Eagle Scout, and I would like all Scouts and their families to come and help us celebrate.",
       "See what you have to look forward to as a Scout when you make Eagle, and parents, what it means for your Scout to be recognized for their accomplishment.",
       "Where: Sunnyvale Elks Lodge (indoors), where we normally meet. When: Friday 7 August 2026. Scouts should arrive by 6:30 PM; the Court of Honor will begin at 7 PM and finish by 8 PM. Attire: Scouts should wear their Class A uniform.",
       "Why should you go? Because it is fun and important to celebrate these important achievements as a Troop.",
@@ -267,15 +267,15 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "eagle-court-of-honor-eamonn-skylar-josh",
-    title: "An Eagle Court of Honor Trifecta: Eamonn Donnelly, Skylar Mechlin and Josh Mechlin",
+    title: "An Eagle Court of Honor Trifecta: Eamonn, Skylar and Josh",
     date: "2025-12-20",
     author: "David Scharberg",
     kind: "Milestone",
     location: "Sunnyvale Elks Lodge",
     excerpt:
-      "Three Troop 394 Eagle Scouts, Skylar Mechlin, Josh Mechlin and Eamonn Donnelly, were honored together on Saturday, December 20.",
+      "Three Troop 394 Eagle Scouts, Skylar, Josh and Eamonn, were honored together on Saturday, December 20.",
     body: [
-      "It’s an Eagle Court of Honor Trifecta! We are holding a Court of Honor to celebrate three of our favorite Scouts who earned the rank of Eagle Scout, Skylar Mechlin, Josh Mechlin, and Eamonn Donnelly, and I want all Scouts and their families to come and help us celebrate.",
+      "It’s an Eagle Court of Honor Trifecta! We are holding a Court of Honor to celebrate three of our favorite Scouts who earned the rank of Eagle Scout, Skylar, Josh, and Eamonn, and I want all Scouts and their families to come and help us celebrate.",
       "See what you have to look forward to as a Scout when you make Eagle, and parents, what it means for your Scout to be recognized for their accomplishment.",
       "Where: Sunnyvale Elks Lodge (indoors), where we normally meet. When: Saturday 20 December 2025. Scouts should arrive by 12:15; the Court of Honor will begin at 1 PM and finish by 2 PM. Attire: Scouts should wear their Class A uniform.",
       "Why should you go? Because it is fun and important to celebrate these important achievements as a Troop.",
@@ -284,13 +284,13 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "newest-eagle-scout-adriana-chapa",
-    title: "Troop 394's Newest Eagle Scout: Adriana Chapa",
+    title: "Troop 394's Newest Eagle Scout: Adriana",
     date: "2025-12-16",
     author: "David Scharberg",
     kind: "Milestone",
     location: "Troop 394",
     excerpt:
-      "Adriana Chapa earned the rank of Eagle Scout in December 2025, and the troop family lined up to congratulate her.",
+      "Adriana earned the rank of Eagle Scout in December 2025, and the troop family lined up to congratulate her.",
     body: [
       "Please join Bruce and me in congratulating our newest Eagle Scout, Adriana, and her family on this wonderful achievement! Adriana, we are really proud of you!",
       "Congratulations to Adriana and family on this well deserved achievement! We appreciate the hard work and dedication this rank represents. (Susan and Dave Hess)",
@@ -314,15 +314,15 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "eagle-court-of-honor-sreeya-nair",
-    title: "Eagle Court of Honor for Sreeya Nair",
+    title: "Eagle Court of Honor for Sreeya",
     date: "2025-11-22",
     author: "David Scharberg",
     kind: "Milestone",
     location: "Sunnyvale Elks Lodge",
     excerpt:
-      "The troop celebrated Sreeya Nair's Eagle rank with her own Court of Honor on Saturday, November 22.",
+      "The troop celebrated Sreeya's Eagle rank with her own Court of Honor on Saturday, November 22.",
     body: [
-      "One of the really great things that occurs after a Scout makes the rank of Eagle Scout is that we give them their own, very fun Court of Honor. We are giving a Court of Honor for Sreeya Nair and I want all Scouts and their families to come and help us celebrate.",
+      "One of the really great things that occurs after a Scout makes the rank of Eagle Scout is that we give them their own, very fun Court of Honor. We are giving a Court of Honor for Sreeya and I want all Scouts and their families to come and help us celebrate.",
       "Where: Sunnyvale Elks Lodge (indoors), where we normally meet. When: Saturday 22 November 2025. Scouts should arrive by 12:30; the Court of Honor will begin at 1 PM and finish by 2 PM. Attire: Scouts should wear their Class A uniform.",
       "For those of you who are wondering why you should go, Scouts and parents alike: this is important! Think of the biggest thing you ever accomplished. Well, for most 18 year olds, this is it! These things need to be celebrated, and they need to be celebrated by all of us.",
       "I 100% guarantee you that I will be at each and every one of our Scouts’ Eagle Courts of Honor; my wish is to have every one of my Scouts help me do so.",
@@ -412,31 +412,31 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "newest-eagle-scout-joshua-mechlin",
-    title: "Troop 394's Newest Eagle Scout: Joshua Mechlin",
+    title: "Troop 394's Newest Eagle Scout: Joshua",
     date: "2025-09-02",
     author: "David Scharberg",
     kind: "Milestone",
     location: "Troop 394",
     excerpt:
-      "Josh Mechlin earned Eagle in September 2025, joining his twin brother, his older brother and his father in the brotherhood of Eagle Scouts.",
+      "Josh earned Eagle in September 2025, joining his twin brother, his older brother and his father in the brotherhood of Eagle Scouts.",
     body: [
       "Please join Bruce and me as we congratulate Josh and his family on this great achievement. Josh joins his twin brother, Skylar; his older brother, Zach; and his father, Dane, in the brotherhood and sisterhood of Eagle Scouts!",
       "Josh, your father would be so proud of you, just as I am! Well done!",
-      "Way to go Josh! Your accomplishment is a reflection of your hard work, perseverance, and commitment! Congratulations to all the Mechlins! (The Savage family)",
+      "Way to go Josh! Your accomplishment is a reflection of your hard work, perseverance, and commitment! Congratulations to all the whole family! ",
     ],
     source: "Troop 394 mailing list, September 2025",
   },
   {
     slug: "newest-eagle-scout-skylar-mechlin",
-    title: "Troop 394's Newest Eagle Scout: Skylar Mechlin",
+    title: "Troop 394's Newest Eagle Scout: Skylar",
     date: "2025-07-29",
     author: "David Scharberg",
     kind: "Milestone",
     location: "Troop 394",
     excerpt:
-      "Skylar Mechlin achieved the highest rank in Scouting in July 2025 after two years of hard work toward the goal.",
+      "Skylar achieved the highest rank in Scouting in July 2025 after two years of hard work toward the goal.",
     body: [
-      "Please join Bruce and me in congratulating Skylar Mechlin and his family on achieving the highest rank in Scouting, Eagle Scout!",
+      "Please join Bruce and me in congratulating Skylar and his family on achieving the highest rank in Scouting, Eagle Scout!",
       "Skylar has worked very hard these last two years to make this goal a reality. He has shown all of the qualities of an Eagle Scout, and I know that I speak for his dad when I say that we are very proud to have you join us as our brother Eagle Scout!",
       "Congratulations Skylar and family! We appreciate the hard work and dedication this achievement represents. (Susan and Dave Hess)",
     ],
@@ -460,13 +460,13 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "newest-eagle-scout-sreeya-nair",
-    title: "Troop History: Sreeya Nair Is Our First Girl to Earn Eagle",
+    title: "Troop History: Sreeya Is Our First Girl to Earn Eagle",
     date: "2025-07-15",
     author: "David Scharberg",
     kind: "Milestone",
     location: "Troop 394",
     excerpt:
-      "Sreeya Nair became the first girl to earn the rank of Eagle Scout in Troop 394 in July 2025.",
+      "Sreeya became the first girl to earn the rank of Eagle Scout in Troop 394 in July 2025.",
     body: [
       "Please join Bruce and me as we congratulate Sreeya and her family on achieving the ultimate rank in Scouting, Eagle Scout. Sreeya is a wonderful Scout and a good youth leader, and sets good examples in service to her brother and sister Scouts.",
       "Also, fun fact: Sreeya is the first girl to become an Eagle Scout in Troop 394. All of the other girls that made this rank were in Troop 2394, but for this year we have been in a pilot combined-gender troop program, and Sreeya has set a little T394 history tonight. Congratulations.",
@@ -476,15 +476,15 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "eagle-court-of-honor-robert-ray-charaka-kudituwakku",
-    title: "Eagle Court of Honor for Robert Ray and Charaka Kudituwakku",
+    title: "Eagle Court of Honor for Robert and Charaka",
     date: "2025-06-01",
     author: "David Scharberg",
     kind: "Milestone",
     location: "Sunnyvale Elks Lodge",
     excerpt:
-      "Two Troop 394 Eagle Scouts, Robert Ray and Charaka Kudituwakku, were recognized at a Sunday Court of Honor at the Elks Lodge.",
+      "Two Troop 394 Eagle Scouts, Robert and Charaka, were recognized at a Sunday Court of Honor at the Elks Lodge.",
     body: [
-      "We are having an Eagle Court of Honor to recognize and celebrate Robert Ray and Charaka Kudituwakku having achieved the rank of Eagle Scout. I strongly encourage all Scouts and their parents to join us in this celebration. The Court of Honor will take about one hour.",
+      "We are having an Eagle Court of Honor to recognize and celebrate Robert and Charaka having achieved the rank of Eagle Scout. I strongly encourage all Scouts and their parents to join us in this celebration. The Court of Honor will take about one hour.",
       "Where: Sunnyvale Elks Lodge, where we have troop meetings, but indoors this time. When: Sunday 1 June 2025. Scouts should be there by 11:15 to help set up and practice. The Court of Honor starts at noon, or when Mayor Gillmor arrives.",
       "Who should attend: Scouts and their family. What to wear: Class A uniform, Scouts and leaders.",
     ],
@@ -492,15 +492,15 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "newest-eagle-scout-eamonn-donnelly",
-    title: "Troop 394's Newest Eagle Scout: Eamonn Donnelly",
+    title: "Troop 394's Newest Eagle Scout: Eamonn",
     date: "2025-04-09",
     author: "David Scharberg",
     kind: "Milestone",
     location: "Troop 394",
     excerpt:
-      "Eamonn Donnelly, the troop's former Senior Patrol Leader and Order of the Arrow Representative, earned Eagle in April 2025.",
+      "Eamonn, the troop's former Senior Patrol Leader and Order of the Arrow Representative, earned Eagle in April 2025.",
     body: [
-      "Please join Bruce and me as we congratulate Eamonn Donnelly and his parents upon his achievement of the highest rank in Scouting, Eagle Scout.",
+      "Please join Bruce and me as we congratulate Eamonn and his parents upon his achievement of the highest rank in Scouting, Eagle Scout.",
       "Eamonn has been a model Scout and has served the troop and other Scouts well during his career. He has been our Order of the Arrow Representative, and his last troop position was Senior Patrol Leader, where he introduced some novel ideas for the PLC. Eamonn has worked on staff at Camp Hi-Sierra, and I am extremely proud of him.",
       "It has been a wonderful thing to witness the growth in this Scout. Continue on this path and I am sure you will achieve success in all that you do! (Jeff)",
     ],

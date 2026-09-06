@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { PageHero } from "@/components/site/PageHero";
 import { Section } from "@/components/site/Section";
-import { getAnnouncements, getEvents, getPosts } from "@/lib/content";
+import { getAnnouncements, getArchivePosts, getEvents } from "@/lib/content";
 import { troop } from "@/data/troop";
+import { getProfile } from "@/lib/supabase/profile";
+import { supabaseConfigured } from "@/lib/supabase/config";
 import { pageHeroPhoto } from "@/data/photos";
 
 export const metadata: Metadata = {
   title: "Troop Feed",
   description: `Everything happening in ${troop.name} right now: notices, the next campouts, and the newest trip reports.`,
+  robots: { index: false, follow: false },
 };
 
 type Item = {
@@ -22,11 +26,20 @@ type Item = {
   meta?: string;
 };
 
+/**
+ * The troop's noticeboard, and the full run of trip reports behind it.
+ *
+ * Members only: the public site shows three stories the troop chose, and this
+ * is where the rest of them live.
+ */
 export default async function FeedPage() {
+  if (!supabaseConfigured) redirect("/login");
+  if (!(await getProfile())) redirect("/login?next=%2Ffeed");
+
   const [announcements, events, posts] = await Promise.all([
     getAnnouncements(),
     getEvents(),
-    getPosts(),
+    getArchivePosts(),
   ]);
 
   const today = new Date().toISOString().slice(0, 10);

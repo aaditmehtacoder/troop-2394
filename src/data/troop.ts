@@ -89,18 +89,18 @@ export const troop = {
     committeeMeeting: "Monthly, usually a Wednesday evening from 7 to 8 PM over Zoom; every parent is welcome",
   },
 
-  /** [BEASCOUT] the unit's published public contact. */
+  /**
+   * The troop's public contact.
+   *
+   * A role address, not a person's. No telephone number: the numbers we had
+   * were personal mobiles, and a troop that publishes one on a page aimed at
+   * families is publishing a volunteer's private line. Email reaches the same
+   * people and can be handed on when a role changes.
+   */
   contact: {
-    leadName: "David Scharberg", // CONFIRM before publishing
-    email: "dscharberg@gmail.com", // CONFIRM, consider a role address such as info@troop-394.org
-    scoutmasterEmail: "dscharberg@gmail.com", // CONFIRM
-    newMemberEmail: "dscharberg@gmail.com", // CONFIRM
-    phone: "(408) 557-9278",
-    /**
-     * The troop's own site listed Scoutmaster Bruce Lee
-     * (1littledragon@comcast.net, (408) 307-3383). That page is from ~2016
-     * and is likely superseded by the beascout contact above. CONFIRM.
-     */
+    email: "troop394sc@gmail.com",
+    scoutmasterEmail: "troop394sc@gmail.com",
+    newMemberEmail: "troop394sc@gmail.com",
   },
 
   /** [BEASCOUT] linked girl troop, same place, same day. */
@@ -118,10 +118,19 @@ export const troop = {
 export type NavChild = { label: string; href: string; external?: boolean };
 export type NavItem = { label: string; href: string; children?: NavChild[] };
 
+/**
+ * The header used to carry about forty links: ten top-level items with four or
+ * five children each. A parent deciding whether to visit a meeting does not
+ * need forty choices, so this is roughly half of that, and nothing here leads
+ * anywhere a visitor cannot go.
+ *
+ * The members' pages (the feed, the forms) are reached from the members' area
+ * rather than the public nav, because a signed-out visitor clicking them just
+ * lands on a sign-in wall.
+ */
 export const utilityNav: NavChild[] = [
-  { label: "Feed", href: "/feed" },
   { label: "Calendar", href: "/calendar" },
-  { label: "Resources", href: "/resources" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const utilityButtons: NavChild[] = [
@@ -137,8 +146,6 @@ export const mainNav: NavItem[] = [
       { label: "Our Troop", href: "/about" },
       { label: "Youth Leadership", href: "/about#youth-leadership" },
       { label: "Adult Leaders", href: "/about#adult-leaders" },
-      { label: "Patrols", href: "/about#patrols" },
-      { label: "Troop History", href: "/about#history" },
     ],
   },
   {
@@ -147,9 +154,7 @@ export const mainNav: NavItem[] = [
     children: [
       { label: "What We Do", href: "/program" },
       { label: "Meetings", href: "/program#meetings" },
-      { label: "Patrol Method", href: "/program#patrol-method" },
-      { label: "Leadership Development", href: "/program#leadership" },
-      { label: "Service & Community", href: "/program#service" },
+      { label: "The Patrol Method", href: "/program#patrol-method" },
     ],
   },
   {
@@ -157,9 +162,7 @@ export const mainNav: NavItem[] = [
     href: "/advancement",
     children: [
       { label: "Trail to Eagle", href: "/advancement" },
-      { label: "Ranks", href: "/advancement#ranks" },
       { label: "Merit Badges", href: "/advancement#merit-badges" },
-      { label: "Boards of Review", href: "/advancement#boards-of-review" },
       { label: "Our Eagle Scouts", href: "/advancement#eagle" },
     ],
   },
@@ -169,44 +172,29 @@ export const mainNav: NavItem[] = [
     children: [
       { label: "Camping Program", href: "/outdoors" },
       { label: "Summer Camp", href: "/outdoors#summer-camp" },
-      { label: "Gear & Packing", href: "/outdoors#gear" },
-      { label: "Leave No Trace", href: "/outdoors#leave-no-trace" },
-    ],
-  },
-  { label: "Calendar", href: "/calendar" },
-  {
-    label: "Stories",
-    href: "/blog",
-    children: [
-      { label: "Troop Blog", href: "/blog" },
-      { label: "Troop Feed", href: "/feed" },
-      { label: "Our Eagle Scouts", href: "/advancement#eagle" },
       { label: "Traditions", href: "/outdoors#traditions" },
     ],
   },
+  { label: "Calendar", href: "/calendar" },
+  { label: "Stories", href: "/blog" },
   {
     label: "Safety",
     href: "/safety",
     children: [
-      { label: "Our Safety Commitment", href: "/safety" },
+      { label: "Our Commitment", href: "/safety" },
       { label: "Youth Protection", href: "/safety#youth-protection" },
-      { label: "Two-Deep Leadership", href: "/safety#two-deep" },
-      { label: "Health Forms", href: "/safety#health-forms" },
       { label: "Report a Concern", href: "/safety#report" },
     ],
   },
   {
-    label: "Resources",
-    href: "/resources",
+    label: "Join",
+    href: "/join",
     children: [
-      { label: "Forms & Downloads", href: "/resources" },
+      { label: "How to Join", href: "/join" },
+      { label: "For Parents", href: "/join#for-parents" },
       { label: "New Family Guide", href: "/resources#new-families" },
-      { label: "Uniform & Dues", href: "/resources#dues" },
-      { label: "Useful Links", href: "/resources#links" },
     ],
   },
-  { label: "Join", href: "/join" },
-  { label: "Contact", href: "/contact" },
 ];
 
 /* -------------------------------------------------------------------------
@@ -266,12 +254,12 @@ export const differenceCards = [
 ];
 
 export const differenceStats = [
-  // 1993 charter; six patrol leaders on the 2026–27 PLC; seven Eagle Scouts
+  // 1993 charter; seven Eagle Scouts
   // announced on the troop list since April 2025; one outing every month.
   { value: `${new Date().getFullYear() - troop.founded}`, label: "Years in Santa Clara" },
-  { value: "6", label: "Patrols" },
   { value: "7", label: "Eagle Scouts since 2025" },
   { value: "12", label: "Outings a year" },
+  { value: "2", label: "Troops, one for girls and one for boys" },
 ];
 
 /* -------------------------------------------------------------------------
@@ -362,13 +350,13 @@ export const testimonials = [
   {
     quote:
       "Doing my Eagle project was my way of helping my community stay safe. The entire Eagle project is led by the Scout.",
-    name: "Ben Caldwell",
+    name: "Ben",
     role: "Eagle Scout, Troop 394 · Silicon Valley Voice, 2021",
   },
   {
     quote:
       "I have been going to Camp Campbell ever since I was a little kid. When I found out they were having trouble with their picnic tables falling apart, I wanted to help.",
-    name: "Nick Morris",
+    name: "Nick",
     role: "Eagle Scout, Troop 394 · Silicon Valley Voice, 2024",
   },
   {
@@ -400,6 +388,29 @@ export type TroopEvent = {
   location: string;
   note?: string;
 };
+
+/**
+ * The two words a parent actually needs: is this a Tuesday night at the lodge,
+ * or is it a weekend away? Everything else is detail.
+ *
+ * `kind` stays granular because the troop thinks in those terms; `eventTag`
+ * collapses it to what a family scanning the calendar is looking for.
+ */
+export type EventTag = "Outing" | "Meeting" | "Service" | "Ceremony";
+
+export function eventTag(kind: TroopEvent["kind"]): EventTag {
+  switch (kind) {
+    case "Campout":
+    case "High Adventure":
+      return "Outing";
+    case "Service":
+      return "Service";
+    case "Ceremony":
+      return "Ceremony";
+    default:
+      return "Meeting";
+  }
+}
 
 export const calendar: TroopEvent[] = [
   // Source: the troop mailing list. August 2026 PLC meeting notes (sent 1 Sep
@@ -502,7 +513,7 @@ export const youthPositions = [
   },
   {
     role: "Patrol Leaders",
-    holder: "Vihaan, Siddharth, Shivansh, Sahasra, Saanvi and Harshika",
+    holder: "Elected by each patrol every six months",
     blurb:
       "Responsible for their patrol at all times, patrol meetings, troop functions, and representing the patrol at the Patrol Leaders' Council.",
   },
@@ -598,20 +609,20 @@ export const eagleSteps = [
 /** Real Troop 394 Eagle projects, as reported by The Silicon Valley Voice. */
 export const eagleProjects = [
   {
-    name: "Ben Caldwell",
+    name: "Ben",
     year: "2020",
     headline: "2,063 masks for the community during the pandemic",
     detail:
-      "Caldwell led 34 volunteers, most of them Troop 394 Scouts, through roughly 700 hours of work producing and distributing masks. He ran the project across two states, teaching the build by instructional video, and oversaw two distribution events at the Santa Clara Farmers' Market, with about 600 masks going to local organizations serving the elderly and people experiencing homelessness.",
+      "Nicky led 34 volunteers, most of them Troop 394 Scouts, through roughly 700 hours of work producing and distributing masks. He ran the project across two states, teaching the build by instructional video, and oversaw two distribution events at the Santa Clara Farmers' Market, with about 600 masks going to local organizations serving the elderly and people experiencing homelessness.",
     honor: "Eagle court of honor held at the Santa Clara Elks Lodge, June 2021.",
     source: "https://www.svvoice.com/local-scouts-bsa-member-ben-caldwell-soars-to-the-rank-of-the-eagle/",
   },
   {
-    name: "Nick Morris",
+    name: "Nick",
     year: "2022",
     headline: "14 rebuilt picnic tables for YMCA Camp Campbell",
     detail:
-      "Morris led 20 volunteers, Troop 394 Scouts, Santa Clara High School friends, and Scouts from other troops, rebuilding picnic tables at the underfunded camp in the Santa Cruz Mountains over a single weekend. Working from the ADA guidelines, he redesigned several tables to be wheelchair accessible by extending the tabletop past the bench framework.",
+      "Nick led 20 volunteers, Troop 394 Scouts, Santa Clara High School friends, and Scouts from other troops, rebuilding picnic tables at the underfunded camp in the Santa Cruz Mountains over a single weekend. Working from the ADA guidelines, he redesigned several tables to be wheelchair accessible by extending the tabletop past the bench framework.",
     honor:
       "Eagle court of honor March 2024; Santa Clara City Council Member Kathy Watanabe presented a certificate.",
     source: "https://www.svvoice.com/santa-clara-scout-nick-morris-achieves-rank-of-the-eagle/",
@@ -879,18 +890,18 @@ export const eagleHonorRollHistoric: EagleEntry[] = [
 export const eagleHonorRollRecent: EagleEntry[] = [
   // 2025 entries confirmed by the troop's own "Newest Eagle Scout" and Court of
   // Honor emails. Robert and Charaka had their Court of Honor on 1 June 2025.
-  { name: "Adriana Chapa", year: 2025, troop: "2394" },
-  { name: "Robert Ray", year: 2025, troop: "394" },
-  { name: "Charaka Kudituwakku", year: 2025, troop: "394" },
-  { name: "Eamonn Michael Donnelly", year: 2025, troop: "394" },
-  { name: "Joshua Alexander Mechlin", year: 2025, troop: "394" },
-  { name: "Skylar A. Mechlin", year: 2025, troop: "394" },
-  { name: "Sreeya J. Nair", year: 2025, troop: "2394" },
-  { name: "Ioan Har", year: 2023, troop: "394" },
-  { name: "Zachary Mechlin", year: 2023, troop: "394" },
-  { name: "Nicholas Morris", year: 2023, troop: "394" },
-  { name: "Aminah Hedges", year: 2023, troop: "2394" },
-  { name: "Sofia Orosa", year: 2023, troop: "2394" },
+  { name: "Adriana", year: 2025, troop: "2394" },
+  { name: "Robert", year: 2025, troop: "394" },
+  { name: "Charaka", year: 2025, troop: "394" },
+  { name: "Eamonn", year: 2025, troop: "394" },
+  { name: "Joshua", year: 2025, troop: "394" },
+  { name: "Skylar", year: 2025, troop: "394" },
+  { name: "Sreeya", year: 2025, troop: "2394" },
+  { name: "Ioan", year: 2023, troop: "394" },
+  { name: "Zachary", year: 2023, troop: "394" },
+  { name: "Nicholas", year: 2023, troop: "394" },
+  { name: "Aminah", year: 2023, troop: "2394" },
+  { name: "Sofia", year: 2023, troop: "2394" },
 ];
 
 /** Everything we can source, newest first. */
@@ -904,11 +915,11 @@ export const eagleHonorRoll: EagleEntry[] = [
  * `eagleProjects` above.
  */
 export const eagleProjectNicky = {
-  name: "Nicky Caldwell",
+  name: "Nicky",
   year: "2019",
   headline: "A safer workshop for the Roberta Jones Junior Theatre",
   detail:
-    "Caldwell rebuilt the set-building workspace at the Roberta Jones Junior Theatre, a City of Santa Clara Parks and Recreation programme. He designed vertical wood shelving and built a mobile chopsaw table, fixing safety and access problems the volunteer set designers had lived with for years. The project ran to about 147 hours, planned from September 2018 and finished in February 2019.",
+    "Nicky rebuilt the set-building workspace at the Roberta Jones Junior Theatre, a City of Santa Clara Parks and Recreation programme. He designed vertical wood shelving and built a mobile chopsaw table, fixing safety and access problems the volunteer set designers had lived with for years. The project ran to about 147 hours, planned from September 2018 and finished in February 2019.",
   quote: "One of the things I've learned from the Eagle process is self-discipline and leading through humility.",
   honor:
     "Eagle court of honor at the Santa Clara Elks Lodge, November 2019. Mayor Lisa Gillmor and Council Member Kathy Watanabe presented a city proclamation.",

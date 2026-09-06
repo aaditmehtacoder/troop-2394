@@ -1,18 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IconCheck } from "@/components/brand/Marks";
 import { troop } from "@/data/troop";
 
-type Status = "idle" | "sent";
+type Status = "idle" | "sending" | "sent" | "error";
+
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+
+declare global {
+  interface Window {
+    grecaptcha?: {
+      ready: (cb: () => void) => void;
+      execute: (siteKey: string, opts: { action: string }) => Promise<string>;
+    };
+  }
+}
 
 /**
- * No backend on a unit website, the form composes a mailto: so it works the
- * day the site goes live. Swap the handler for a form service later if you want
- * submissions in a dashboard.
+ * The form posts to /api/contact, which checks reCAPTCHA and a rate limit and
+ * then emails the troop.
+ *
+ * If the server has no mail key yet it answers 501, and we fall back to the old
+ * behaviour of opening the visitor's own mail client. Either way the message
+ * gets somewhere, which is the only thing the person filling it in cares about.
  */
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
+  const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -20,13 +35,37 @@ export function ContactForm() {
     topic: "Joining the troop",
     message: "",
   });
+  /** Honeypot. Real people never see it, so they never fill it in. */
+  const [website, setWebsite] = useState("");
 
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
 
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const subject = `[Troop 2/394 website] ${form.topic}, ${form.name}`;
+  // reCAPTCHA v3 is invisible: load it only when a key is configured.
+  useEffect(() => {
+    if (!RECAPTCHA_SITE_KEY || document.getElementById("recaptcha-v3")) return;
+    const el = document.createElement("script");
+    el.id = "recaptcha-v3";
+    el.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
+    el.async = true;
+    document.head.appendChild(el);
+  }, []);
+
+  async function captchaToken(): Promise<string | undefined> {
+    if (!RECAPTCHA_SITE_KEY || !window.grecaptcha) return undefined;
+    return new Promise((resolve) => {
+      window.grecaptcha!.ready(() => {
+        window
+          .grecaptcha!.execute(RECAPTCHA_SITE_KEY!, { action: "contact" })
+          .then(resolve)
+          .catch(() => resolve(undefined));
+      });
+    });
+  }
+
+  /** What we did before there was a server: hand the message to their mail app. */
+  function openMailClient() {
+    const subject = `[${troop.name} website] ${form.topic}, ${form.name}`;
     const body = [
       `Name: ${form.name}`,
       `Email: ${form.email}`,
@@ -42,6 +81,31 @@ export function ContactForm() {
       subject,
     )}&body=${encodeURIComponent(body)}`;
     setStatus("sent");
+  }
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setStatus("sending");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, website, token: await captchaToken() }),
+      });
+
+      if (res.ok) return setStatus("sent");
+
+      // No mail key on the server yet: fall back rather than fail.
+      if (res.status === 501) return openMailClient();
+
+      const data = (await res.json().catch(() => ({}))) as { error?: string };
+      setError(data.error ?? "The message did not send. Please email us directly.");
+      setStatus("error");
+    } catch {
+      openMailClient();
+    }
   };
 
   const field =
@@ -49,7 +113,7 @@ export function ContactForm() {
   const label = "mb-1.5 block font-slab text-[12px] font-bold uppercase tracking-[1.2px] text-navy";
 
   return (
-    <form onSubmit={onSubmit} className="rounded-xl border border-hair bg-white p-8 shadow-sm">
+    <form onSubmit={onSubmit} className="relative rounded-xl border border-hair bg-white p-8 shadow-sm">
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label className={label} htmlFor="cf-name">
@@ -125,8 +189,25 @@ export function ContactForm() {
         />
       </div>
 
-      <button type="submit" className="pill pill-navy mt-7 w-full sm:w-auto">
-        Send message
+      {/* Honeypot: off-screen, not hidden, so a bot's form filler still sees it. */}
+      <div aria-hidden className="absolute left-[-9999px] top-0 h-0 w-0 overflow-hidden">
+        <label htmlFor="cf-website">Leave this field empty</label>
+        <input
+          id="cf-website"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          value={website}
+          onChange={(e) => setWebsite(e.target.value)}
+        />
+      </div>
+
+      <button
+        type="submit"
+        disabled={status === "sending"}
+        className="pill pill-navy mt-7 w-full disabled:opacity-60 sm:w-auto"
+      >
+        {status === "sending" ? "Sending\u2026" : "Send message"}
       </button>
 
       {status === "sent" && (
@@ -135,13 +216,22 @@ export function ContactForm() {
           className="mt-5 mb-0 flex items-center gap-2.5 rounded-lg bg-forest/10 px-4 py-3 text-[14px] text-forest"
         >
           <IconCheck className="h-5 w-5 shrink-0" />
-          Your email app should have opened with the message ready. If it did not, write to{" "}
-          {troop.contact.email}.
+          Thank you. Your message is on its way to the troop, and someone will reply to the
+          address you gave.
+        </p>
+      )}
+
+      {status === "error" && error && (
+        <p
+          role="alert"
+          className="mt-5 mb-0 rounded-lg bg-red/10 px-4 py-3 text-[14px] leading-6 text-red"
+        >
+          {error} You can always write to {troop.contact.email}.
         </p>
       )}
 
       <p className="mt-5 mb-0 text-[12.5px] leading-5 text-mute">
-        This form opens your own email app, nothing is stored on this website. You can also
+        Your message is emailed to the troop and nothing is stored on this website. You can also
         write to{" "}
         <a
           href={`mailto:${troop.contact.email}`}

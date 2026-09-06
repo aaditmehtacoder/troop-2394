@@ -21,7 +21,7 @@ const rules: Rule[] = [
   },
   {
     match: /\b(join|sign up|register|start|new scout|visit)\b/i,
-    answer: `Come to any Tuesday meeting first. No forms, no uniform, no commitment. If it fits, come on a campout as a guest, then fill in the application. Call ${troop.contact.phone} or email ${troop.contact.email} and we will look out for you.`,
+    answer: `Come to any Tuesday meeting first. No forms, no uniform, no commitment. If it fits, come on a campout as a guest, then fill in the application. Email ${troop.contact.email} and we will look out for you.`,
   },
   {
     match: /\b(girl|daughter|2394|female|she)\b/i,
@@ -57,7 +57,7 @@ const rules: Rule[] = [
   },
   {
     match: /\b(contact|phone|email|call|reach|who)\b/i,
-    answer: `${troop.contact.leadName} is the troop contact, on ${troop.contact.phone} or ${troop.contact.email}.`,
+    answer: `The troop is best reached by email at ${troop.contact.email}.`,
   },
 ];
 
@@ -65,5 +65,5 @@ export function offlineAnswer(question: string): string {
   for (const rule of rules) {
     if (rule.match.test(question)) return rule.answer;
   }
-  return `I am not sure about that one. The best answer will come from a leader: ${troop.contact.leadName} on ${troop.contact.phone} or ${troop.contact.email}. You are also welcome to come to any Tuesday meeting, ${troop.meeting.time}, and ask in person.`;
+  return `I am not sure about that one. The best answer will come from a leader: email ${troop.contact.email}. You are also welcome to come to any ${troop.meeting.day} meeting, ${troop.meeting.time}, and ask in person.`;
 }

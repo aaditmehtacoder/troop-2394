@@ -10,7 +10,7 @@ import { Section, SectionHead } from "@/components/site/Section";
 import { Reveal } from "@/components/site/Reveal";
 import { IconArrow } from "@/components/brand/Marks";
 import { differenceStats, programTiles, troop } from "@/data/troop";
-import { getEvents, getPosts } from "@/lib/content";
+import { getEvents, getFeaturedPosts } from "@/lib/content";
 
 /** A short colour rule at the top of each card, instead of a block of colour. */
 const accent = {
@@ -20,11 +20,11 @@ const accent = {
 } as const;
 
 export default async function Home() {
-  const [events, posts] = await Promise.all([getEvents(), getPosts()]);
+  const [events, posts] = await Promise.all([getEvents(), getFeaturedPosts()]);
   const today = new Date().toISOString().slice(0, 10);
   const future = events.filter((e) => (e.endDate ?? e.date) >= today);
   const upcoming = (future.length > 0 ? future : events).slice(0, 3);
-  const stories = posts.slice(0, 3);
+  const stories = posts;
 
   return (
     <>
@@ -82,7 +82,7 @@ export default async function Home() {
         <div className="mt-10 grid gap-6 md:grid-cols-3">
           {stories.map((p, i) => (
             <Reveal key={p.slug} delay={i * 90} className="h-full">
-              <StoryCard post={p} />
+              <StoryCard post={p} showDate={false} />
             </Reveal>
           ))}
         </div>

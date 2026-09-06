@@ -48,7 +48,7 @@ export async function buildKnowledge(): Promise<string> {
     ...youthPositions.map((y) => `- ${y.role}: ${y.holder}`),
     `Visitors are welcome at any meeting with no forms, no uniform and no commitment.`,
     ``,
-    `CONTACT: ${troop.contact.leadName}, ${troop.contact.phone}, ${troop.contact.email}.`,
+    `CONTACT: email ${troop.contact.email}. The troop does not publish a phone number.`,
     ``,
     `COST: about $${dues.joinCost} for a youth to join. ${dues.note}`,
     ``,

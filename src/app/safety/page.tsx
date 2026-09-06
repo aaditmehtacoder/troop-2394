@@ -3,7 +3,7 @@ import { PageHero } from "@/components/site/PageHero";
 import { Section, SectionHead } from "@/components/site/Section";
 import { Reveal } from "@/components/site/Reveal";
 import { CTABand } from "@/components/site/CTABand";
-import { IconCheck, IconShield, IconPhone, IconMail } from "@/components/brand/Marks";
+import { IconCheck, IconShield, IconMail } from "@/components/brand/Marks";
 import { troop } from "@/data/troop";
 import { pageHeroPhoto } from "@/data/photos";
 
@@ -249,9 +249,9 @@ export default function SafetyPage() {
               <IconMail className="h-4 w-4" />
               File an incident report
             </a>
-            <a href={`tel:${troop.contact.phone.replace(/[^0-9+]/g, "")}`} className="pill pill-ghost">
-              <IconPhone className="h-4 w-4" />
-              Call the troop
+            <a href={`mailto:${troop.contact.email}`} className="pill pill-ghost">
+              <IconMail className="h-4 w-4" />
+              Email the troop
             </a>
           </div>
         </Reveal>
