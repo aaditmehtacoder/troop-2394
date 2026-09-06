@@ -4,6 +4,7 @@ import { Section, SectionHead } from "@/components/site/Section";
 import { Reveal } from "@/components/site/Reveal";
 import { CTABand } from "@/components/site/CTABand";
 import { FleurDeLis, IconArrow, IconCheck } from "@/components/brand/Marks";
+import { badgeMark } from "@/components/brand/BadgeMarks";
 import {
   eagleHonorRoll,
   eagleProjectNicky,
@@ -116,14 +117,20 @@ export default function AdvancementPage() {
                   {g.group}
                 </h3>
                 <ul className="mt-5 flex flex-wrap gap-2">
-                  {g.badges.map((b) => (
-                    <li
-                      key={b}
-                      className="rounded-full border border-hair bg-shell px-3.5 py-1.5 text-[13px] text-slate transition hover:border-blue/40 hover:text-navy"
-                    >
-                      {b}
-                    </li>
-                  ))}
+                  {g.badges.map((b) => {
+                    const Mark = badgeMark(b);
+                    return (
+                      <li
+                        key={b}
+                        className="group flex items-center gap-2 rounded-full border border-hair bg-shell py-1.5 pl-1.5 pr-3.5 text-[13px] text-slate transition hover:border-blue/40 hover:bg-white hover:text-navy"
+                      >
+                        <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-white text-blue ring-1 ring-hair transition group-hover:bg-blue group-hover:text-white group-hover:ring-blue">
+                          <Mark className="h-[15px] w-[15px]" />
+                        </span>
+                        {b}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             </Reveal>

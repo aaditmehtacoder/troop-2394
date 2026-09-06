@@ -228,8 +228,10 @@ export function photo(key: PhotoKey): Photo {
   return photos[key];
 }
 
-/** Everyone who made these pictures, for the footer. */
-export const photoCredits = Object.values(photos).map((p) => p.credit);
+/** Everyone who made these pictures, for the footer. One line per photographer. */
+export const photoCredits = Object.values(photos)
+  .map((p) => p.credit)
+  .filter((c, i, all) => all.findIndex((o) => o.page === c.page && o.author === c.author) === i);
 
 /* ----------------------------------------------------------- where used --- */
 

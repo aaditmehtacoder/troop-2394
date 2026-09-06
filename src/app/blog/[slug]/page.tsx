@@ -5,6 +5,7 @@ import { PageHero } from "@/components/site/PageHero";
 import { Section } from "@/components/site/Section";
 import { StoryCard } from "@/components/site/StoryCard";
 import { Backdrop } from "@/components/photo/Backdrop";
+import { PhotoPlaceholder } from "@/components/photo/PhotoPlaceholder";
 import { getPost, getPosts } from "@/lib/content";
 import { coverFor } from "@/lib/covers";
 
@@ -40,8 +41,14 @@ export default async function PostPage({ params }: Params) {
           </div>
         </section>
       ) : (
-        <section className="bg-navy text-white">
-          <div className="shell flex min-h-[300px] flex-col justify-end pb-12 pt-24">
+        <section className="relative isolate overflow-hidden text-white">
+          <PhotoPlaceholder
+            seed={post.slug}
+            label={post.location ?? post.title}
+            note={formatFull(post.date)}
+            className="absolute inset-0 -z-10 h-full w-full"
+          />
+          <div className="shell flex min-h-[clamp(300px,42vh,460px)] flex-col justify-end pb-12 pt-24">
             <p className="rise rise-1 rule-gold mb-3 font-slab text-[12px] font-bold uppercase tracking-[2.4px] text-white/85">{eyebrow}</p>
             <h1 className="rise rise-2 max-w-4xl font-slab text-[clamp(36px,6.4vw,72px)] font-bold uppercase leading-[0.98] !text-white">{post.title}</h1>
           </div>

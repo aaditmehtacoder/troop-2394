@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Post } from "@/lib/content";
 import { coverFor } from "@/lib/covers";
+import { PhotoPlaceholder } from "@/components/photo/PhotoPlaceholder";
 
 const kindTone: Record<string, string> = {
   "Trip report": "bg-forest text-white",
@@ -39,13 +40,16 @@ export function StoryCard({ post, big = false }: { post: Post; big?: boolean }) 
             className="h-full w-full object-cover"
           />
         ) : (
-          <div className="contours relative flex h-full w-full flex-col justify-end bg-navy p-5 text-white">
-            <span className="font-slab text-[clamp(52px,8vw,76px)] font-bold leading-none">
-              {d.toLocaleDateString("en-US", { day: "numeric" })}
-            </span>
-            <span className="mt-1 font-slab text-[12px] font-bold uppercase tracking-[1.6px] text-gold">
-              {d.toLocaleDateString("en-US", { month: "long", year: "numeric" })}
-            </span>
+          <div className="relative h-full w-full">
+            <PhotoPlaceholder seed={post.slug} compact className="h-full w-full" />
+            <div className="absolute inset-x-0 bottom-0 flex flex-col p-5 text-white">
+              <span className="font-slab text-[clamp(52px,8vw,76px)] font-bold leading-none drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
+                {d.toLocaleDateString("en-US", { day: "numeric" })}
+              </span>
+              <span className="mt-1 font-slab text-[12px] font-bold uppercase tracking-[1.6px] text-gold">
+                {d.toLocaleDateString("en-US", { month: "long", year: "numeric" })}
+              </span>
+            </div>
           </div>
         )}
         <span

@@ -5,11 +5,15 @@ import { createClient } from "@/lib/supabase/client";
 import { siteUrl } from "@/lib/supabase/config";
 
 /**
- * Google is off until the provider is switched on in Supabase (Authentication
- * → Providers → Google) AND NEXT_PUBLIC_GOOGLE_SIGNIN=true is set. Until then
- * the button stays hidden instead of sending people to an error page.
+ * Google sign-in is on. The provider is enabled in Supabase (Authentication →
+ * Providers → Google), so the button ships by default rather than depending on
+ * an environment variable that is easy to forget on a new deployment.
+ *
+ * Set NEXT_PUBLIC_GOOGLE_SIGNIN=false to hide it again. If the provider is ever
+ * turned off in Supabase, signIn() below still fails softly with a message
+ * pointing people at the email form, so nobody lands on a JSON error page.
  */
-export const googleSignInEnabled = process.env.NEXT_PUBLIC_GOOGLE_SIGNIN === "true";
+export const googleSignInEnabled = process.env.NEXT_PUBLIC_GOOGLE_SIGNIN !== "false";
 
 /**
  * Sign in with Google.

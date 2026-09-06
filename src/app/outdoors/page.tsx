@@ -3,7 +3,6 @@ import { PageHero } from "@/components/site/PageHero";
 import { Section, SectionHead } from "@/components/site/Section";
 import { Reveal } from "@/components/site/Reveal";
 import { CTABand } from "@/components/site/CTABand";
-import { SceneTile } from "@/components/brand/Scenes";
 import { IconCheck, IconPin } from "@/components/brand/Marks";
 import {
   gearList,
@@ -13,6 +12,7 @@ import {
   traditions,
 } from "@/data/troop";
 import { PhotoTile } from "@/components/photo/PhotoTile";
+import { PhotoPlaceholder } from "@/components/photo/PhotoPlaceholder";
 import { coverFor } from "@/lib/covers";
 import { pageHeroPhoto } from "@/data/photos";
 
@@ -98,8 +98,9 @@ export default function OutdoorsPage() {
                         className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                     ) : (
-                      <SceneTile
-                        name={(["forest", "trail", "lake", "ridge", "night", "camping"] as const)[i % 6]}
+                      <PhotoPlaceholder
+                        seed={t.name}
+                        label={t.location ?? t.name}
                         className="h-full w-full transition-transform duration-700 group-hover:scale-110"
                       />
                     );

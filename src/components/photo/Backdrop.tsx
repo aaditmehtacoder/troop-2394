@@ -1,4 +1,5 @@
 import { photo, type PhotoKey } from "@/data/photos";
+import { PhotoPlaceholder } from "./PhotoPlaceholder";
 
 /**
  * A full-bleed photograph behind white type. Fills its positioned parent.
@@ -26,7 +27,16 @@ export function Backdrop({
 }) {
   const p = key ? photo(key) : null;
   const url = src ?? p?.src;
-  if (!url) return null;
+
+  // No photograph for this slot yet: show the standing art rather than a hole.
+  if (!url) {
+    return (
+      <div aria-hidden className={`absolute inset-0 -z-10 overflow-hidden ${className}`}>
+        <PhotoPlaceholder seed={key ?? className ?? "backdrop"} compact className="h-full w-full" />
+        {veil !== "none" ? <div className={`absolute inset-0 veil-${veil}`} /> : null}
+      </div>
+    );
+  }
   return (
     <div aria-hidden className={`absolute inset-0 -z-10 overflow-hidden bg-navy-dark grain ${className}`}>
       {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized JPEGs, no optimizer */}
