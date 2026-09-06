@@ -3,22 +3,25 @@ import { PageHero } from "@/components/site/PageHero";
 import { Section, SectionHead } from "@/components/site/Section";
 import { Reveal } from "@/components/site/Reveal";
 import { CTABand } from "@/components/site/CTABand";
-import { Scene } from "@/components/brand/Scenes";
 import { IconClock, IconPin, IconCheck } from "@/components/brand/Marks";
 import { troop } from "@/data/troop";
+import { PhotoTile } from "@/components/photo/PhotoTile";
+import { pageHeroPhoto } from "@/data/photos";
 
 export const metadata: Metadata = {
   title: "Our Program",
-  description: `What Troop 2/394 actually does week to week — meetings, the patrol method, leadership development, and service in ${troop.city}.`,
+  description: `What Troop 2/394 actually does week to week, meetings, the patrol method, leadership development, and service in ${troop.city}.`,
 };
 
+// The shape of a Tuesday, from the troop's own meeting emails. Meetings start
+// at 7:00 PM; the running order varies week to week, so no clock times here.
 const meetingAgenda = [
-  { time: "7:00", item: "Opening", detail: "Flag ceremony, Oath and Law, uniform inspection." },
-  { time: "7:10", item: "Patrol corners", detail: "Patrols meet, plan the next campout, assign duty rosters." },
-  { time: "7:25", item: "Skills instruction", detail: "Taught by a Scout, not an adult. Knots, first aid, navigation, cooking." },
-  { time: "7:55", item: "Game or interpatrol activity", detail: "Competition between patrols — usually loud, always a skill in disguise." },
-  { time: "8:15", item: "Scoutmaster minute", detail: "Two minutes of something worth thinking about on the way home." },
-  { time: "8:30", item: "Closing", detail: "Announcements, retire the colours, done." },
+  { item: "Opening", detail: "Flag ceremony, the Oath and Law, and a uniform check. Full Class A, head to toe." },
+  { item: "Patrol time", detail: "Patrols meet to plan the next outing, pick grubmasters, and sort out food and gear." },
+  { item: "Merit badge or skills", detail: "Usually taught by a Scout. Communication, Personal Management, first aid, navigation." },
+  { item: "Advancement", detail: "Requirements signed off, Scoutmaster conferences, and boards of review before a court of honor." },
+  { item: "Game", detail: "Hosted by a Scout. Loud, and usually a skill in disguise." },
+  { item: "Scoutmaster minute", detail: "Two minutes of something worth thinking about on the way home." },
 ];
 
 const leadershipTracks = [
@@ -35,7 +38,7 @@ export default function ProgramPage() {
         eyebrow="How the troop works"
         title="Our Program"
         lede="A Scout-led troop, organized by patrols, out of doors. Here is what that looks like on an ordinary Tuesday and an ordinary month."
-        scene="ridge"
+        photo={pageHeroPhoto.program}
         crumb="Program"
       />
 
@@ -57,11 +60,11 @@ export default function ProgramPage() {
               </div>
               <div className="prose-troop mt-6">
                 <p>
-                  Meetings run for ninety minutes and follow the same shape every week. A Scout
-                  runs the agenda; the Scoutmaster speaks for about two minutes, at the end.
+                  Meetings start at 7:00 PM and follow the same shape most weeks. A Scout runs
+                  the agenda; the Scoutmaster speaks for about two minutes, at the end.
                 </p>
                 <p className="mb-0">
-                  Guests are welcome at any meeting. Wear whatever you own — a uniform is not
+                  Guests are welcome at any meeting. Wear whatever you own, a uniform is not
                   expected until a Scout has joined.
                 </p>
               </div>
@@ -75,8 +78,8 @@ export default function ProgramPage() {
                   key={r.item}
                   className={`flex gap-5 px-6 py-5 ${i % 2 ? "bg-shell" : "bg-white"}`}
                 >
-                  <span className="w-14 shrink-0 font-slab text-[14px] font-bold text-blue">
-                    {r.time}
+                  <span className="w-8 shrink-0 font-slab text-[15px] font-bold text-blue">
+                    {i + 1}
                   </span>
                   <span>
                     <span className="block font-slab text-[15.5px] font-bold text-navy">
@@ -98,7 +101,7 @@ export default function ProgramPage() {
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <Reveal>
             <div className="overflow-hidden rounded-xl shadow-xl">
-              <Scene name="camping" className="h-[400px] w-full" vivid />
+              <PhotoTile photo="hi-sierra-road" className="h-[400px]" />
             </div>
           </Reveal>
           <div>
@@ -107,7 +110,7 @@ export default function ProgramPage() {
               <div className="prose-troop mt-6">
                 <p>
                   Scouting&rsquo;s founder called the patrol method &ldquo;the one essential
-                  feature&rdquo; — not a technique, but the whole system. A patrol of six to ten
+                  feature&rdquo;, not a technique, but the whole system. A patrol of six to ten
                   Scouts elects its own leader, keeps its own gear, plans its own menu, and cooks
                   its own food.
                 </p>
@@ -167,7 +170,7 @@ export default function ProgramPage() {
         <SectionHead
           tone="white"
           title="Service &amp; community"
-          lede={`"Do a Good Turn Daily" is the Scout slogan, and Troop 2/394 has always treated it as work rather than a motto — service projects for the Elks Lodge that charters us, for local institutions, and for whichever cause a Life Scout takes on for their Eagle project.`}
+          lede={`"Do a Good Turn Daily" is the Scout slogan, and Troop 2/394 has always treated it as work rather than a motto, service projects for the Elks Lodge that charters us, for local institutions, and for whichever cause a Life Scout takes on for their Eagle project.`}
         />
         <div className="mt-11 grid gap-6 md:grid-cols-3">
           {[
@@ -199,7 +202,7 @@ export default function ProgramPage() {
         body="Reading about the patrol method is one thing. Watching a 13-year-old run a room of forty is another."
         primary={{ label: "Join Troop 2/394", href: "/join" }}
         secondary={{ label: "View the calendar", href: "/calendar" }}
-        scene="forest"
+        photo="sequoia-3"
       />
     </>
   );

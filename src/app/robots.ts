@@ -5,8 +5,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      // The members area is behind a login; keep it out of search results.
-      disallow: ["/dashboard", "/dashboard/", "/login", "/signup"],
+      // Everything behind a login, kept out of search results.
+      disallow: ["/admin", "/members", "/login", "/signup", "/auth"],
     },
     sitemap: "https://troop394santaclara.org/sitemap.xml",
   };

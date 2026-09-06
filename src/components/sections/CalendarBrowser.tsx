@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { calendar, type TroopEvent } from "@/data/troop";
+import type { TroopEvent } from "@/data/troop";
 import { EventCard } from "@/components/site/EventCard";
 
 const KINDS: (TroopEvent["kind"] | "All")[] = [
@@ -19,11 +19,13 @@ function monthKey(iso: string) {
   return d.toLocaleDateString("en-US", { month: "long", year: "numeric", timeZone: "UTC" });
 }
 
-export function CalendarBrowser() {
+/** Filterable, month-grouped list. `events` comes from the database, with the
+ *  committed calendar as the fallback (see lib/content.ts). */
+export function CalendarBrowser({ events }: { events: TroopEvent[] }) {
   const [kind, setKind] = useState<(typeof KINDS)[number]>("All");
 
   const groups = useMemo(() => {
-    const filtered = kind === "All" ? calendar : calendar.filter((e) => e.kind === kind);
+    const filtered = kind === "All" ? events : events.filter((e) => e.kind === kind);
     const map = new Map<string, TroopEvent[]>();
     for (const e of filtered) {
       const k = monthKey(e.date);
@@ -32,9 +34,12 @@ export function CalendarBrowser() {
       else map.set(k, [e]);
     }
     return [...map.entries()];
-  }, [kind]);
+  }, [kind, events]);
 
-  const total = kind === "All" ? calendar.length : calendar.filter((e) => e.kind === kind).length;
+  const total = kind === "All" ? events.length : events.filter((e) => e.kind === kind).length;
+
+  // Only offer a filter when there is something behind it.
+  const available = KINDS.filter((k) => k === "All" || events.some((e) => e.kind === k));
 
   return (
     <div>
@@ -43,7 +48,7 @@ export function CalendarBrowser() {
         aria-label="Filter events by type"
         className="flex flex-wrap justify-center gap-2.5"
       >
-        {KINDS.map((k) => {
+        {available.map((k) => {
           const on = k === kind;
           return (
             <button

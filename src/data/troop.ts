@@ -1,21 +1,20 @@
 /**
  * ============================================================================
- * TROOP 394 — SINGLE SOURCE OF TRUTH
+ * TROOP 394. SINGLE SOURCE OF TRUTH
  * ============================================================================
  * Every troop-specific fact on this website comes from this one file.
- * To update the site, edit here — you never need to touch a component.
+ * To update the site, edit here. You never need to touch a component.
  *
  * All facts below were researched from primary sources on 2026-08-27:
  *   [BEASCOUT]  beascout.scouting.org official unit record for Troop 0394
- *               (unitId 5d8810d2-5b6f-428d-91de-8e7961d6b3bb) — CURRENT
+ *               (unitId 5d8810d2-5b6f-428d-91de-8e7961d6b3bb). CURRENT
  *   [WIKI]      the troop's own site troop-394.org/wiki (currently HTTP 500;
  *               recovered via the Internet Archive)
  *   [GUIDE]     Troop 394 Operating Guide, Revision 6.0, April 1 2008
  *   [SVVOICE]   The Silicon Valley Voice, svvoice.com
- *   [SVMBC]     svmbc.org — council and district pages
+ *   [SVMBC]     svmbc.org, council and district pages
  *
- * Lines tagged  // CONFIRM  have a source conflict or may be stale —
- * check them before you publish.
+ * Lines tagged  // CONFIRM  have a source conflict or may be stale, * check them before you publish.
  * ==========================================================================
  */
 
@@ -37,18 +36,19 @@ export const troop = {
   founded: 1993,
   charteredMonth: "March",
   /** [BEASCOUT] current estimated youth in unit */
-  youthCount: 42,
-  /** [BEASCOUT] Scouts BSA — Grades 5-12 */
+  /** [BEASCOUT] Scouts BSA. Grades 5-12 */
   grades: "Grades 5–12",
 
   /**
    * [WIKI] + [BEASCOUT unit description] + the troop Facebook group all name
    * the Elks Lodge. NOTE: beascout's *registered organization* field currently
-   * reads "Kiwanis Club of Santa Clara" — that conflict is worth resolving
+   * reads "Kiwanis Club of Santa Clara". That conflict is worth resolving
    * with the council registrar.
    */
   charterOrg: {
-    name: "Santa Clara Elks Lodge #2347", // CONFIRM: beascout's org field says "Kiwanis Club of Santa Clara"
+    // The Elks used to charter the troop but no longer do (troop email, Nov 2025). They still host it,
+    // free, in return for service. Kept as the lodge contact only; do not describe them as the charter org.
+    name: "Santa Clara Elks Lodge #2347",
     address: "1680 Martin Ave, Santa Clara, CA 95050",
     phone: "(408) 727-6044",
     url: "https://santa-clara-ca-2347.elks.club/",
@@ -75,46 +75,40 @@ export const troop = {
   },
 
   /** [BEASCOUT] current meeting details. [WIKI] confirms Tuesday 7:00–8:30. */
+  /** The program year the youth leadership list belongs to. */
+  programYear: "2026–27",
+
   meeting: {
     day: "Tuesday",
-    time: "7:00 – 8:30 PM",
+    time: "7:00 PM",
     cadence: "Every Tuesday during the school year",
-    summerCadence: "Every other Tuesday during the summer", // [GUIDE]
+    summerCadence: "Most Tuesdays through the summer, with a break for summer camp",
     venue: "Sunnyvale Elks Lodge #2128", // CONFIRM: beascout lists this; the troop historically met at the Santa Clara Elks Lodge
     address: "375 N. Pastoria Avenue, Sunnyvale, CA 94085",
     mapQuery: "375 N Pastoria Ave, Sunnyvale, CA 94085",
-    arriveNote: "Scouts should arrive no earlier than 6:45 PM and be picked up by 8:45 PM.", // [GUIDE]
-    committeeMeeting: "First Tuesday of each month", // [GUIDE]
+    committeeMeeting: "Monthly, usually a Wednesday evening from 7 to 8 PM over Zoom; every parent is welcome",
   },
 
   /** [BEASCOUT] the unit's published public contact. */
   contact: {
     leadName: "David Scharberg", // CONFIRM before publishing
-    email: "dscharberg@gmail.com", // CONFIRM — consider a role address such as info@troop-394.org
+    email: "dscharberg@gmail.com", // CONFIRM, consider a role address such as info@troop-394.org
     scoutmasterEmail: "dscharberg@gmail.com", // CONFIRM
     newMemberEmail: "dscharberg@gmail.com", // CONFIRM
     phone: "(408) 557-9278",
     /**
      * The troop's own site listed Scoutmaster Bruce Lee
-     * (1littledragon@comcast.net, (408) 307-3383) — that page is from ~2016
+     * (1littledragon@comcast.net, (408) 307-3383). That page is from ~2016
      * and is likely superseded by the beascout contact above. CONFIRM.
      */
   },
 
-  /** [BEASCOUT] linked girl troop — same place, same day. */
+  /** [BEASCOUT] linked girl troop, same place, same day. */
   linkedTroop: {
     number: "2394",
     note: "Troop 394 is linked to girl Troop 2394, which meets at the same place on the same day.",
   },
 
-  social: {
-    facebook: "https://www.facebook.com/groups/troop394/",
-    instagram: "",
-    youtube: "",
-  },
-
-  /** The legacy DokuWiki. Kept for reference; it currently returns HTTP 500. */
-  legacySite: "http://troop-394.org/",
 } as const;
 
 /* -------------------------------------------------------------------------
@@ -125,6 +119,7 @@ export type NavChild = { label: string; href: string; external?: boolean };
 export type NavItem = { label: string; href: string; children?: NavChild[] };
 
 export const utilityNav: NavChild[] = [
+  { label: "Feed", href: "/feed" },
   { label: "Calendar", href: "/calendar" },
   { label: "Resources", href: "/resources" },
 ];
@@ -174,12 +169,21 @@ export const mainNav: NavItem[] = [
     children: [
       { label: "Camping Program", href: "/outdoors" },
       { label: "Summer Camp", href: "/outdoors#summer-camp" },
-      { label: "High Adventure", href: "/outdoors#high-adventure" },
       { label: "Gear & Packing", href: "/outdoors#gear" },
       { label: "Leave No Trace", href: "/outdoors#leave-no-trace" },
     ],
   },
   { label: "Calendar", href: "/calendar" },
+  {
+    label: "Stories",
+    href: "/blog",
+    children: [
+      { label: "Troop Blog", href: "/blog" },
+      { label: "Troop Feed", href: "/feed" },
+      { label: "Our Eagle Scouts", href: "/advancement#eagle" },
+      { label: "Traditions", href: "/outdoors#traditions" },
+    ],
+  },
   {
     label: "Safety",
     href: "/safety",
@@ -206,105 +210,95 @@ export const mainNav: NavItem[] = [
 ];
 
 /* -------------------------------------------------------------------------
-   HOME — HERO SLIDES
+   HOME. HERO SLIDES
    ---------------------------------------------------------------------- */
 
 export const heroSlides = [
   {
-    eyebrow: `${troop.city}, California · Chartered ${troop.founded}`,
-    title: "Your Scouting adventure starts here.",
-    body: `${troop.longName} has been building leaders in ${troop.city} since ${troop.founded}. Come see what a ${troop.meeting.day} night looks like.`,
+    eyebrow: "Scouts BSA · Santa Clara · since 1993",
+    title: "The Scouts run this troop.",
+    body: "Youth leaders plan the meetings, the campouts, and the week at camp. Adults train, drive, and keep it safe.",
     cta: { label: "Join Troop 2/394", href: "/join" },
     secondary: { label: "Visit a Meeting", href: "/contact" },
-    scene: "forest" as const,
+    photo: "sunset-beach" as const,
+    position: "center 60%",
   },
   {
-    eyebrow: "Scout-led since 1993",
-    title: "The Scouts run this troop. Adults keep it safe.",
-    body: "Troop, patrol, and Patrol Leaders' Council meetings, camping trips, and day trips are run by youth leaders — not by the adults. That is troop policy, in writing.",
-    cta: { label: "See the Program", href: "/program" },
-    secondary: { label: "Meet Our Leaders", href: "/about#youth-leadership" },
-    scene: "ridge" as const,
+    eyebrow: "A campout every month",
+    title: "Real places. Real weekends.",
+    body: "Sunset Beach in September, kayaking in October, Pinnacles in November. One trip a month, all year.",
+    cta: { label: "See the Calendar", href: "/calendar" },
+    secondary: { label: "Where We Go", href: "/outdoors" },
+    photo: "pinnacles" as const,
+    position: "center 40%",
   },
   {
-    eyebrow: "A campout every month, a week at camp every July",
-    title: "The outdoors is our classroom.",
-    body: "Yosemite in the rain, Sequoia and Moro Rock, wilderness survival on the coast, snow camping in the Sierra, and a week at Camp Hi-Sierra every summer.",
-    cta: { label: "Where We Camp", href: "/outdoors" },
-    secondary: { label: "View Calendar", href: "/calendar" },
-    scene: "lake" as const,
+    eyebrow: "A week at Camp Hi-Sierra every July",
+    title: "The outdoors is the classroom.",
+    body: "Merit badges, campfires, and the campwide games. Ask any Scout what they remember.",
+    cta: { label: "Read the Stories", href: "/blog" },
+    secondary: { label: "Our Program", href: "/program" },
+    photo: "hi-sierra" as const,
+    position: "center 45%",
   },
 ];
 
 /* -------------------------------------------------------------------------
-   HOME — "TROOP 394 IS THE DIFFERENCE"
+   HOME, "TROOP 394 IS THE DIFFERENCE"
    ---------------------------------------------------------------------- */
 
 export const differenceCards = [
   {
     title: "Lead something real",
-    body: "The Senior Patrol Leader is elected by the Scouts and runs the weekly meeting. He sets the Patrol Leaders' Council agenda and appoints the other youth leaders. Adults advise; they do not run it.",
+    body: "The Senior Patrol Leader is elected by the Scouts and runs the weekly meeting. Adults advise. They do not run it.",
     scene: "leadership" as const,
   },
   {
     title: "Get genuinely outdoors",
-    body: "Troop policy is a camping trip or special event every single month, plus at least one full week of long-term camp each summer. Not a field trip — patrols plan, pack, and cook it.",
+    body: "A campout or special event every month, plus a full week of camp each summer. Patrols plan, pack and cook it themselves.",
     scene: "camping" as const,
   },
   {
     title: "Finish what you start",
-    body: "Courts of honor are held quarterly so no Scout waits months for recognition, and Eagle courts of honor are scheduled separately for each Scout who earns it.",
+    body: "Courts of honor are quarterly, so no Scout waits months to be recognised. Every Eagle gets a court of honor of their own.",
     scene: "eagle" as const,
   },
 ];
 
 export const differenceStats = [
-  { value: `${troop.youthCount}`, label: "Scouts in the troop today" },
-  { value: `${new Date().getFullYear() - troop.founded}`, label: "Years serving Santa Clara" },
-  { value: "12", label: "Campouts a year" },
-  { value: "4", label: "Courts of honor a year" },
+  // 1993 charter; six patrol leaders on the 2026–27 PLC; seven Eagle Scouts
+  // announced on the troop list since April 2025; one outing every month.
+  { value: `${new Date().getFullYear() - troop.founded}`, label: "Years in Santa Clara" },
+  { value: "6", label: "Patrols" },
+  { value: "7", label: "Eagle Scouts since 2025" },
+  { value: "12", label: "Outings a year" },
 ];
 
 /* -------------------------------------------------------------------------
-   HOME — PROGRAM TILES
+   HOME. PROGRAM TILES
    ---------------------------------------------------------------------- */
 
 export const programTiles = [
   {
-    name: "New Scouts",
-    age: "Grade 5 · Age 10½+",
-    href: "/join",
-    tone: "gold" as const,
-    blurb:
-      "Webelos crossovers form a New Scout patrol with an assistant Scoutmaster assigned to them directly.",
-  },
-  {
     name: "Troop 394",
-    age: "Grades 5–12 · boys",
+    who: "Boys, grades 5 to 12",
     href: "/program",
     tone: "red" as const,
-    blurb: "The core program — patrols, weekly meetings, monthly campouts, and rank advancement.",
+    blurb: "Patrols, weekly meetings, an outing every month, and the trail to Eagle.",
   },
   {
     name: "Troop 2394",
-    age: "Grades 5–12 · girls",
+    who: "Girls, grades 5 to 12",
     href: "/join#linked-troop",
     tone: "forest" as const,
-    blurb: "Meets the same night, in the same place. Same program, same campouts, separate troop.",
+    blurb: "Same night, same place, same campouts. A troop of its own.",
   },
   {
-    name: "Backpacking Group",
-    age: "Older Scouts",
-    href: "/outdoors#high-adventure",
-    tone: "navy" as const,
-    blurb: "The troop's crew for longer treks and high adventure trips beyond the monthly campout.",
-  },
-  {
-    name: "Adult Volunteers",
-    age: "Parents & Mentors",
+    name: "Adults",
+    who: "Parents and mentors",
     href: "/about#adult-leaders",
-    tone: "periwinkle" as const,
-    blurb: "Committee roles, merit badge counselors, and drivers. Training is free and online.",
+    tone: "blue" as const,
+    blurb: "Drive to a trailhead, counsel a merit badge, or sit on a board of review. Training is free.",
   },
 ];
 
@@ -331,7 +325,7 @@ export const scoutLaw = [
 ];
 
 /** Paraphrased from the troop's own Operating Guide and About Us page. */
-export const troopMission = `Troop 394 exists to give the youth of ${troop.city} the best Scouting experience possible — a program that develops them physically, mentally, and morally, built around the Scout Oath and Law, and run by the Scouts themselves with adults present as advisers.`;
+export const troopMission = `Troop 394 exists to give the youth of ${troop.city} the best Scouting experience possible, a program that develops them physically, mentally, and morally, built around the Scout Oath and Law, and run by the Scouts themselves with adults present as advisers.`;
 
 /* -------------------------------------------------------------------------
    VALUE PILLARS
@@ -340,28 +334,28 @@ export const troopMission = `Troop 394 exists to give the youth of ${troop.city}
 export const valuePillars = [
   {
     title: "Prepared. For Life.",
-    body: "Fire building and first aid are the visible part. The real curriculum is judgment under pressure — and the troop's own guide says it plainly: give the Scouts as much freedom as possible, and just enough adult authority to keep them safely focused.",
+    body: "Fire building and first aid are the visible part. The real lesson is judgment under pressure: as much freedom as possible, and just enough adult authority to keep it safe.",
     icon: "compass" as const,
   },
   {
     title: "Safety first, always",
-    body: "Adult leaders are approved and background-checked by our chartered organization before they serve. Every registered adult completes Youth Protection Training, and two-deep leadership applies to every activity.",
+    body: "Every adult is background checked and completes Youth Protection Training. Two-deep leadership applies to every activity, without exception.",
     icon: "shield" as const,
   },
   {
     title: "Become your best self",
-    body: "Scouts work merit badges from cooking and camping to welding and blacksmithing at Camp Hi-Sierra — and Troop 394 has taken first place in the camp-wide games two years running.",
+    body: "Merit badges from cooking to welding at Camp Hi-Sierra. The troop has taken first in the camp-wide games two years running.",
     icon: "star" as const,
   },
   {
     title: "Fun for the whole family",
-    body: "Courts of honor are family affairs and parents are encouraged to attend. Scouting is a family activity, and the troop actively encourages parents to be involved in their Scout's development.",
+    body: "Courts of honor are family affairs. Scouting works best when parents are in it too, and there is a job here for every one of them.",
     icon: "tent" as const,
   },
 ];
 
 /* -------------------------------------------------------------------------
-   TESTIMONIALS — real, sourced quotes
+   TESTIMONIALS, real, sourced quotes
    ---------------------------------------------------------------------- */
 
 export const testimonials = [
@@ -408,144 +402,73 @@ export type TroopEvent = {
 };
 
 export const calendar: TroopEvent[] = [
-  {
-    date: "2026-09-01",
-    title: "Troop Committee Meeting",
-    kind: "Meeting",
-    location: troop.meeting.venue,
-    note: "Committee meets the first Tuesday of every month. Parents welcome.",
-  },
+  // Source: the troop mailing list. August 2026 PLC meeting notes (sent 1 Sep
+  // 2026), the committee minutes of 13 Aug 2026, the "SAVE THE DATE: Sunset
+  // Beach Campout" email (1 Sep 2026) and the Court of Honor deadlines email
+  // (15 Jul 2026). Add months as the PLC confirms them.
   {
     date: "2026-09-08",
-    title: "Fall Kickoff Troop Meeting",
+    title: "Troop Meeting: Communication Merit Badge",
     kind: "Meeting",
-    location: troop.meeting.venue,
-    note: "Back to weekly Tuesdays. New family welcome and the year's calendar handout.",
+    location: "Sunnyvale Elks Lodge",
+    note: "Eagle-required merit badge, continued from last week, plus a troop game.",
+  },
+  {
+    date: "2026-09-09",
+    title: "Troop Committee Meeting",
+    kind: "Meeting",
+    location: "Zoom, 7:00 – 8:00 PM",
+    note: "All parents and adult leaders are welcome. Agenda and link go out by email.",
+  },
+  {
+    date: "2026-09-15",
+    title: "Patrol Leaders' Council",
+    kind: "Meeting",
+    location: "Sunnyvale Elks Lodge",
+    note: "PLC members only. No regular troop meeting this week.",
+  },
+  {
+    date: "2026-09-22",
+    title: "Troop Meeting: Sunset Beach Planning",
+    kind: "Meeting",
+    location: "Sunnyvale Elks Lodge",
+    note: "Meal planning for the Sunset Beach campout, patrol flags, and a game. Come if you are going on the campout.",
   },
   {
     date: "2026-09-26",
     endDate: "2026-09-27",
-    title: "Annual Wilderness Survival Campout",
+    title: "Annual Sunset Beach Campout",
     kind: "Campout",
-    location: "Monterey County coast",
-    note: "A troop tradition: build your own shelter from a tarp and sticks, then a fire-building contest.",
+    location: "Sunset State Beach, Watsonville",
+    note: "A fun activity on Saturday morning, then camping at the beach. Sign up at the meeting the week before.",
   },
   {
-    date: "2026-10-16",
-    endDate: "2026-10-18",
-    title: "Yosemite Campout",
-    kind: "Campout",
-    location: "Yosemite National Park",
-    note: "Nevada Fall for the hiking group, Yosemite Valley for everyone else. Bring rain gear — ask any Scout why.",
-  },
-  {
-    date: "2026-11-03",
+    date: "2026-09-29",
     title: "Fall Court of Honor",
     kind: "Ceremony",
-    location: troop.meeting.venue,
-    note: "Courts of honor are quarterly and are family affairs. Full field uniform.",
+    location: "Sunnyvale Elks Lodge",
+    note: "During the troop meeting. Full Class A uniform. Families welcome.",
   },
   {
-    date: "2026-11-14",
-    title: "Service Project — Chartered Organization",
-    kind: "Service",
-    location: "Santa Clara Elks Lodge",
-    note: "The troop gives back to the Elks Lodge that charters us.",
-  },
-  {
-    date: "2026-12-18",
-    endDate: "2026-12-19",
-    title: "Elks Lodge Campout & Game Night",
+    date: "2026-10-17",
+    endDate: "2026-10-18",
+    title: "Kayaking and Camping at Laguna Seca",
     kind: "Campout",
-    location: "Santa Clara Elks Lodge",
-    note: "The troop's yearly game-night campout: Firem'n Chit, far too much pizza, flag retirement, and a fire that runs to midnight.",
+    location: "Laguna Seca, Monterey County",
+    note: "Saturday to Sunday. Details from the PLC closer to the date.",
   },
   {
-    date: "2027-01-22",
-    endDate: "2027-01-24",
-    title: "Truckee Ski Expedition",
+    date: "2026-11-15",
+    endDate: "2026-11-16",
+    title: "Pinnacles National Park Campout",
     kind: "Campout",
-    location: "Truckee, Sierra Nevada",
-  },
-  {
-    date: "2027-02-05",
-    title: "Scout Sunday",
-    kind: "Ceremony",
-    location: "Santa Clara",
-  },
-  {
-    date: "2027-02-19",
-    endDate: "2027-02-21",
-    title: "Bear Paw Snow Campout",
-    kind: "Campout",
-    location: "Near Bear Valley",
-    note: "Cold-weather camping skills, run off the council's Bearpaw winter camping training.",
-  },
-  {
-    date: "2027-03-02",
-    title: "Winter Court of Honor",
-    kind: "Ceremony",
-    location: troop.meeting.venue,
-  },
-  {
-    date: "2027-04-16",
-    endDate: "2027-04-18",
-    title: "Pioneer District Camporee",
-    kind: "Campout",
-    location: "Pioneer District",
-    note: "Two nights competing against the other troops in the district. Patrols compete as units.",
-  },
-  {
-    date: "2027-05-15",
-    title: "Eagle Project Workday",
-    kind: "Service",
-    location: "Santa Clara",
-    note: "Supporting a Life Scout's Eagle project. All hands welcome.",
-  },
-  {
-    date: "2027-06-17",
-    endDate: "2027-06-19",
-    title: "Sequoia & Kings Canyon Campout",
-    kind: "Campout",
-    location: "Sequoia National Park",
-    note: "Crystal Cave with a ranger, the climb up Moro Rock, and the General Sherman tree.",
-  },
-  {
-    date: "2027-06-25",
-    endDate: "2027-06-27",
-    title: "June Outing — Mammoth Lakes",
-    kind: "Campout",
-    location: "Mammoth Lakes, Eastern Sierra",
-    note: "A long-standing June trip on the troop's calendar.",
-  },
-  {
-    date: "2027-07-18",
-    endDate: "2027-07-24",
-    title: "Summer Camp — Camp Hi-Sierra (Week 5)",
-    kind: "High Adventure",
-    location: "Long Barn, Stanislaus National Forest",
-    note: "Six nights at our council camp near Pinecrest Lake. Merit badges, shooting sports, sailing, the observatory, and the camp-wide games.",
-  },
-  {
-    date: "2027-08-14",
-    endDate: "2027-08-15",
-    title: "CHS Work Weekend",
-    kind: "Service",
-    location: "Camp Hi-Sierra",
-    note: "The troop goes up to help clean and repair the camp we use every July. Meals provided.",
-  },
-  {
-    date: "2027-08-28",
-    endDate: "2027-08-29",
-    title: "Family Camp — Grant Ranch",
-    kind: "Campout",
-    location: "Joseph D. Grant County Park",
-    note: "The annual family campout and hike. Siblings and parents welcome — bring more water than you think you need.",
+    location: "Pinnacles National Park",
+    note: "Dates to be confirmed by the PLC, probably the 15th and 16th.",
   },
 ];
 
 /* -------------------------------------------------------------------------
-   PATROLS / LEADERSHIP  — structure per the Troop Operating Guide
+   PATROLS / LEADERSHIP, structure per the Troop Operating Guide
    Patrol names change with each election; ask the SPL for the current roster.
    ---------------------------------------------------------------------- */
 
@@ -562,34 +485,30 @@ export const patrolStructure = [
     name: "Patrol Leaders' Council",
     note: "The Patrol Leaders and the Senior Patrol Leader. They set the troop's annual calendar, which then goes to the committee for approval.",
   },
-  {
-    name: "Backpacking group",
-    note: "A standing group within the troop for Scouts who want longer treks than the monthly campout.",
-  },
 ];
 
 export const youthPositions = [
   {
     role: "Senior Patrol Leader",
-    holder: "Elected by the Scouts",
+    holder: "Akhil and Jacqueline (2026–27)",
     blurb:
       "The youth leader of the troop. Sets the agenda and presides at all Patrol Leaders' Council meetings, runs the weekly troop meeting, and appoints the other youth leaders.",
   },
   {
     role: "Assistant Senior Patrol Leader",
-    holder: "Appointed by the SPL",
+    holder: "Sreshta",
     blurb:
       "Assists in conducting meetings and stands in for the SPL. Responsible for training and directing the quartermaster, scribe, historian, librarian, and instructors.",
   },
   {
     role: "Patrol Leaders",
-    holder: "One per patrol",
+    holder: "Vihaan, Siddharth, Shivansh, Sahasra, Saanvi and Harshika",
     blurb:
-      "Responsible for their patrol at all times — patrol meetings, troop functions, and representing the patrol at the Patrol Leaders' Council.",
+      "Responsible for their patrol at all times, patrol meetings, troop functions, and representing the patrol at the Patrol Leaders' Council.",
   },
   {
     role: "Troop Guide",
-    holder: "An older, experienced Scout",
+    holder: "Zachary and Akalya",
     blurb:
       "Appointed by the Scoutmaster to help younger Scouts progress through the ranks. Works alongside the New Scout patrol's assistant Scoutmaster.",
   },
@@ -601,17 +520,17 @@ export const youthPositions = [
   },
   {
     role: "Quartermaster",
-    holder: "Appointed",
+    holder: "Shravya and Shripranav",
     blurb: "Keeps the troop's camping gear inventoried, repaired, and ready to load.",
   },
   {
     role: "Scribe",
-    holder: "Appointed",
+    holder: "Anvay",
     blurb: "Records attendance and dues, and keeps the minutes of the Patrol Leaders' Council.",
   },
   {
     role: "Historian & Librarian",
-    holder: "Appointed",
+    holder: "Vihaan (historian), Jonah and Aran (librarians)",
     blurb:
       "Keeps the troop's record and its library of handbooks, merit badge pamphlets, and trip reports.",
   },
@@ -635,7 +554,7 @@ export const adultRoles = [
   },
   {
     role: "Committee Chair",
-    blurb: "Chairs the troop committee — the board that supports the troop and its program.",
+    blurb: "Chairs the troop committee, the board that supports the troop and its program.",
   },
   { role: "Secretary & Treasurer", blurb: "Troop records, dues, and the camping budget." },
   {
@@ -669,11 +588,11 @@ export const ranks = [
 export const eagleSteps = [
   { step: "Reach Life rank", detail: "Hold Life for at least six months while serving in a position of responsibility." },
   { step: "Earn 21 merit badges", detail: "Including all Eagle-required badges. The advancement coordinator tracks your gaps." },
-  { step: "Find a project", detail: "A beneficiary outside Scouting — a school, park, camp, or nonprofit." },
+  { step: "Find a project", detail: "A beneficiary outside Scouting, a school, park, camp, or nonprofit." },
   { step: "Write the workbook", detail: "The proposal is approved before you start. Your Eagle mentor reviews every draft." },
   { step: "Lead the project", detail: "You plan it, recruit the crew, and run the workday. Adults advise only." },
   { step: "Application & references", detail: "Submit before your 18th birthday. Five references and a statement of ambitions." },
-  { step: "Board of review", detail: "A district board — then an Eagle court of honor, scheduled just for you." },
+  { step: "Board of review", detail: "A district board. Then an Eagle court of honor, scheduled just for you." },
 ];
 
 /** Real Troop 394 Eagle projects, as reported by The Silicon Valley Voice. */
@@ -683,7 +602,7 @@ export const eagleProjects = [
     year: "2020",
     headline: "2,063 masks for the community during the pandemic",
     detail:
-      "Caldwell led 34 volunteers — most of them Troop 394 Scouts — through roughly 700 hours of work producing and distributing masks. He ran the project across two states, teaching the build by instructional video, and oversaw two distribution events at the Santa Clara Farmers' Market, with about 600 masks going to local organizations serving the elderly and people experiencing homelessness.",
+      "Caldwell led 34 volunteers, most of them Troop 394 Scouts, through roughly 700 hours of work producing and distributing masks. He ran the project across two states, teaching the build by instructional video, and oversaw two distribution events at the Santa Clara Farmers' Market, with about 600 masks going to local organizations serving the elderly and people experiencing homelessness.",
     honor: "Eagle court of honor held at the Santa Clara Elks Lodge, June 2021.",
     source: "https://www.svvoice.com/local-scouts-bsa-member-ben-caldwell-soars-to-the-rank-of-the-eagle/",
   },
@@ -692,24 +611,15 @@ export const eagleProjects = [
     year: "2022",
     headline: "14 rebuilt picnic tables for YMCA Camp Campbell",
     detail:
-      "Morris led 20 volunteers — Troop 394 Scouts, Santa Clara High School friends, and Scouts from other troops — rebuilding picnic tables at the underfunded camp in the Santa Cruz Mountains over a single weekend. Working from the ADA guidelines, he redesigned several tables to be wheelchair accessible by extending the tabletop past the bench framework.",
+      "Morris led 20 volunteers, Troop 394 Scouts, Santa Clara High School friends, and Scouts from other troops, rebuilding picnic tables at the underfunded camp in the Santa Cruz Mountains over a single weekend. Working from the ADA guidelines, he redesigned several tables to be wheelchair accessible by extending the tabletop past the bench framework.",
     honor:
       "Eagle court of honor March 2024; Santa Clara City Council Member Kathy Watanabe presented a certificate.",
     source: "https://www.svvoice.com/santa-clara-scout-nick-morris-achieves-rank-of-the-eagle/",
   },
 ];
 
-/** A milestone for the linked troop. CONFIRM the details with her family. */
-export const troop2394Milestone = {
-  name: "Emerson Domke",
-  headline: "Troop 2394's first Eagle Scout",
-  detail:
-    "Scouts BSA opened to girls in 2019 and Troop 2394 was chartered alongside Troop 394. Emerson Domke passed her Eagle board of review on 1 October — among the first young women in the Silicon Valley Monterey Bay Council to do so.",
-  sourceNote: "Reported by a Silicon Valley Monterey Bay Council volunteer on LinkedIn, 2020.",
-};
-
 /* -------------------------------------------------------------------------
-   SUMMER CAMP — Camp Hi-Sierra
+   SUMMER CAMP, Camp Hi-Sierra
    Facts and 2027 pricing from camphi-sierra.org, read 2026-08-29.
    ---------------------------------------------------------------------- */
 
@@ -718,7 +628,7 @@ export const summerCamp = {
   url: "https://camphi-sierra.org/chs/",
   reserveUrl: "https://camphi-sierra.org/chs/how-to-reserve/",
   contact: "CHS@svmbc.org",
-  location: "Long Barn, California — off Highway 108",
+  location: "Long Barn, California, off Highway 108",
   setting:
     "More than 100 acres in the Stanislaus National Forest near Pinecrest Lake, at 5,000 feet, with the North Fork Tuolumne River running through the middle of camp.",
   since: 1949,
@@ -727,9 +637,9 @@ export const summerCamp = {
     "The closest Scouting America camp to Yosemite National Park.",
     "Set in a historic logging camp and run as a fully themed frontier town.",
     "Shooting sports, sailing, welding, metalworking, climbing, and an observatory.",
-    "Open year-round now — four-season cabins and a new dining hall.",
+    "Open year-round now, four-season cabins and a new dining hall.",
   ],
-  /** 2027 sessions, as published by the camp. */
+  /** 2027 sessions, read from camphi-sierra.org/chs/how-to-reserve/ on 2026-09-05. */
   weeks2027: [
     { week: 1, dates: "June 20 – 26" },
     { week: 3, dates: "July 4 – 10" },
@@ -737,8 +647,6 @@ export const summerCamp = {
     { week: 5, dates: "July 18 – 24" },
     { week: 6, dates: "July 25 – 31" },
   ],
-  /** CONFIRM which week Troop 2/394 has actually reserved for 2027. */
-  troopWeek: "Week 5 · July 18 – 24, 2027",
   fees2027: {
     youthInCouncil: 850,
     youthOutOfCouncil: 875,
@@ -752,95 +660,62 @@ export const summerCamp = {
 
 /** Our feeder Cub Scout pack. */
 export const feederPack = {
-  name: "Cub Scout Pack 54",
-  charterOrg: "St. Lawrence the Martyr Catholic Parish, Santa Clara",
-  url: "https://saintlawrence.org/cub-scouts",
-  meets: "6:30 PM, alternating Monday nights, in the Teen Center",
-  serves: "the Santa Clara and Sunnyvale areas",
-  note: "Grades 1–5. Troop 394 and Pack 54 have hiked together for years; most of our new Scouts cross over from Pack 54.",
+  name: "Cub Scout packs nearby",
+  note: "Webelos from packs around Santa Clara bridge into the troop every spring. In 2026 the troop helped run bridging ceremonies for Pack 32 and Pack 328, and the December Elks Lodge overnight is open to Arrow of Light dens who want to see the troop first.",
 };
 
 /* -------------------------------------------------------------------------
    OUTDOORS
    ---------------------------------------------------------------------- */
 
-export const highAdventureBases = [
-  {
-    name: "Philmont Scout Ranch",
-    location: "Cimarron, New Mexico",
-    blurb: "140,000 acres of backcountry. A 12-day trek with everything on your back.",
-    url: "https://www.philmontscoutranch.org/",
-  },
-  {
-    name: "Florida Sea Base",
-    location: "Islamorada, Florida",
-    blurb: "Live aboard a sailboat, scuba the reef, or kayak the Keys for a week.",
-    url: "https://www.bsaseabase.org/",
-  },
-  {
-    name: "Northern Tier",
-    location: "Ely, Minnesota",
-    blurb: "Canoe the Boundary Waters. Portage everything you own between lakes.",
-    url: "https://www.ntier.org/",
-  },
-  {
-    name: "The Summit Bechtel Reserve",
-    location: "Glen Jean, West Virginia",
-    blurb: "Whitewater, BMX, climbing, and the largest zip line course in the country.",
-    url: "https://www.summitbsa.org/",
-  },
-];
-
 /** Places Troop 394 has actually camped, from the troop's own trip reports. */
 export const localTrips = [
+  // Every entry has an outing on the troop mailing list (2025–2026) or in the
+  // troop's own trip reports behind it.
   {
     name: "Camp Hi-Sierra",
     location: "Long Barn, CA",
-    blurb:
-      "Our council camp since 1949 — 100 acres in the Stanislaus National Forest near Pinecrest Lake, at 5,000 feet, with the North Fork Tuolumne running through it. The troop has gone every July for over twenty years.",
+    blurb: "The council camp in the Stanislaus National Forest. A week every July, Bear Paw in the snow every winter, and Adopt-a-Campsite each May.",
   },
   {
-    name: "Yosemite National Park",
-    location: "Sierra Nevada",
-    blurb:
-      "An October tradition. One group hikes to Nevada Fall, the other explores the Valley. The year the whole campsite flooded is still troop legend.",
+    name: "Sunset State Beach",
+    location: "Watsonville, CA",
+    blurb: "The September campout, every year. Hike in first, then camp by the beach.",
   },
   {
-    name: "Sequoia & Kings Canyon",
-    location: "Three Rivers, CA",
-    blurb: "Crystal Cave with a ranger, the climb up Moro Rock, and the General Sherman tree.",
-  },
-  {
-    name: "Mammoth Lakes",
-    location: "Eastern Sierra",
-    blurb: "The June outing — high-country lakes on the dry side of the range.",
-  },
-  {
-    name: "Truckee & Bear Valley",
-    location: "Sierra Nevada",
-    blurb: "The winter program — a ski expedition in January and the Bear Paw snow campout.",
-  },
-  {
-    name: "The Monterey coast",
-    location: "Big Sur / Carmel",
-    blurb:
-      "Home of the annual wilderness survival campout, where Scouts build a shelter from a tarp and sticks and hold a fire-building contest.",
+    name: "South Fork American River",
+    location: "Camp Lotus, Coloma",
+    blurb: "River rafting every April, with a night at Camp Lotus first.",
   },
   {
     name: "Grant Ranch",
     location: "Joseph D. Grant County Park",
-    blurb: "The late-August family campout — a five-mile hike, then a campfire that runs to quiet time.",
+    blurb: "Ten-mile hikes, a backpacking weekend, and the Iron Chef campout.",
   },
   {
-    name: "Santa Cruz Mountains",
-    location: "Sanborn County Park & Skyline",
-    blurb:
-      "Day hikes along the ridge to Summit Rock and Indian Rock, often shared with our feeder Cub pack.",
+    name: "Camp Chesebrough",
+    location: "Santa Cruz Mountains",
+    blurb: "Pioneer District Camporee each spring, patrol against patrol.",
   },
   {
-    name: "Mt. Madonna & Sunset Beach",
-    location: "Santa Cruz County",
-    blurb: "Shorter weekend trips close to home, plus rafting on the Stanislaus River.",
+    name: "Uvas Canyon",
+    location: "Uvas Canyon County Park",
+    blurb: "Waterfall trails and an August overnight.",
+  },
+  {
+    name: "Del Valle",
+    location: "Del Valle Regional Park, Livermore",
+    blurb: "A November campout with Dutch-oven pizza and a lake hike.",
+  },
+  {
+    name: "Pinnacles and Laguna Seca",
+    location: "Monterey County",
+    blurb: "Kayaking at Laguna Seca in October 2026 and Pinnacles in November.",
+  },
+  {
+    name: "Yosemite and Sequoia",
+    location: "Sierra Nevada",
+    blurb: "Where the troop camped through the 2010s. Both are on the list to go back to.",
   },
 ];
 
@@ -865,9 +740,9 @@ export const gearList = [
     items: [
       "Scout shirt, long or short sleeve",
       "Scout trousers or shorts",
-      "Neckerchief and slide — presented at the bridging ceremony",
+      "Neckerchief and slide, presented at the bridging ceremony",
       "Scout belt and Scout socks",
-      "Any closed-toe shoe or boot — no sandals at Scouting events",
+      "Any closed-toe shoe or boot, no sandals at Scouting events",
       "Scout hat optional; the mesh Scout cap is the only one authorized",
     ],
   },
@@ -877,7 +752,7 @@ export const gearList = [
       "Scout T-shirt with Scout trousers or shorts",
       "Worn for summer meetings and travel to and from events",
       "Full Class A required for courts of honor",
-      "The troop runs a Uniform Bank — ask before you buy anything",
+      "The troop runs a Uniform Bank. Ask before you buy anything",
       "Borrow a pack and bag for the first campouts",
     ],
   },
@@ -889,17 +764,16 @@ export const gearList = [
 
 export const resourceLinks = [
   { label: "Annual Health & Medical Record (Parts A, B, C)", href: "https://www.scouting.org/health-and-safety/ahmr/", note: "Required for every Scout and adult. Parts A & B annually; Part C for any event over 72 hours, including summer camp." },
-  { label: "Guide to Safe Scouting", href: "https://www.scouting.org/health-and-safety/gss/", note: "The rulebook for every activity we run." },
-  { label: "Youth Protection Training", href: "https://www.scouting.org/training/youth-protection/", note: "Required for all registered adults, every two years. Free and online." },
+  { label: "Guide to Safe Scouting", href: "https://www.scouting.org/health-and-safety/gss/", note: "The rulebook for every activity we run, including how to report a concern." },
+  { label: "Youth Protection Training (my.Scouting)", href: "https://my.scouting.org/", note: "Required for all registered adults, every two years. Free, online, and taken here." },
   { label: "Scoutbook", href: "https://scoutbook.scouting.org/", note: "Advancement, attendance, and payments." },
   { label: "Merit Badge Requirements", href: "https://www.scouting.org/skills/merit-badges/", note: "The full list of current badges and requirements." },
   { label: "Eagle Scout Workbook", href: "https://www.scouting.org/programs/scouts-bsa/advancement-and-awards/eagle-scout-workbook/", note: "Start here before you plan a project." },
   { label: "Scout Shop", href: "https://www.scoutshop.org/", note: "Handbooks, uniforms, and insignia." },
-  { label: "Silicon Valley Monterey Bay Council", href: "https://svmbc.org/", note: "Our council — camps, training, and calendars. Formerly the Santa Clara County Council." },
+  { label: "Silicon Valley Monterey Bay Council", href: "https://svmbc.org/", note: "Our council, camps, training, and calendars. Formerly the Santa Clara County Council." },
   { label: "Pioneer District", href: "https://svmbc.org/districts/pioneer/", note: "Roundtables, Camporee, and district advancement." },
   { label: "Camp Hi-Sierra", href: "https://svmbc.org/", note: "Our council summer camp at Long Barn, where the troop goes each July." },
-  { label: "Be A Scout", href: "https://beascout.scouting.org/", note: "The national unit finder — this is where Troop 394's official record lives." },
-  { label: "Troop 394 on Facebook", href: "https://www.facebook.com/groups/troop394/", note: "The troop's parent and Scout group." },
+  { label: "Be A Scout", href: "https://beascout.scouting.org/", note: "The national unit finder. This is where Troop 394's official record lives." },
 ];
 
 /** The troop's own forms, as listed on the legacy site. */
@@ -913,7 +787,7 @@ export const troopForms = [
 ];
 
 /**
- * The troop runs a Uniform Bank — a request form for donated uniform parts,
+ * The troop runs a Uniform Bank, a request form for donated uniform parts,
  * open to Cub Scouts, Scouts BSA, Venturers, and Varsity Scouts.
  */
 export const uniformBank = {
@@ -921,21 +795,15 @@ export const uniformBank = {
 };
 
 export const dues = {
-  /** [BEASCOUT] published cost for a youth to join. */
+  /** Published on beascout.org for a youth joining Troop 394. */
   joinCost: 109,
-  /** [GUIDE, Rev 6.0 2008] historical troop dues, paid at rechartering. */
-  historicalTroopDues: 60,
-  note: "Scouts also share the cost of each camping trip, and summer camp at Camp Hi-Sierra is billed separately. The Operating Guide is explicit about this: financial problems are understood — tell the Scoutmaster and a payment plan will be worked out so your Scout stays active. The troop also runs a Uniform Bank so no family has to buy a uniform to get started.",
-  breakdown: [
-    { item: "National and council registration", amount: 85 },
-    { item: "Troop 394 dues", amount: 24 },
-  ],
+  note: "That covers national and council registration. Campouts are paid per trip and summer camp is billed by the camp. If cost is a problem, tell the Scoutmaster.",
 };
 
 export const faqs = [
   {
     q: "Can we visit before joining?",
-    a: `Yes, and we prefer it. Come to any ${troop.meeting.day} meeting at ${troop.meeting.time}. No forms, no commitment — just show up and watch a meeting run.`,
+    a: `Yes, and we prefer it. Come to any ${troop.meeting.day} meeting at ${troop.meeting.time}. No forms, no commitment, just show up and watch a meeting run.`,
   },
   {
     q: "Who can join Troop 394?",
@@ -947,7 +815,7 @@ export const faqs = [
   },
   {
     q: "How much time does this take?",
-    a: `A ${troop.meeting.day} evening each week during the school year — every other ${troop.meeting.day} in the summer — plus a campout or special event each month and a week at summer camp.`,
+    a: `A ${troop.meeting.day} evening each week during the school year, most ${troop.meeting.day}s in summer, plus an outing each month and a week at summer camp.`,
   },
   {
     q: "What does it cost?",
@@ -959,7 +827,7 @@ export const faqs = [
   },
   {
     q: "What gear do we need on day one?",
-    a: "A Scout Handbook. That is genuinely it — the troop's Uniform Bank can help with the uniform, and you can borrow a pack and sleeping bag for the first couple of campouts before spending money.",
+    a: "A Scout Handbook. That is genuinely it, the troop's Uniform Bank can help with the uniform, and you can borrow a pack and sleeping bag for the first couple of campouts before spending money.",
   },
   {
     q: "Is my Scout safe?",
@@ -968,9 +836,196 @@ export const faqs = [
 ];
 
 export const joinSteps = [
-  { title: "Come to a meeting", body: `Any ${troop.meeting.day}, ${troop.meeting.time}, at ${troop.meeting.venue}. Wear whatever you own — no uniform needed for a visit.` },
+  { title: "Come to a meeting", body: `Any ${troop.meeting.day}, ${troop.meeting.time}, at ${troop.meeting.venue}. Wear whatever you own, no uniform needed for a visit.` },
   { title: "Go on a campout", body: "Come along on the next one as a guest. This is the real test of whether Scouting fits your family." },
   { title: "Fill out the application", body: "The Scouts BSA youth application plus Health Record Parts A & B. We will walk you through it." },
   { title: "Get a Scout Handbook", body: "The one thing to buy on day one. Ask about the Uniform Bank before you buy anything else." },
   { title: "Join a patrol", body: "New Scouts form their own patrol with an assistant Scoutmaster assigned to them and a Troop Guide for the first year." },
 ];
+
+/* -------------------------------------------------------------------------
+   EAGLE HONOR ROLL
+   Two sources, both public:
+   [EAGLEROOM] the troop's own "Eagle Room" page on troop-394.org, which listed
+               every Eagle earned in Troop 394 from 1996 to 2005.
+   [SVMBC]     the council's published recognition programmes, which name the
+               Eagle Scout class for each year by unit.
+   ---------------------------------------------------------------------- */
+
+export type EagleEntry = { name: string; year: number; troop: "394" | "2394" };
+
+/** [EAGLEROOM] The troop's first decade of Eagle Scouts, as the troop listed them. */
+export const eagleHonorRollHistoric: EagleEntry[] = [
+  { name: "David Date", year: 2005, troop: "394" },
+  { name: "Brendan Lee", year: 2004, troop: "394" },
+  { name: "Jerry Johnson", year: 2004, troop: "394" },
+  { name: "Ron Bracken", year: 2004, troop: "394" },
+  { name: "David Thibodeau", year: 2001, troop: "394" },
+  { name: "James T. Twiddy", year: 2000, troop: "394" },
+  { name: "Jae Young Chang", year: 2000, troop: "394" },
+  { name: "Neal Gossard", year: 1999, troop: "394" },
+  { name: "Gabriel Moreland", year: 1998, troop: "394" },
+  { name: "John Thibodeau", year: 1997, troop: "394" },
+  { name: "Jeff Chandler", year: 1997, troop: "394" },
+  { name: "Anthony Balbiani", year: 1997, troop: "394" },
+  { name: "Augustine Alvarez", year: 1996, troop: "394" },
+];
+
+/**
+ * [SVMBC] Eagle Scout classes named in the council's recognition programmes.
+ * Class of 2023 from the 2024 Recognition Dinner programme; class of 2025 from
+ * the 2026 recognition event held at the Santa Clara Marriott on 2 May 2026.
+ */
+export const eagleHonorRollRecent: EagleEntry[] = [
+  // 2025 entries confirmed by the troop's own "Newest Eagle Scout" and Court of
+  // Honor emails. Robert and Charaka had their Court of Honor on 1 June 2025.
+  { name: "Adriana Chapa", year: 2025, troop: "2394" },
+  { name: "Robert Ray", year: 2025, troop: "394" },
+  { name: "Charaka Kudituwakku", year: 2025, troop: "394" },
+  { name: "Eamonn Michael Donnelly", year: 2025, troop: "394" },
+  { name: "Joshua Alexander Mechlin", year: 2025, troop: "394" },
+  { name: "Skylar A. Mechlin", year: 2025, troop: "394" },
+  { name: "Sreeya J. Nair", year: 2025, troop: "2394" },
+  { name: "Ioan Har", year: 2023, troop: "394" },
+  { name: "Zachary Mechlin", year: 2023, troop: "394" },
+  { name: "Nicholas Morris", year: 2023, troop: "394" },
+  { name: "Aminah Hedges", year: 2023, troop: "2394" },
+  { name: "Sofia Orosa", year: 2023, troop: "2394" },
+];
+
+/** Everything we can source, newest first. */
+export const eagleHonorRoll: EagleEntry[] = [
+  ...eagleHonorRollRecent,
+  ...eagleHonorRollHistoric,
+].sort((a, b) => b.year - a.year);
+
+/**
+ * A third Eagle project reported by the local press, alongside the two in
+ * `eagleProjects` above.
+ */
+export const eagleProjectNicky = {
+  name: "Nicky Caldwell",
+  year: "2019",
+  headline: "A safer workshop for the Roberta Jones Junior Theatre",
+  detail:
+    "Caldwell rebuilt the set-building workspace at the Roberta Jones Junior Theatre, a City of Santa Clara Parks and Recreation programme. He designed vertical wood shelving and built a mobile chopsaw table, fixing safety and access problems the volunteer set designers had lived with for years. The project ran to about 147 hours, planned from September 2018 and finished in February 2019.",
+  quote: "One of the things I've learned from the Eagle process is self-discipline and leading through humility.",
+  honor:
+    "Eagle court of honor at the Santa Clara Elks Lodge, November 2019. Mayor Lisa Gillmor and Council Member Kathy Watanabe presented a city proclamation.",
+  source: "https://www.svvoice.com/santa-clara-resident-nicky-caldwell-receives-an-eagle-scout-award/",
+};
+
+/* -------------------------------------------------------------------------
+   TRADITIONS
+   Recovered from fifteen years of the troop's own photo albums, 2011 to 2026,
+   plus the troop's trip reports. These are the things the troop does every
+   year, not a wish list.
+   ---------------------------------------------------------------------- */
+
+export const traditions = [
+  // Each one appears in the troop's own emails or trip reports, 2025–2026.
+  { name: "Sunset Beach campout", cadence: "Every September", blurb: "A hike in, then a night on the coast. The troop's annual beach trip." },
+  { name: "Pancake Breakfast", cadence: "Every September", blurb: "The troop's one fundraiser: a booth at the Santa Clara Art and Wine Festival, Saturday and Sunday mornings." },
+  { name: "Parade of Champions", cadence: "Every October", blurb: "Troop 394 leads the opening flag ceremony for the City of Santa Clara, four years running." },
+  { name: "Elks dinners", cadence: "Through the year", blurb: "Scouts serve dinner at the lodge that hosts the troop. The troop pays for its meeting space in service, not money." },
+  { name: "Elks Lodge overnight", cadence: "Every December", blurb: "A campout at the lodge with the Webelos who are about to join." },
+  { name: "Bear Paw", cadence: "Every winter", blurb: "The snow trip to Camp Hi-Sierra. Snowball fights, a snowman, and card games in the mess hall." },
+  { name: "Iron Chef", cadence: "Every February", blurb: "Patrols cook against each other at Grant Ranch. No adults at the stove." },
+  { name: "Camporee", cadence: "Every spring", blurb: "Patrol against patrol with the rest of the Pioneer District. 2026 was very wet." },
+  { name: "River rafting", cadence: "Every April", blurb: "The South Fork of the American River, wetsuits and all." },
+  { name: "Adopt-a-Campsite", cadence: "Every May", blurb: "A work weekend getting Camp Hi-Sierra ready for summer. Rank requirements in the evening, the observatory after dark." },
+  { name: "Taps Across America", cadence: "Every Memorial Day", blurb: "Taps at 3 PM at the Veterans Memorial in Central Park, four years running." },
+  { name: "Summer camp", cadence: "Every July", blurb: "A week at Camp Hi-Sierra. Merit badges by day, campfires by night, the campwide games to finish." },
+];
+
+/**
+ * Fifteen years of outings, taken from the troop's own album titles.
+ * This is the honest answer to "what do you actually do?".
+ */
+export const outingHistory: { year: number; outings: string[] }[] = [
+  { year: 2026, outings: ["Bear Paw snow trip", "Iron Chef campout", "Snow play at Leland", "Camporee", "River rafting", "Scout-O-Rama", "Grant County backpacking", "Adopt-a-campsite", "Coyote Hills hike", "Horseback riding", "Mini golf", "Elks Lodge campouts", "Camp Hi-Sierra", "Picchetti Ranch hike", "Grant Ranch"] },
+  { year: 2025, outings: ["Bowling", "Egyptian Museum and Elks campout", "Snow and ski trip", "River rafting", "Seacliff Beach", "Camp Hi-Sierra", "Uvas Canyon", "Pancake Breakfast", "Sunset Beach", "Mini golf and Elks campout", "Del Valle", "December Elks overnight", "Street cleanup"] },
+  { year: 2024, outings: ["Pancake Breakfast", "Sunset Beach", "Ski trip", "Pinnacles", "Grant Ranch", "Ed Levin Park", "Camp Hi-Sierra", "Castle Rock backpacking", "Bear Paw"] },
+  { year: 2023, outings: ["Sunset Beach", "June kayaking", "Camporee", "River rafting", "Lake Chesbro", "Grant Ranch", "Fishing outing", "Camp Hi-Sierra", "Backpacking", "Adopt-a-campsite"] },
+  { year: 2022, outings: ["Sunset Beach", "Snow trip", "Iron Chef", "Camp Hi-Sierra", "Camporee", "Art and Wine Festival", "Mount Umunhum", "Street cleanup", "River rafting", "Presidio day hike", "Pinnacles", "Parade of Champions"] },
+  { year: 2021, outings: ["Camp Hi-Sierra", "Troop camporee", "Sunol backpacking", "Pack 32 bridging", "Mount Umunhum", "Elks street cleanup", "Elks campout", "Adopt-a-campsite"] },
+  { year: 2020, outings: ["Sunset Beach", "Pinnacles", "Horse riding campout", "Backpacking", "Wilderness survival", "Virtual campout", "Fishing", "CHS work weekend"] },
+  { year: 2019, outings: ["District Camporee", "Skyline to the Sea", "Mount Saint Helena", "Del Valle", "Uvas Canyon", "Salinas hike and bike", "Pancake Breakfast", "Mount Umunhum", "Memorial Park", "Iron Chef", "Grant Ranch", "Camp Hi-Sierra", "Big Basin backpacking", "Alum Rock", "49ers color guard", "20-mile hike"] },
+  { year: 2018, outings: ["Sunset Beach", "Mammoth Lakes", "Kayaking in Morro Bay", "Camp Hi-Sierra", "China Camp", "Camporee", "Art and Wine Festival", "Mount Umunhum", "Bear Paw", "Jamboree on the Air"] },
+  { year: 2017, outings: ["Wilderness survival", "Mount Wittenberg", "Mount Madonna", "Mission Peak", "Camp Hi-Sierra", "Camporee", "Adopt-a-campsite"] },
+  { year: 2016, outings: ["Backpacking", "Wilderness survival", "Ski trip", "Pinnacles", "Mount Diablo", "Elks campout", "Earthquake hike", "Camp Hi-Sierra"] },
+  { year: 2015, outings: ["Wilderness survival", "Webelos campout", "Uvas Canyon", "Sequoia", "Mount Tamalpais", "Iron Chef", "Elks campout", "Camp Hi-Sierra", "Camporee", "Andrew Molera", "Adopt-a-campsite"] },
+];
+
+/** Local shops that give Scouts a discount, from the troop's own links page. */
+export const gearShops = [
+  // Places Bay Area Scouting families use. Ask in store whether a Scout discount
+  // applies; the troop does not have an arrangement with any of them.
+  { name: "Scout Shop", note: "Uniforms, handbooks, and insignia", where: "San Jose" },
+  { name: "Mel Cotton's Sporting Goods", note: "Long-running local outfitter", where: "San Jose" },
+  { name: "Sports Basement", note: "Packs, bags, and boots", where: "Sunnyvale and Campbell" },
+  { name: "REI", note: "Co-op member dividend on what you buy", where: "Mountain View and San Jose" },
+];
+
+/**
+ * The troop's own packing list, from troop-394.org. Reproduced because it is
+ * specific to how this troop camps, not a generic list.
+ */
+export const packingList = {
+  pocket: [
+    "Nylon cord, about 25 feet",
+    "Matches in a waterproof case",
+    "Pocket knife",
+    "Compass",
+    "Whistle",
+    "Map of the area",
+    "Signed permission slip",
+    "Any personal prescription medicine",
+  ],
+  camping: [
+    "Pack with a hip belt that actually fits",
+    "Waterproof pack cover or a large bin bag",
+    "Sleeping bag rated to 20°F, in a stuff sack",
+    "Foam sleeping pad",
+    "Tent with a ground cloth",
+    "Flashlight with spare batteries",
+    "One to two litres of water",
+    "Personal first aid kit",
+    "Bowl, cup, spoon and fork",
+  ],
+  clothing: [
+    "Rain jacket and rain trousers",
+    "Waterproof hiking boots",
+    "Lightweight camp shoes",
+    "Wool or hiking socks",
+    "Long trousers and a shirt",
+    "Long thermal underwear unless it is warm",
+    "Fleece or wool sweater",
+    "Warm hat and gloves",
+  ],
+  leaveAtHome: [
+    "Radios, games consoles, and anything with a screen",
+    "Sheath knives",
+    "Hatchets, axes, and saws",
+    "Umbrellas",
+    "Fireworks",
+  ],
+  tentNote:
+    "Bring your own tent, share with another Scout, or ask your Patrol Leader for a troop tent.",
+};
+
+/** How the troop raises money. */
+export const fundraising = {
+  headline: "Pancake Breakfast at the Santa Clara Art and Wine Festival",
+  detail:
+    "The troop's only fundraiser is its own pancake breakfast, run from a booth in the Pavilion at the Santa Clara Art and Wine Festival in Central Park. Scouts and parents cook and serve on the Saturday and Sunday mornings of the festival, and the adults set the booth up on the Friday.",
+  otherNote:
+    "Money raised keeps camp affordable. If cost is ever the reason a Scout cannot go, tell the Scoutmaster and it gets sorted out quietly.",
+};
+
+/** The troop's member portal, where photos and posts actually live. */
+export const memberPortal = {
+  name: "KindredPix",
+  url: "https://www.kindredpix.com/beta/group.php?id=22",
+  note: "Troops 394 and 2394 share one private group. Fifteen years of albums, from 2011 to today.",
+};

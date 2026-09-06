@@ -1,4 +1,4 @@
-# scouting.org — Extracted Design Tokens
+# scouting.org. Extracted Design Tokens
 
 Source: https://www.scouting.org/ (WordPress + Elementor)
 Extracted live via BrowserOS neo `getComputedStyle()` on 2026-08-27.
@@ -15,7 +15,7 @@ Extracted live via BrowserOS neo `getComputedStyle()` on 2026-08-27.
 | `--sa-ink` | `#212121` rgb(33,33,33) | 1549 | Body copy (dominant text color) |
 | `--sa-slate` | `#33373D` rgb(51,55,61) | 176 | Secondary text |
 | `--sa-gray` | `#515354` rgb(81,83,84) | 137 | Muted captions |
-| `--sa-gray-100` | `#F2F2F2` | — | Instagram band, alternating panels |
+| `--sa-gray-100` | `#F2F2F2` |, | Instagram band, alternating panels |
 | `--sa-white` | `#FFFFFF` | 169 | Page background, pill buttons |
 
 Program tile colors (sampled from "THE SCOUTING PROGRAMS"):
@@ -23,7 +23,7 @@ gold `#E1C04C` · red `#C0392B` · forest `#1E5631` · deep navy `#1B2A4A` · pe
 
 ## Typography
 
-Two families only — confirmed by scanning every `h1..h4,p,a,button,span,li,div`:
+Two families only, confirmed by scanning every `h1..h4,p,a,button,span,li,div`:
 
 - **Headings / nav / buttons:** `"Roboto Slab", serif` (weights 500, 700)
 - **Body:** `Roboto, sans-serif` (weight 400)
@@ -41,7 +41,7 @@ Two families only — confirmed by scanning every `h1..h4,p,a,button,span,li,div
 | Body `p` | 16px / 24px, 400, `#212121`, `margin-bottom: 16px` |
 | Nav link | Roboto Slab 11px, 700, uppercase, `letter-spacing: 1px`, white, `padding: 15px`, `margin-right: 7px` |
 
-## Buttons — all variants observed
+## Buttons, all variants observed
 
 `border-radius: 28px` on **every** button. Roboto Slab, 700, uppercase.
 

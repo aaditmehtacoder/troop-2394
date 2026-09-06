@@ -4,12 +4,20 @@ import { Section, SectionHead } from "@/components/site/Section";
 import { Reveal } from "@/components/site/Reveal";
 import { CTABand } from "@/components/site/CTABand";
 import { FleurDeLis, IconArrow, IconCheck } from "@/components/brand/Marks";
-import { eagleProjects, eagleSteps, ranks, troop, troop2394Milestone } from "@/data/troop";
+import {
+  eagleHonorRoll,
+  eagleProjectNicky,
+  eagleProjects,
+  eagleSteps,
+  ranks,
+  troop,
+} from "@/data/troop";
+import { pageHeroPhoto } from "@/data/photos";
 
 export const metadata: Metadata = {
   title: "Advancement",
   description:
-    "The Trail to Eagle in Troop 2/394 — ranks, merit badges, boards of review, and Eagle Scout projects.",
+    "The Trail to Eagle in Troop 2/394, ranks, merit badges, boards of review, and Eagle Scout projects.",
 };
 
 const meritBadgeGroups = [
@@ -57,8 +65,8 @@ export default function AdvancementPage() {
       <PageHero
         eyebrow="Scout to Eagle"
         title="Advancement"
-        lede="Advancement is one of Scouting's eight methods — not the point of the program, but the visible record of a Scout growing into it."
-        scene="eagle"
+        lede="Advancement is one of Scouting's eight methods, not the point of the program, but the visible record of a Scout growing into it."
+        photo={pageHeroPhoto.advancement}
         crumb="Advancement"
       />
 
@@ -97,7 +105,7 @@ export default function AdvancementPage() {
       <Section id="merit-badges" className="bg-shell">
         <SectionHead
           title="Merit badges"
-          lede="There are more than 135 merit badges. Twenty-one are needed for Eagle, fourteen of them from a required list. Each one is earned with a registered counselor — often a parent in the troop who does that work for a living."
+          lede="There are more than 135 merit badges. Twenty-one are needed for Eagle, fourteen of them from a required list. Each one is earned with a registered counselor, often a parent in the troop who does that work for a living."
         />
 
         <div className="mt-11 grid gap-8 lg:grid-cols-2">
@@ -167,7 +175,7 @@ export default function AdvancementPage() {
               <ul className="mt-5 space-y-3">
                 {[
                   "Bring your handbook with every requirement signed off",
-                  "Wear the full field uniform — this is the one time it matters",
+                  "Wear the full field uniform. This is the one time it matters",
                   "Be able to say the Oath and Law, and say what one point means to you",
                   "Come with a plan for your next rank, even a rough one",
                   "Relax. Nobody has ever failed a board of review for being nervous.",
@@ -188,7 +196,7 @@ export default function AdvancementPage() {
         <SectionHead
           tone="white"
           title="The Trail to Eagle"
-          lede="Roughly six percent of Scouts reach Eagle. Every Life Scout in Troop 2/394 is assigned an Eagle mentor from the committee the day they earn Life — because the drop-off happens in the gap, not on the project."
+          lede="Roughly six percent of Scouts reach Eagle. Every Life Scout in Troop 2/394 is assigned an Eagle mentor from the committee the day they earn Life, because the drop-off happens in the gap, not on the project."
         />
 
         <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
@@ -245,28 +253,60 @@ export default function AdvancementPage() {
           </div>
         </div>
 
-        <Reveal delay={140}>
+        <Reveal delay={130}>
           <div className="mt-6 rounded-lg border-l-4 border-gold bg-white/[0.09] p-7">
             <p className="mb-1 font-slab text-[11px] font-bold uppercase tracking-[1.4px] text-white/65">
-              A first for the linked troop
+              {eagleProjectNicky.year} · Reported by The Silicon Valley Voice
             </p>
             <h4 className="font-slab text-[19px] font-bold !text-white">
-              {troop2394Milestone.name} — {troop2394Milestone.headline}
+              {eagleProjectNicky.name}, {eagleProjectNicky.headline}
             </h4>
             <p className="mt-3 mb-0 text-[14px] leading-7 text-white/80">
-              {troop2394Milestone.detail}
+              {eagleProjectNicky.detail}
             </p>
-            <p className="mt-3 mb-0 text-[12.5px] text-white/55">
-              {troop2394Milestone.sourceNote}
+            <p className="mt-3 mb-0 text-[14px] italic leading-7 text-white/70">
+              &ldquo;{eagleProjectNicky.quote}&rdquo;
             </p>
+            <p className="mt-3 mb-0 text-[12.5px] text-white/55">{eagleProjectNicky.honor}</p>
           </div>
         </Reveal>
+
+        <Reveal delay={150}>
+          <div className="mt-12 rounded-lg bg-white/[0.06] p-8 ring-1 ring-white/15">
+            <h3 className="font-slab text-[22px] font-bold !text-white">Eagle honor roll</h3>
+            <p className="mt-2 mb-6 max-w-2xl text-[15px] leading-7 text-white/75">
+              Every Eagle Scout we can source, from the troop&rsquo;s own records and the
+              council&rsquo;s published recognition programmes. If a name is missing, tell us and we
+              will put it right.
+            </p>
+
+            <ul className="m-0 grid list-none gap-x-8 gap-y-2 p-0 sm:grid-cols-2 lg:grid-cols-3">
+              {eagleHonorRoll.map((e) => (
+                <li
+                  key={`${e.name}-${e.year}`}
+                  className="flex items-baseline justify-between gap-3 border-b border-white/10 py-2"
+                >
+                  <span className="text-[15px] text-white/90">
+                    {e.name}
+                    {e.troop === "2394" ? (
+                      <span className="ml-1.5 text-[12px] text-gold">2394</span>
+                    ) : null}
+                  </span>
+                  <span className="shrink-0 font-slab text-[13px] font-bold text-white/55">
+                    {e.year}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
+
 
         <Reveal delay={160}>
           <div className="mt-12 rounded-lg bg-white/[0.07] p-8 text-center ring-1 ring-white/15">
             <p className="mx-auto mb-6 max-w-2xl text-[15px] leading-7 text-white/85">
               The single most common reason a Scout misses Eagle is running out of clock. Every
-              requirement must be complete before the Scout&rsquo;s 18th birthday — start the
+              requirement must be complete before the Scout&rsquo;s 18th birthday. Start the
               project workbook at Life, not at seventeen.
             </p>
             <a
@@ -287,7 +327,7 @@ export default function AdvancementPage() {
         body="Advancement, attendance, merit badge progress, and payments all live in Scoutbook. Every Scout and parent gets an account on their first night."
         primary={{ label: "Open Scoutbook", href: "https://scoutbook.scouting.org/" }}
         secondary={{ label: "Forms & resources", href: "/resources" }}
-        scene="ridge"
+        photo="glacier-point"
       />
     </>
   );

@@ -2,31 +2,31 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { heroSlides, troop } from "@/data/troop";
-import { Scene } from "@/components/brand/Scenes";
-import { FleurDeLis } from "@/components/brand/Marks";
+import { heroSlides } from "@/data/troop";
+import { photo } from "@/data/photos";
+import type { TroopEvent } from "@/data/troop";
+import { formatRange } from "@/components/site/EventCard";
 
-const INTERVAL = 7000;
+const INTERVAL = 8000;
 
 /**
- * Full-bleed autoplaying hero, mirroring the Elementor Swiper on scouting.org:
- * background scene + dark veil + centred mark + H2 + pill CTA + dot pagination.
- * Autoplay pauses on hover, on focus within, and when the tab is hidden.
+ * Full-bleed photographic hero. Slides crossfade while the active picture
+ * slowly pushes in; the copy rises line by line each time the slide changes.
+ * Autoplay pauses on hover, on focus, and when the tab is hidden.
  */
-export function Hero() {
+export function Hero({ events }: { events: TroopEvent[] }) {
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const go = useCallback((n: number) => setI(((n % heroSlides.length) + heroSlides.length) % heroSlides.length), []);
+  const go = useCallback(
+    (n: number) => setI(((n % heroSlides.length) + heroSlides.length) % heroSlides.length),
+    [],
+  );
 
   useEffect(() => {
     if (paused) return;
-    const reduce =
-      typeof window !== "undefined" &&
-      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) return;
-
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
     timer.current = setInterval(() => setI((v) => (v + 1) % heroSlides.length), INTERVAL);
     return () => {
       if (timer.current) clearInterval(timer.current);
@@ -39,9 +39,11 @@ export function Hero() {
     return () => document.removeEventListener("visibilitychange", onVis);
   }, []);
 
+  const slide = heroSlides[i];
+
   return (
     <section
-      className="relative isolate overflow-hidden"
+      className="relative isolate overflow-hidden bg-navy-dark text-white"
       aria-roledescription="carousel"
       aria-label="Troop 2/394 highlights"
       onMouseEnter={() => setPaused(true)}
@@ -49,91 +51,118 @@ export function Hero() {
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={() => setPaused(false)}
     >
-      <div className="relative h-[clamp(520px,78vh,720px)] w-full">
-        {heroSlides.map((s, n) => (
-          <div
-            key={s.title}
-            className="absolute inset-0 transition-opacity duration-[900ms] ease-out"
-            style={{ opacity: n === i ? 1 : 0 }}
-            aria-hidden={n !== i}
-          >
-            <Scene name={s.scene} className="absolute inset-0 h-full w-full object-cover" />
-          </div>
-        ))}
-
-        {/* content */}
-        <div className="relative z-10 flex h-full items-center">
-          <div className="shell w-full text-center">
-            <FleurDeLis className="mx-auto mb-6 h-14 w-auto text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]" />
-
-            {heroSlides.map((s, n) => {
-              // Only the active slide's headline is the page <h1>; the others
-              // keep the same styling as plain divs so the page has exactly one.
-              const Headline = n === i ? "h1" : "div";
-              return (
-              <div
-                key={s.title}
-                className={`transition-all duration-700 ${
-                  n === i
-                    ? "relative translate-y-0 opacity-100"
-                    : "pointer-events-none absolute inset-x-0 translate-y-3 opacity-0"
-                }`}
-                aria-hidden={n !== i}
-              >
-                <p className="mb-3 font-slab text-[12px] font-bold uppercase tracking-[2.4px] text-white/80">
-                  {s.eyebrow}
-                </p>
-                <Headline className="mx-auto max-w-4xl font-slab text-[clamp(30px,5.6vw,54px)] font-bold leading-[1.1] !text-white drop-shadow-[0_2px_14px_rgba(0,0,0,0.4)]">
-                  {s.title}
-                </Headline>
-                <p className="mx-auto mt-5 mb-0 max-w-2xl text-[16px] leading-7 text-white/90 drop-shadow-[0_1px_6px_rgba(0,0,0,0.5)]">
-                  {s.body}
-                </p>
-                <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-                  <Link href={s.cta.href} className="pill pill-white">
-                    {s.cta.label}
-                  </Link>
-                  <Link href={s.secondary.href} className="pill pill-ghost">
-                    {s.secondary.label}
-                  </Link>
-                </div>
-              </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* pagination */}
-        <div className="absolute inset-x-0 bottom-7 z-10 flex items-center justify-center gap-2.5">
-          {heroSlides.map((s, n) => (
-            <button
-              key={s.title}
-              type="button"
-              onClick={() => go(n)}
-              aria-label={`Go to slide ${n + 1}: ${s.title}`}
-              aria-current={n === i}
-              className={`h-2.5 rounded-full transition-all duration-300 ${
-                n === i ? "w-8 bg-white" : "w-2.5 bg-white/50 hover:bg-white/80"
-              }`}
-            />
-          ))}
-        </div>
+      {/* pictures */}
+      <div className="grain absolute inset-0">
+        {heroSlides.map((s, n) => {
+          const p = photo(s.photo);
+          const on = n === i;
+          return (
+            <div
+              key={s.photo}
+              className="absolute inset-0 transition-opacity duration-[1400ms] ease-out"
+              style={{ opacity: on ? 1 : 0 }}
+              aria-hidden={!on}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized JPEGs, no optimizer */}
+              <img
+                src={p.src}
+                alt=""
+                width={p.width}
+                height={p.height}
+                loading={n === 0 ? "eager" : "lazy"}
+                fetchPriority={n === 0 ? "high" : "auto"}
+                decoding="async"
+                className={`h-full w-full object-cover ${on ? "kenburns" : ""}`}
+                style={{ objectPosition: s.position ?? "center" }}
+              />
+              <div className="absolute inset-0 veil-hero" />
+            </div>
+          );
+        })}
       </div>
 
-      {/* meeting strip below the hero */}
-      <div className="bg-navy py-4 text-white">
-        <div className="shell flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-center font-slab text-[13px] font-bold uppercase tracking-[1.4px]">
-          <span>
-            {troop.meeting.cadence} · {troop.meeting.time}
-          </span>
-          <span className="hidden h-4 w-px bg-white/30 sm:block" aria-hidden />
-          <span>{troop.meeting.venue}</span>
-          <span className="hidden h-4 w-px bg-white/30 sm:block" aria-hidden />
-          <Link href="/contact" className="text-white underline-offset-4 hover:underline">
-            Visitors always welcome →
-          </Link>
+      {/* copy, anchored to the bottom left */}
+      <div className="relative z-10 flex min-h-[clamp(600px,88vh,860px)] flex-col justify-end">
+        <div className="shell pb-16 pt-32 md:pb-24">
+          <div key={i} className="max-w-4xl">
+            <p className="rise rise-1 rule-gold mb-4 font-slab text-[12px] font-bold uppercase tracking-[2.6px] text-white/85">
+              {slide.eyebrow}
+            </p>
+            <h1 className="rise rise-2 font-slab text-[clamp(40px,8vw,96px)] font-bold uppercase leading-[0.94] tracking-[-1px] !text-white drop-shadow-[0_3px_24px_rgba(0,0,0,0.45)]">
+              {slide.title}
+            </h1>
+            <p className="rise rise-3 mt-6 mb-0 max-w-xl text-[17px] leading-7 text-white/90">{slide.body}</p>
+            <div className="rise rise-4 mt-9 flex flex-wrap items-center gap-3">
+              <Link href={slide.cta.href} className="pill pill-white">
+                {slide.cta.label}
+              </Link>
+              <Link href={slide.secondary.href} className="pill pill-ghost">
+                {slide.secondary.label}
+              </Link>
+            </div>
+          </div>
+
+          {/* slide controls */}
+          <div className="mt-12 flex items-center justify-between gap-6">
+            <div className="flex items-center gap-2.5">
+              {heroSlides.map((s, n) => (
+                <button
+                  key={s.photo}
+                  type="button"
+                  onClick={() => go(n)}
+                  aria-label={`Go to slide ${n + 1}: ${s.title}`}
+                  aria-current={n === i}
+                  className={`h-1.5 rounded-full transition-all duration-500 ${
+                    n === i ? "w-12 bg-gold" : "w-5 bg-white/45 hover:bg-white/80"
+                  }`}
+                />
+              ))}
+            </div>
+            <p className="m-0 font-slab text-[12px] font-bold tracking-[2px] text-white/70">
+              {String(i + 1).padStart(2, "0")} / {String(heroSlides.length).padStart(2, "0")}
+            </p>
+          </div>
         </div>
+
+        {/* what is next, on a loop */}
+        {events.length > 0 ? <Ticker events={events} /> : null}
       </div>
     </section>
+  );
+}
+
+function Ticker({ events }: { events: TroopEvent[] }) {
+  const items = events.slice(0, 8);
+  const row = (
+    <>
+      {items.map((e) => (
+        <Link
+          key={e.date + e.title}
+          href="/calendar"
+          className="flex shrink-0 items-center gap-3 px-7 font-slab text-[13px] font-bold uppercase tracking-[1.4px] text-white/85 transition hover:text-gold"
+        >
+          <span className="text-gold">{formatRange(e)}</span>
+          <span>{e.title}</span>
+          <span aria-hidden className="ml-4 text-white/30">✦</span>
+        </Link>
+      ))}
+    </>
+  );
+  return (
+    <div className="marquee-wrap relative z-10 border-t border-white/15 bg-navy/85 py-3.5 backdrop-blur-sm">
+      <div className="shell flex items-center">
+        <span className="mr-2 shrink-0 rounded-full bg-gold px-3 py-1 font-slab text-[11px] font-bold uppercase tracking-[1.6px] text-navy">
+          Next up
+        </span>
+        <div className="overflow-hidden">
+          <div className="marquee flex w-max">
+            {row}
+            <span aria-hidden className="contents">
+              {row}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

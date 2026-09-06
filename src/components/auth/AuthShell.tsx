@@ -1,30 +1,31 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { Scene, type SceneName } from "@/components/brand/Scenes";
+import { Backdrop } from "@/components/photo/Backdrop";
 import { FleurDeLis } from "@/components/brand/Marks";
 import { troop } from "@/data/troop";
+import type { PhotoKey } from "@/data/photos";
 
-/** The framed card both auth pages sit in. */
+/** The framed card both auth pages sit in, over a real photograph. */
 export function AuthShell({
   title,
   lede,
-  scene = "night",
+  photo = "campfire-close",
   children,
   footer,
 }: {
   title: string;
   lede: string;
-  scene?: SceneName;
+  photo?: PhotoKey;
   children: ReactNode;
   footer: ReactNode;
 }) {
   return (
     <section className="relative isolate flex min-h-[calc(100vh-190px)] items-center overflow-hidden py-14">
-      <Scene name={scene} className="absolute inset-0 -z-10 h-full w-full" />
+      <Backdrop photo={photo} veil="band" priority />
 
       <div className="shell w-full">
         <div className="mx-auto w-full max-w-[480px]">
-          <div className="mb-7 text-center">
+          <div className="rise rise-1 mb-7 text-center">
             <Link href="/" aria-label={`${troop.name} home`} className="inline-block">
               <FleurDeLis className="mx-auto h-12 w-auto text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]" />
             </Link>
@@ -36,9 +37,9 @@ export function AuthShell({
             </p>
           </div>
 
-          <div className="rounded-xl bg-white p-7 shadow-2xl sm:p-9">{children}</div>
+          <div className="rise rise-2 rounded-xl bg-white p-7 shadow-2xl sm:p-9">{children}</div>
 
-          <div className="mt-6 text-center text-[14px] text-white/85">{footer}</div>
+          <div className="rise rise-3 mt-6 text-center text-[14px] text-white/85">{footer}</div>
         </div>
       </div>
     </section>

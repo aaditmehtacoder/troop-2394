@@ -3,19 +3,28 @@ import { PageHero } from "@/components/site/PageHero";
 import { Section, SectionHead } from "@/components/site/Section";
 import { Reveal } from "@/components/site/Reveal";
 import { CTABand } from "@/components/site/CTABand";
-import { Scene, SceneTile } from "@/components/brand/Scenes";
+import { SceneTile } from "@/components/brand/Scenes";
 import { IconCheck, IconPin } from "@/components/brand/Marks";
-import { gearList, highAdventureBases, localTrips, summerCamp } from "@/data/troop";
+import {
+  gearList,
+  localTrips,
+  outingHistory,
+  summerCamp,
+  traditions,
+} from "@/data/troop";
+import { PhotoTile } from "@/components/photo/PhotoTile";
+import { coverFor } from "@/lib/covers";
+import { pageHeroPhoto } from "@/data/photos";
 
 export const metadata: Metadata = {
   title: "Outdoors",
   description:
-    "Troop 2/394's outdoor program — a campout every month, a week at Camp Hi-Sierra each July, high adventure, gear lists, and Leave No Trace.",
+    "Troop 2/394's outdoor program, a campout every month, a week at Camp Hi-Sierra each July, high adventure, gear lists, and Leave No Trace.",
 };
 
 const lnt = [
   { n: "Plan ahead and prepare", d: "Check the weather, know the regulations, and pack for what you will actually meet." },
-  { n: "Travel and camp on durable surfaces", d: "Stay on the trail. Camp on rock, gravel, or established sites — never on fragile meadow." },
+  { n: "Travel and camp on durable surfaces", d: "Stay on the trail. Camp on rock, gravel, or established sites, never on fragile meadow." },
   { n: "Dispose of waste properly", d: "Pack it in, pack it out. Everything. Cathole 200 feet from water." },
   { n: "Leave what you find", d: "Take photographs. Leave rocks, plants, and artifacts where they are." },
   { n: "Minimize campfire impacts", d: "Use a stove. If you build a fire, use an existing ring and burn it to white ash." },
@@ -30,7 +39,7 @@ export default function OutdoorsPage() {
         eyebrow="50+ nights a year under the stars"
         title="The Outdoors"
         lede="Scouting happens outdoors. Troop 2/394 runs a campout every month of the year, a week of summer camp each July, and a high adventure trek each summer for older Scouts."
-        scene="lake"
+        photo={pageHeroPhoto.outdoors}
         crumb="Outdoors"
       />
 
@@ -42,14 +51,13 @@ export default function OutdoorsPage() {
             <Reveal delay={70}>
               <div className="prose-troop mt-6">
                 <p>
-                  Once a month, every month — rain, heat, or snow. Scouts leave{" "}
+                  Once a month, every month, rain, heat, or snow. Scouts leave{" "}
                   <span className="text-navy">Friday evening</span> and return{" "}
                   <span className="text-navy">Sunday afternoon</span>. Patrols plan the menu, shop
                   for it, cook it, and clean up after it.
                 </p>
                 <p>
-                  Adults camp in a separate area and are there for safety, transport, and coaching
-                  — not to run the kitchen. A first-year Scout who has never lit a stove will have
+                  Adults camp in a separate area and are there for safety, transport, and coaching, not to run the kitchen. A first-year Scout who has never lit a stove will have
                   cooked dinner for eight people by their third campout.
                 </p>
                 <p className="mb-0">
@@ -61,7 +69,7 @@ export default function OutdoorsPage() {
           </div>
           <Reveal delay={110}>
             <div className="overflow-hidden rounded-xl shadow-xl">
-              <Scene name="camping" className="h-[400px] w-full" vivid />
+              <PhotoTile photo="campfire-close" className="h-[400px]" />
             </div>
           </Reveal>
         </div>
@@ -78,10 +86,24 @@ export default function OutdoorsPage() {
             <Reveal key={t.name} delay={i * 80}>
               <div className="group flex h-full flex-col overflow-hidden rounded-lg bg-white shadow-sm ring-1 ring-hair transition duration-300 hover:-translate-y-1 hover:shadow-xl">
                 <div className="h-36 overflow-hidden">
-                  <SceneTile
-                    name={(["forest", "trail", "lake", "ridge", "night", "camping"] as const)[i % 6]}
-                    className="h-full w-full transition-transform duration-700 group-hover:scale-110"
-                  />
+                  {(() => {
+                    const cover = coverFor({ location: t.location, title: t.name });
+                    return cover ? (
+                      // eslint-disable-next-line @next/next/no-img-element -- pre-sized JPEGs, no optimizer
+                      <img
+                        src={cover.small}
+                        alt={cover.alt}
+                        loading="lazy"
+                        decoding="async"
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                    ) : (
+                      <SceneTile
+                        name={(["forest", "trail", "lake", "ridge", "night", "camping"] as const)[i % 6]}
+                        className="h-full w-full transition-transform duration-700 group-hover:scale-110"
+                      />
+                    );
+                  })()}
                 </div>
                 <div className="flex flex-1 flex-col p-6">
                   <h3 className="font-slab text-[18px] font-bold leading-snug text-navy">
@@ -104,7 +126,7 @@ export default function OutdoorsPage() {
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <Reveal>
             <div className="overflow-hidden rounded-xl shadow-xl">
-              <Scene name="lake" className="h-[400px] w-full" vivid />
+              <PhotoTile photo="grant-lake" className="h-[400px]" />
             </div>
           </Reveal>
           <div>
@@ -118,20 +140,17 @@ export default function OutdoorsPage() {
                 <p>
                   It is the closest Scouting America camp to Yosemite, set in a historic logging
                   camp and run as a fully themed frontier town. Scouts sleep in patrol sites and
-                  work merit badges on something close to a school schedule — cooking, camping,
-                  wilderness survival, nature, weather — with shooting sports, sailing, welding,
+                  work merit badges on something close to a school schedule, cooking, camping,
+                  wilderness survival, nature, weather, with shooting sports, sailing, welding,
                   and the observatory in between.
                 </p>
                 <p>
-                  There is a campfire every night, and the week ends with the camp-wide games.{" "}
-                  <strong className="text-navy">
-                    Troop 394 has taken first place two years running.
-                  </strong>
+                  There is a campfire every night, and the week ends with the campwide games.{" "}
+                  <strong className="text-navy">In 2026 the troop took second place.</strong>
                 </p>
                 <p className="mb-0">
-                  Summer camp does more for a first-year Scout than the other eleven months
-                  combined. Talk to the Scoutmaster about cost — the troop&rsquo;s standing policy
-                  is that money never keeps a Scout home.
+                  In 2026 the troop was at camp from July 19 to 25, in its usual campsite,
+                  Arapahoe. Scouts ride up and back with the leaders who stay at camp.
                 </p>
               </div>
             </Reveal>
@@ -146,9 +165,9 @@ export default function OutdoorsPage() {
             <SectionHead align="left" eyebrow="Planning ahead" title="Camp Hi-Sierra 2027" />
             <Reveal delay={70}>
               <p className="mt-5 mb-0 text-[15px] leading-7 text-slate">
-                The camp publishes its sessions a year ahead. Troop 2/394 expects to be at{" "}
-                <strong className="text-navy">{summerCamp.troopWeek}</strong> — check with the
-                Scoutmaster before booking a family holiday around it.
+                The troop picks its week each winter and the Scoutmaster emails the dates,
+                payment schedule, and health-form deadlines to every family. Sign-ups and the
+                first payment usually happen in December and January.
               </p>
               <ul className="mt-6 grid gap-2 sm:grid-cols-2">
                 {summerCamp.weeks2027.map((w) => (
@@ -197,7 +216,7 @@ export default function OutdoorsPage() {
                 ))}
               </ul>
               <p className="mt-5 mb-0 text-[13px] leading-6 text-mute">
-                {summerCamp.fees2027.adultNote} No Scout is kept home over cost — ask the
+                {summerCamp.fees2027.adultNote} No Scout is kept home over cost. Ask the
                 Scoutmaster.
               </p>
             </div>
@@ -205,48 +224,6 @@ export default function OutdoorsPage() {
         </div>
       </Section>
 
-      {/* HIGH ADVENTURE */}
-      <Section id="high-adventure" className="bg-navy">
-        <SectionHead
-          tone="white"
-          title="High adventure"
-          lede="At fourteen, a Scout becomes eligible for the four national high adventure bases. Troop 2/394 sends a crew to one of them — or a Sierra trek of our own — every summer."
-        />
-        <div className="mt-11 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {highAdventureBases.map((b, i) => (
-            <Reveal key={b.name} delay={i * 90}>
-              <a
-                href={b.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex h-full flex-col overflow-hidden rounded-lg bg-white/[0.07] ring-1 ring-white/15 transition hover:bg-white/[0.13]"
-              >
-                <div className="h-32 overflow-hidden">
-                  <SceneTile
-                    name={(["ridge", "lake", "forest", "eagle"] as const)[i % 4]}
-                    className="h-full w-full transition-transform duration-700 group-hover:scale-110"
-                  />
-                </div>
-                <div className="flex flex-1 flex-col p-5">
-                  <h3 className="font-slab text-[15.5px] font-bold uppercase leading-snug tracking-[0.6px] !text-white">
-                    {b.name}
-                  </h3>
-                  <p className="mt-1 mb-0 text-[11.5px] uppercase tracking-[1px] text-white/60">
-                    {b.location}
-                  </p>
-                  <p className="mt-3 mb-0 flex-1 text-[13px] leading-6 text-white/80">{b.blurb}</p>
-                </div>
-              </a>
-            </Reveal>
-          ))}
-        </div>
-        <Reveal delay={150}>
-          <p className="mx-auto mt-10 mb-0 max-w-2xl text-center text-[15px] leading-7 text-white/80">
-            High adventure crews are formed roughly eighteen months ahead — Philmont in particular
-            runs a lottery. If your Scout is thirteen, now is the time to raise your hand.
-          </p>
-        </Reveal>
-      </Section>
 
       {/* GEAR */}
       <Section id="gear" className="bg-shell">
@@ -279,7 +256,7 @@ export default function OutdoorsPage() {
       <Section id="leave-no-trace">
         <SectionHead
           title="Leave No Trace"
-          lede="Every Scout in Troop 2/394 learns the seven principles and is expected to live them on every outing — not just recite them for a rank requirement."
+          lede="Every Scout in Troop 2/394 learns the seven principles and is expected to live them on every outing, not just recite them for a rank requirement."
         />
         <ol className="mt-11 grid gap-5 md:grid-cols-2">
           {lnt.map((p, i) => (
@@ -298,12 +275,64 @@ export default function OutdoorsPage() {
         </ol>
       </Section>
 
+      <Section id="traditions" className="bg-shell/60">
+        <SectionHead
+          eyebrow="Things we do every year"
+          title="Troop traditions"
+          lede="Not a wish list. These come off fifteen years of the troop's own photo albums."
+        />
+
+        <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {traditions.map((t, i) => (
+            <Reveal key={t.name} delay={i * 40}>
+              <div className="h-full rounded-xl border border-hair bg-white p-6">
+                <p className="m-0 font-slab text-[11px] font-bold uppercase tracking-[1.3px] text-blue">
+                  {t.cadence}
+                </p>
+                <h3 className="mt-1.5 mb-2 font-slab text-[19px] font-bold text-navy">{t.name}</h3>
+                <p className="m-0 text-[15px] leading-7 text-mute">{t.blurb}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      <Section>
+        <SectionHead
+          eyebrow="2015 to 2026"
+          title="Where we have actually been"
+          lede="Every outing below is taken from the troop's own albums. This is the honest answer to what a year looks like."
+        />
+
+        <div className="mt-10 space-y-5">
+          {outingHistory.map((y, i) => (
+            <Reveal key={y.year} delay={Math.min(i * 30, 180)}>
+              <div className="grid gap-3 border-b border-hair pb-5 sm:grid-cols-[88px_1fr] sm:gap-6">
+                <p className="m-0 font-slab text-[22px] font-bold leading-none text-navy">
+                  {y.year}
+                </p>
+                <ul className="m-0 flex list-none flex-wrap gap-x-2 gap-y-2 p-0">
+                  {y.outings.map((o) => (
+                    <li
+                      key={o}
+                      className="rounded-full bg-shell px-3 py-1 text-[13.5px] text-slate"
+                    >
+                      {o}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
       <CTABand
         title="The next campout is always close"
         body="Prospective families are welcome to come along on a campout as guests before they ever fill out an application. It is the honest way to find out if this fits."
         primary={{ label: "See the calendar", href: "/calendar" }}
         secondary={{ label: "Join the troop", href: "/join" }}
-        scene="night"
+        photo="pinnacles-view"
       />
     </>
   );

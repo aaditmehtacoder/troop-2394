@@ -7,7 +7,7 @@ import { troop } from "@/data/troop";
 type Status = "idle" | "sent";
 
 /**
- * No backend on a unit website — the form composes a mailto: so it works the
+ * No backend on a unit website, the form composes a mailto: so it works the
  * day the site goes live. Swap the handler for a form service later if you want
  * submissions in a dashboard.
  */
@@ -26,7 +26,7 @@ export function ContactForm() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = `[Troop 2/394 website] ${form.topic} — ${form.name}`;
+    const subject = `[Troop 2/394 website] ${form.topic}, ${form.name}`;
     const body = [
       `Name: ${form.name}`,
       `Email: ${form.email}`,
@@ -141,7 +141,7 @@ export function ContactForm() {
       )}
 
       <p className="mt-5 mb-0 text-[12.5px] leading-5 text-mute">
-        This form opens your own email app — nothing is stored on this website. You can also
+        This form opens your own email app, nothing is stored on this website. You can also
         write to{" "}
         <a
           href={`mailto:${troop.contact.email}`}

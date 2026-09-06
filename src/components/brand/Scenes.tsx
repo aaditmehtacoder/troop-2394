@@ -1,6 +1,6 @@
 /**
  * Original layered-SVG landscape art. These stand in for the full-bleed photos
- * on scouting.org — same visual job (a deep outdoor backdrop that white type
+ * on scouting.org, same visual job (a deep outdoor backdrop that white type
  * sits on top of), but drawn in-house so nothing is hotlinked and every page
  * ships without a single image request.
  */
@@ -28,7 +28,7 @@ const skies: Record<SceneName, [string, string, string]> = {
 };
 
 /**
- * Integer hash — bitwise ops and Math.imul are exact 32-bit integer operations,
+ * Integer hash, bitwise ops and Math.imul are exact 32-bit integer operations,
  * so this produces bit-identical output on the server and in the browser.
  * (A Math.sin-based PRNG does not: engines differ in the last mantissa bits,
  * which shows up as a React hydration mismatch.)
@@ -214,7 +214,7 @@ export function Scene({
   );
 }
 
-/** Compact scene used inside cards — brighter, since nothing sits on top of it. */
+/** Compact scene used inside cards, brighter, since nothing sits on top of it. */
 export function SceneTile({ name, className }: { name: SceneName; className?: string }) {
   return <Scene name={name} className={className} vivid />;
 }

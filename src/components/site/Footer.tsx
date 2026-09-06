@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { resourceLinks, troop } from "@/data/troop";
 import { TroopBadge, IconMail, IconPhone, IconPin } from "@/components/brand/Marks";
+import { photoCredits } from "@/data/photos";
 
 const columns = [
   {
@@ -46,7 +47,7 @@ export function Footer() {
           <div>
             <h2 className="h-sub !text-white">Ready to see what a Tuesday night looks like?</h2>
             <p className="mt-2 mb-0 max-w-xl text-[15px] leading-6 text-white/80">
-              Visit any troop meeting — no forms, no uniform, no commitment. Just come and watch
+              Visit any troop meeting, no forms, no uniform, no commitment. Just come and watch
               the Scouts run it themselves.
             </p>
           </div>
@@ -75,8 +76,8 @@ export function Footer() {
           </div>
 
           <p className="mt-5 mb-0 max-w-sm text-[14px] leading-6 text-white/75">
-            Linked Scouts BSA troops in {troop.city} — Troop 394 and Troop 2394 — chartered by
-            the {troop.charterOrg.name}, in the {troop.district.name} of the{" "}
+            Linked Scouts BSA troops in {troop.city}, Troop 394 and Troop 2394, meeting at
+            the {troop.meeting.venue}, in the {troop.district.name} of the{" "}
             {troop.council.name}.
           </p>
 
@@ -108,7 +109,7 @@ export function Footer() {
         </div>
 
         {columns.map((col) => (
-          <nav key={col.heading} aria-label={`Footer — ${col.heading}`}>
+          <nav key={col.heading} aria-label={`Footer, ${col.heading}`}>
             <h3 className="font-slab text-[13px] font-bold uppercase tracking-[1.4px] !text-white/95">
               {col.heading}
             </h3>
@@ -148,6 +149,29 @@ export function Footer() {
               </li>
             ))}
           </ul>
+        </div>
+      </div>
+
+      {/* Photo credits */}
+      <div className="border-t border-white/15 py-5">
+        <div className="shell">
+          <details className="group text-[12.5px] text-white/60">
+            <summary className="cursor-pointer list-none font-slab text-[11px] font-bold uppercase tracking-[1.6px] text-white/60 transition hover:text-white">
+              Photo credits
+            </summary>
+            <p className="mt-3 mb-0 max-w-4xl leading-6">
+              Photographs of the places we go, via Wikimedia Commons:{" "}
+              {photoCredits.map((c, i) => (
+                <span key={c.page}>
+                  <a href={c.page} target="_blank" rel="noopener noreferrer" className="underline-offset-4 hover:text-white hover:underline">
+                    {c.author}
+                  </a>{" "}
+                  ({c.license})
+                  {i < photoCredits.length - 1 ? " · " : "."}
+                </span>
+              ))}
+            </p>
+          </details>
         </div>
       </div>
 

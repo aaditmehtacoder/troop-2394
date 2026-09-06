@@ -4,7 +4,8 @@ import { Section, SectionHead } from "@/components/site/Section";
 import { Reveal } from "@/components/site/Reveal";
 import { CTABand } from "@/components/site/CTABand";
 import { IconArrow, IconCheck } from "@/components/brand/Marks";
-import { dues, resourceLinks, troop } from "@/data/troop";
+import { dues, gearShops, packingList, resourceLinks, troop } from "@/data/troop";
+import { pageHeroPhoto } from "@/data/photos";
 
 export const metadata: Metadata = {
   title: "Resources",
@@ -13,10 +14,10 @@ export const metadata: Metadata = {
 };
 
 const newFamilyChecklist = [
-  "Attend a troop meeting — no forms needed",
+  "Attend a troop meeting, no forms needed",
   "Complete the BSA youth application (we hand you one at your first meeting)",
   "Fill out Annual Health & Medical Record Parts A and B",
-  "Buy a Scouts BSA Handbook — the only day-one purchase",
+  "Buy a Scouts BSA Handbook, the only day-one purchase",
   "Create a Scoutbook login for the parent and the Scout",
   "Get a field uniform shirt, neckerchief, and slide before the first Court of Honor",
   "Borrow a pack and sleeping bag from the troop for the first two campouts",
@@ -39,7 +40,7 @@ const fundraisers = [
   {
     t: "Spring service fundraiser",
     when: "April",
-    d: "The troop takes on a paid work project — yard clean-ups or an event crew — and splits proceeds into Scout accounts.",
+    d: "The troop takes on a paid work project, yard clean-ups or an event crew, and splits proceeds into Scout accounts.",
   },
 ];
 
@@ -49,8 +50,8 @@ export default function ResourcesPage() {
       <PageHero
         eyebrow="For Troop 2/394 families"
         title="Resources"
-        lede="Everything you need in one place — forms, official links, dues, fundraising, and a checklist for brand new families."
-        scene="ridge"
+        lede="Everything you need in one place, forms, official links, dues, fundraising, and a checklist for brand new families."
+        photo={pageHeroPhoto.resources}
         crumb="Resources"
       />
 
@@ -58,7 +59,7 @@ export default function ResourcesPage() {
       <Section>
         <SectionHead
           title="Forms &amp; official links"
-          lede="These all point to Scouting America and our council. They are the authoritative versions — always download the form fresh rather than reusing last year's PDF."
+          lede="These all point to Scouting America and our council. They are the authoritative versions, always download the form fresh rather than reusing last year's PDF."
         />
         <div className="mt-11 grid gap-5 md:grid-cols-2">
           {resourceLinks.map((l, i) => (
@@ -90,7 +91,7 @@ export default function ResourcesPage() {
             <Reveal delay={70}>
               <div className="prose-troop mt-6">
                 <p>
-                  The first month is the confusing one. Here is the whole list, in order — nothing
+                  The first month is the confusing one. Here is the whole list, in order, nothing
                   on it is expensive and most of it is free.
                 </p>
                 <p className="mb-0">
@@ -123,26 +124,18 @@ export default function ResourcesPage() {
       <Section id="dues">
         <SectionHead
           title="Dues &amp; fundraising"
-          lede="Scouting is one of the least expensive youth activities there is — and no Scout in Troop 2/394 has ever been turned away over money."
+          lede="Scouting is one of the least expensive youth activities there is, and no Scout in Troop 2/394 has ever been turned away over money."
         />
 
         <div className="mt-11 grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
           <Reveal>
             <div className="rounded-xl border border-hair bg-white p-8 shadow-sm">
               <h3 className="font-slab text-[13px] font-bold uppercase tracking-[1.6px] text-blue">
-                Annual dues
+                Registration
               </h3>
               <p className="mt-4 mb-0 font-slab text-[44px] font-bold leading-none text-navy">
                 ${dues.joinCost}
               </p>
-              <ul className="mt-6 divide-y divide-hair border-y border-hair">
-                {dues.breakdown.map((b) => (
-                  <li key={b.item} className="flex items-center justify-between gap-4 py-3">
-                    <span className="text-[14px] text-slate">{b.item}</span>
-                    <span className="font-slab text-[14px] font-bold text-navy">${b.amount}</span>
-                  </li>
-                ))}
-              </ul>
               <p className="mt-5 mb-0 text-[13.5px] leading-6 text-mute">{dues.note}</p>
             </div>
           </Reveal>
@@ -214,13 +207,80 @@ export default function ResourcesPage() {
         </div>
       </Section>
 
+      <Section id="packing" className="bg-shell/60">
+        <SectionHead
+          eyebrow="Straight from the troop's own list"
+          title="What to pack"
+          lede="The troop has used this list for years. Borrow before you buy anything."
+        />
+
+        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <PackList title="In your pocket" items={packingList.pocket} />
+          <PackList title="Camping kit" items={packingList.camping} />
+          <PackList title="Clothing" items={packingList.clothing} />
+          <PackList title="Leave at home" items={packingList.leaveAtHome} tone="red" />
+        </div>
+
+        <p className="mt-7 mb-0 text-[15px] leading-7 text-mute">{packingList.tentNote}</p>
+      </Section>
+
+      <Section id="gear">
+        <SectionHead
+          eyebrow="Local shops"
+          title="Where families buy gear"
+          lede="Several of these give Scouts a discount. Ask at the till and show the uniform."
+        />
+
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {gearShops.map((g, i) => (
+            <Reveal key={g.name} delay={i * 50}>
+              <div className="h-full rounded-xl border border-hair bg-white p-6">
+                <h3 className="mb-1.5 font-slab text-[17px] font-bold text-navy">{g.name}</h3>
+                <p className="m-0 text-[14px] font-medium text-forest">{g.note}</p>
+                <p className="m-0 mt-1 text-[14px] text-mute">{g.where}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
       <CTABand
         title="Still can't find it?"
         body="The committee would rather answer a question twice than have a family miss a deadline. Email us and we will point you at the right form."
         primary={{ label: "Contact the troop", href: "/contact" }}
         secondary={{ label: "Safety information", href: "/safety" }}
-        scene="trail"
+        photo="uvas-2"
       />
     </>
+  );
+}
+
+function PackList({
+  title,
+  items,
+  tone = "navy",
+}: {
+  title: string;
+  items: readonly string[];
+  tone?: "navy" | "red";
+}) {
+  return (
+    <div className="rounded-xl border border-hair bg-white p-6">
+      <h3
+        className={`mb-3 font-slab text-[16px] font-bold ${tone === "red" ? "text-red" : "text-navy"}`}
+      >
+        {title}
+      </h3>
+      <ul className="m-0 list-none space-y-2 p-0">
+        {items.map((it) => (
+          <li key={it} className="flex gap-2.5 text-[14.5px] leading-6 text-slate">
+            <span aria-hidden className={tone === "red" ? "text-red" : "text-blue"}>
+              {tone === "red" ? "\u00d7" : "\u2022"}
+            </span>
+            {it}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

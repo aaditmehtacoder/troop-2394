@@ -6,10 +6,11 @@ import { ContactForm } from "@/components/sections/ContactForm";
 import { CTABand } from "@/components/site/CTABand";
 import { IconClock, IconMail, IconPhone, IconPin } from "@/components/brand/Marks";
 import { troop } from "@/data/troop";
+import { pageHeroPhoto } from "@/data/photos";
 
 export const metadata: Metadata = {
   title: "Contact Us",
-  description: `Get in touch with Scouts BSA Troop 2/394 in ${troop.city}, California — meeting times, directions, and who to email.`,
+  description: `Get in touch with Scouts BSA Troop 2/394 in ${troop.city}, California, meeting times, directions, and who to email.`,
 };
 
 export default function ContactPage() {
@@ -22,8 +23,8 @@ export default function ContactPage() {
       <PageHero
         eyebrow="We answer every message"
         title="Contact Us"
-        lede={`Questions about joining, volunteering, or visiting a meeting? Write to us — a real person in ${troop.city} reads it.`}
-        scene="lake"
+        lede={`Questions about joining, volunteering, or visiting a meeting? Write to us, a real person in ${troop.city} reads it.`}
+        photo={pageHeroPhoto.contact}
         crumb="Contact"
       />
 
@@ -88,8 +89,7 @@ export default function ContactPage() {
                   Meeting times
                 </h3>
                 <p className="mt-2 mb-0 text-[14.5px] leading-6 text-slate">
-                  {troop.meeting.cadence}, {troop.meeting.time}. Visitors are welcome any week —
-                  no notice needed, though a heads-up helps us find you a seat.
+                  {troop.meeting.cadence}, {troop.meeting.time}. Visitors are welcome any week, no notice needed, though a heads-up helps us find you a seat.
                 </p>
               </div>
             </Reveal>
@@ -124,7 +124,7 @@ export default function ContactPage() {
             {[
               {
                 t: "Parking",
-                d: "Free lot on site. Arrive a few minutes early on Court of Honor nights — it fills.",
+                d: "Free lot on site. Arrive a few minutes early on Court of Honor nights. It fills.",
               },
               {
                 t: "First visit",
@@ -152,7 +152,7 @@ export default function ContactPage() {
         body={`${troop.meeting.cadence}, ${troop.meeting.time}. That is genuinely the fastest way to find out whether Troop 2/394 fits your family.`}
         primary={{ label: "How to join", href: "/join" }}
         secondary={{ label: "See the calendar", href: "/calendar" }}
-        scene="forest"
+        photo="grant-lake"
       />
     </>
   );

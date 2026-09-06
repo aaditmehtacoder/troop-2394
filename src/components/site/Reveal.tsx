@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 /**
- * Fade-up on viewport entry — the entrance animation used across scouting.org
+ * Fade-up on viewport entry, the entrance animation used across scouting.org
  * sections. IntersectionObserver, fires once, and is a no-op under
  * prefers-reduced-motion (handled in globals.css).
  */

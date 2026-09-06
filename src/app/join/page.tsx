@@ -4,13 +4,14 @@ import { PageHero } from "@/components/site/PageHero";
 import { Section, SectionHead } from "@/components/site/Section";
 import { Reveal } from "@/components/site/Reveal";
 import { CTABand } from "@/components/site/CTABand";
-import { Scene } from "@/components/brand/Scenes";
 import { IconClock, IconMail, IconPhone, IconPin } from "@/components/brand/Marks";
 import { dues, faqs, feederPack, joinSteps, troop } from "@/data/troop";
+import { PhotoTile } from "@/components/photo/PhotoTile";
+import { pageHeroPhoto } from "@/data/photos";
 
 export const metadata: Metadata = {
   title: "Join Troop 2/394",
-  description: `How to join Scouts BSA Troop 2/394 in ${troop.city}, California — visit a meeting, come on a campout, and get registered. Costs, requirements, and answers to the questions every new family asks.`,
+  description: `How to join Scouts BSA Troop 2/394 in ${troop.city}, California, visit a meeting, come on a campout, and get registered. Costs, requirements, and answers to the questions every new family asks.`,
 };
 
 export default function JoinPage() {
@@ -19,8 +20,8 @@ export default function JoinPage() {
       <PageHero
         eyebrow={`${troop.city}, California`}
         title="Join Troop 2/394"
-        lede={`Any ${troop.meeting.day}, ${troop.meeting.time}. No forms, no uniform, no commitment — walk in and watch a meeting.`}
-        scene="forest"
+        lede={`Any ${troop.meeting.day}, ${troop.meeting.time}. No forms, no uniform, no commitment, walk in and watch a meeting.`}
+        photo={pageHeroPhoto.join}
         crumb="Join"
       />
 
@@ -28,7 +29,7 @@ export default function JoinPage() {
       <Section>
         <SectionHead
           title="How to join"
-          lede="Five steps, and the first two cost nothing. Most families take about a month to work through them."
+          lede="Five steps, and the first two cost nothing."
         />
 
         <ol className="mt-12 space-y-5">
@@ -115,7 +116,7 @@ export default function JoinPage() {
 
           <Reveal delay={110}>
             <div className="overflow-hidden rounded-xl shadow-xl">
-              <Scene name="leadership" className="h-[400px] w-full" vivid />
+              <PhotoTile photo="pinnacles-hiker" className="h-[400px]" position="center 30%" />
             </div>
           </Reveal>
         </div>
@@ -133,8 +134,7 @@ export default function JoinPage() {
                   <strong className="text-navy">
                     completed the fifth grade, or are 11 years old, or have earned the Arrow of
                     Light
-                  </strong>{" "}
-                  — through age 17.
+                  </strong>{" "}, through age 17.
                 </p>
                 <p>
                   Younger children join a Cub Scout pack instead. If your child is in kindergarten
@@ -162,15 +162,6 @@ export default function JoinPage() {
                 </span>
               </p>
 
-              <ul className="mt-6 divide-y divide-hair border-y border-hair">
-                {dues.breakdown.map((b) => (
-                  <li key={b.item} className="flex items-center justify-between gap-4 py-3">
-                    <span className="text-[14px] text-slate">{b.item}</span>
-                    <span className="font-slab text-[14px] font-bold text-navy">${b.amount}</span>
-                  </li>
-                ))}
-              </ul>
-
               <p className="mt-5 mb-0 text-[13.5px] leading-6 text-mute">{dues.note}</p>
             </div>
           </Reveal>
@@ -190,7 +181,7 @@ export default function JoinPage() {
               </h2>
               <p className="mt-3 mb-0 flex-1 text-[15px] leading-7 text-slate">
                 {troop.linkedTroop.note} Scouts BSA troops are single-gender, so the two run as
-                one linked program — same night, same place, same campouts — which is why we
+                one linked program, same night, same place, same campouts, which is why we
                 brand ourselves Troop {troop.displayNumber}.
               </p>
             </div>
@@ -202,18 +193,7 @@ export default function JoinPage() {
                 Younger than fifth grade?
               </p>
               <h2 className="font-slab text-[22px] font-bold text-navy">{feederPack.name}</h2>
-              <p className="mt-3 mb-0 flex-1 text-[15px] leading-7 text-slate">
-                {feederPack.note} The pack is chartered by {feederPack.charterOrg}, serves{" "}
-                {feederPack.serves}, and meets at {feederPack.meets}.
-              </p>
-              <a
-                href={feederPack.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="pill pill-outline mt-6 self-start"
-              >
-                Visit Pack 54
-              </a>
+              <p className="mt-3 mb-0 flex-1 text-[15px] leading-7 text-slate">{feederPack.note}</p>
             </div>
           </Reveal>
         </div>
@@ -223,7 +203,7 @@ export default function JoinPage() {
       <Section className="bg-shell">
         <SectionHead
           title="Questions every new family asks"
-          lede="If yours is not here, email us — we would rather answer it than have you guess."
+          lede="If yours is not here, email us. We would rather answer it than have you guess."
         />
         <div className="mx-auto mt-11 max-w-3xl space-y-3">
           {faqs.map((f, i) => (
@@ -258,7 +238,7 @@ export default function JoinPage() {
         body={`${troop.meeting.cadence}, ${troop.meeting.time}, at ${troop.meeting.venue}. Come as you are.`}
         primary={{ label: "Get directions", href: "/contact#directions" }}
         secondary={{ label: "See the calendar", href: "/calendar" }}
-        scene="camping"
+        photo="campfire"
       />
     </>
   );

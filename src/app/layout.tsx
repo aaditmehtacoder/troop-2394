@@ -3,6 +3,7 @@ import { Roboto, Roboto_Slab } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
+import { Chatbot } from "@/components/site/Chatbot";
 import { troop } from "@/data/troop";
 
 /* scouting.org uses exactly two families: Roboto Slab for headings/nav/buttons
@@ -22,7 +23,7 @@ const robotoSlab = Roboto_Slab({
 });
 
 const title = `${troop.longName} | ${troop.city}, ${troop.stateAbbr}`;
-const description = `${troop.longName} is a Scout-led Scouts BSA troop in ${troop.city}, California — part of the ${troop.district.name}, ${troop.council.name}. Weekly meetings, monthly campouts, and a Trail to Eagle for every Scout.`;
+const description = `${troop.longName} is a Scout-led Scouts BSA troop in ${troop.city}, California, part of the ${troop.district.name}, ${troop.council.name}. Weekly meetings, monthly campouts, and a Trail to Eagle for every Scout.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://troop394santaclara.org"),
@@ -91,6 +92,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           {children}
         </main>
         <Footer />
+        <Chatbot />
       </body>
     </html>
   );

@@ -6,6 +6,8 @@ import { CTABand } from "@/components/site/CTABand";
 import { CalendarBrowser } from "@/components/sections/CalendarBrowser";
 import { IconClock, IconPin } from "@/components/brand/Marks";
 import { troop } from "@/data/troop";
+import { pageHeroPhoto } from "@/data/photos";
+import { getEvents } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Calendar",
@@ -13,14 +15,16 @@ export const metadata: Metadata = {
     "Troop 2/394's 2026–2027 program year: weekly meetings, monthly campouts, courts of honor, service projects, summer camp, and high adventure.",
 };
 
-export default function CalendarPage() {
+export default async function CalendarPage() {
+  const events = await getEvents();
+
   return (
     <>
       <PageHero
         eyebrow="2026–2027 program year"
         title="Troop Calendar"
-        lede="Everything the troop has planned. Dates occasionally shift — the Patrol Leaders' Council owns this calendar and reviews it monthly."
-        scene="trail"
+        lede="What the Patrol Leaders' Council has confirmed so far. Months are added as they are planned, and dates occasionally shift."
+        photo={pageHeroPhoto.calendar}
         crumb="Calendar"
       />
 
@@ -61,7 +65,7 @@ export default function CalendarPage() {
         />
 
         <div className="mt-11">
-          <CalendarBrowser />
+          <CalendarBrowser events={events} />
         </div>
       </Section>
 
@@ -70,7 +74,7 @@ export default function CalendarPage() {
         body="Prospective families are welcome at any meeting, and on a campout as guests. Email us the week before so we can plan food and transport."
         primary={{ label: "Contact the troop", href: "/contact" }}
         secondary={{ label: "How to join", href: "/join" }}
-        scene="forest"
+        photo="sunset-beach"
       />
     </>
   );

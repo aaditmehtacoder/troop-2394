@@ -5,17 +5,18 @@ import { Reveal } from "@/components/site/Reveal";
 import { CTABand } from "@/components/site/CTABand";
 import { IconCheck, IconShield, IconPhone, IconMail } from "@/components/brand/Marks";
 import { troop } from "@/data/troop";
+import { pageHeroPhoto } from "@/data/photos";
 
 export const metadata: Metadata = {
   title: "Scouting Safely",
   description:
-    "Troop 2/394's safety commitment — Youth Protection Training, two-deep leadership, health forms, and how to report a concern.",
+    "Troop 2/394's safety commitment. Youth Protection Training, two-deep leadership, health forms, and how to report a concern.",
 };
 
 const commitments = [
   {
     t: "Every adult is trained and screened",
-    d: "Youth Protection Training and a criminal background check are required before any adult is registered — and YPT is renewed every two years, no exceptions.",
+    d: "Youth Protection Training and a criminal background check are required before any adult is registered, and YPT is renewed every two years, no exceptions.",
   },
   {
     t: "Two-deep leadership, always",
@@ -46,7 +47,7 @@ export default function SafetyPage() {
         eyebrow="Non-negotiable"
         title="Scouting Safely"
         lede="In Scouting we will not compromise the safety of our youth, volunteers, and employees. This page is the short version of what that means in Troop 2/394."
-        scene="night"
+        photo={pageHeroPhoto.safety}
         crumb="Safety"
       />
 
@@ -77,8 +78,7 @@ export default function SafetyPage() {
             <Reveal delay={70}>
               <div className="prose-troop mt-6">
                 <p>
-                  Youth Protection Training is required for every registered adult in Troop 2/394 —
-                  Scoutmasters, committee members, merit badge counselors, and anyone driving to a
+                  Youth Protection Training is required for every registered adult in Troop 2/394. Scoutmasters, committee members, merit badge counselors, and anyone driving to a
                   campout or staying overnight.
                 </p>
                 <p>
@@ -101,7 +101,7 @@ export default function SafetyPage() {
             </Reveal>
             <Reveal delay={120}>
               <a
-                href="https://www.scouting.org/training/youth-protection/"
+                href="https://my.scouting.org/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="pill pill-outline mt-7"
@@ -117,11 +117,11 @@ export default function SafetyPage() {
               <ul className="mt-6 space-y-3.5">
                 {[
                   "Two registered adult leaders at every activity, one aged 21 or over",
-                  "One-on-one contact between adults and Scouts is prohibited — in person, online, and by phone",
+                  "One-on-one contact between adults and Scouts is prohibited, in person, online, and by phone",
                   "All adults present at a Scouting activity must be registered and YPT-current",
                   "At least one adult of the same gender as the Scouts is present on overnight activities",
                   "Adults and Scouts use separate sleeping and restroom facilities",
-                  "Any adult may — and must — intervene if a rule is being broken",
+                  "Any adult may, and must, intervene if a rule is being broken",
                 ].map((t) => (
                   <li key={t} className="flex gap-3 text-[15px] leading-6 text-slate">
                     <IconCheck className="mt-0.5 h-5 w-5 shrink-0 text-blue" />
@@ -137,7 +137,7 @@ export default function SafetyPage() {
       <Section id="health-forms">
         <SectionHead
           title="Health forms"
-          lede="The Annual Health and Medical Record is required for every Scout and every adult. No form, no campout — this one is not flexible."
+          lede="The Annual Health and Medical Record is required for every Scout and every adult. No form, no campout. This one is not flexible."
         />
         <div className="mt-11 grid gap-6 md:grid-cols-3">
           {[
@@ -148,7 +148,7 @@ export default function SafetyPage() {
             },
             {
               t: "Part C",
-              d: "A physical exam signed by a licensed health-care provider. Required for any event longer than 72 hours — summer camp, treks, and jamborees.",
+              d: "A physical exam signed by a licensed health-care provider. Required for any event longer than 72 hours, summer camp, treks, and jamborees.",
               who: "Summer camp & high adventure",
             },
             {
@@ -241,7 +241,7 @@ export default function SafetyPage() {
         <Reveal delay={230}>
           <div className="mx-auto mt-10 flex max-w-3xl flex-wrap justify-center gap-3">
             <a
-              href="https://www.scouting.org/health-and-safety/incident-report/"
+              href="https://www.scouting.org/health-and-safety/gss/"
               target="_blank"
               rel="noopener noreferrer"
               className="pill pill-white"
@@ -260,9 +260,9 @@ export default function SafetyPage() {
       <CTABand
         title="Read the Guide to Safe Scouting"
         body="Every activity Troop 2/394 runs is governed by it. It is worth twenty minutes of any Scout parent's time."
-        primary={{ label: "Guide to Safe Scouting", href: "https://www.scouting.org/health-and-safety/gss/" }}
+        primary={{ label: "Health and Safety at Scouting America", href: "https://www.scouting.org/health-and-safety/gss/" }}
         secondary={{ label: "All resources", href: "/resources" }}
-        scene="ridge"
+        photo="hi-sierra-2"
       />
     </>
   );

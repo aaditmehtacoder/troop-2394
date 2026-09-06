@@ -1,12 +1,13 @@
 import Link from "next/link";
-import { Scene } from "@/components/brand/Scenes";
+import { Backdrop } from "@/components/photo/Backdrop";
+import { pageHeroPhoto } from "@/data/photos";
 import { FleurDeLis } from "@/components/brand/Marks";
 import { troop } from "@/data/troop";
 
 export default function NotFound() {
   return (
     <section className="relative isolate flex min-h-[70vh] items-center overflow-hidden py-20">
-      <Scene name="night" className="absolute inset-0 -z-10 h-full w-full" />
+      <Backdrop photo={pageHeroPhoto.notFound} veil="band" />
       <div className="shell text-center">
         <FleurDeLis className="mx-auto mb-6 h-14 w-auto text-white/85" />
         <p className="mb-2 font-slab text-[12px] font-bold uppercase tracking-[2.4px] text-white/70">
@@ -16,7 +17,7 @@ export default function NotFound() {
           This trail doesn&rsquo;t go anywhere
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-[16px] leading-7 text-white/85">
-          A Scout is prepared — but even a good map has a wrong turn on it. The page you asked for
+          A Scout is prepared, but even a good map has a wrong turn on it. The page you asked for
           isn&rsquo;t here.
         </p>
         <div className="mt-9 flex flex-wrap justify-center gap-3">

@@ -4,13 +4,14 @@ import { PageHero } from "@/components/site/PageHero";
 import { Section, SectionHead } from "@/components/site/Section";
 import { Reveal } from "@/components/site/Reveal";
 import { CTABand } from "@/components/site/CTABand";
-import { Scene } from "@/components/brand/Scenes";
 import { FleurDeLis, IconCheck } from "@/components/brand/Marks";
 import { adultRoles, patrolStructure, troop, troopMission, youthPositions } from "@/data/troop";
+import { PhotoTile } from "@/components/photo/PhotoTile";
+import { pageHeroPhoto, photo } from "@/data/photos";
 
 export const metadata: Metadata = {
   title: "About Our Troop",
-  description: `Who we are: ${troop.longName} of ${troop.city}, California — patrols, youth leadership, adult volunteers, and troop history.`,
+  description: `Who we are: ${troop.longName} of ${troop.city}, California. Patrols, youth leadership, adult volunteers, and troop history.`,
 };
 
 export default function AboutPage() {
@@ -20,7 +21,7 @@ export default function AboutPage() {
         eyebrow={`${troop.city}, California`}
         title="About Our Troop"
         lede={`${troop.longName} is a Scout-led troop in ${troop.city}, chartered in the ${troop.district.name} of the ${troop.council.name}.`}
-        scene="forest"
+        photo={pageHeroPhoto.about}
         crumb="About"
       />
 
@@ -41,7 +42,7 @@ export default function AboutPage() {
                 <p className="mb-0">
                   Adults do three things: keep it safe, keep it moving, and stay out of the way.
                   Our program is genuinely youth-led, which means it is sometimes messier than an
-                  adult would run it — and that is the point.
+                  adult would run it, and that is the point.
                 </p>
               </div>
             </Reveal>
@@ -67,7 +68,8 @@ export default function AboutPage() {
 
           <Reveal delay={110}>
             <div className="overflow-hidden rounded-xl shadow-xl">
-              <Scene name="leadership" className="h-[420px] w-full" vivid />
+              {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized JPEGs, no optimizer */}
+<img src={photo("grant-trail").small} alt={photo("grant-trail").alt} loading="lazy" className="h-[420px] w-full object-cover" />
             </div>
           </Reveal>
         </div>
@@ -77,7 +79,7 @@ export default function AboutPage() {
       <Section id="patrols" className="bg-shell">
         <SectionHead
           title="Our patrols"
-          lede="The patrol is the basic unit of the troop. Six to ten Scouts who camp together, cook together, and compete together — with their own name, flag, and elected leader."
+          lede="The patrol is the basic unit of the troop. Six to ten Scouts who camp together, cook together, and compete together, with their own name, flag, and elected leader."
         />
         <div className="mt-11 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {patrolStructure.map((p, i) => (
@@ -96,7 +98,7 @@ export default function AboutPage() {
       <Section id="youth-leadership">
         <SectionHead
           title="Youth leadership"
-          lede="Every position below is held by a Scout, elected or appointed by their peers. These are not honorary titles — each one carries real responsibility for how the troop runs."
+          lede="Every position below is held by a Scout, elected or appointed by their peers. These are not honorary titles, each one carries real responsibility for how the troop runs."
         />
         <div className="mt-11 grid gap-5 md:grid-cols-2">
           {youthPositions.map((p, i) => (
@@ -107,6 +109,9 @@ export default function AboutPage() {
                 </span>
                 <div>
                   <h3 className="font-slab text-[17px] font-bold text-navy">{p.role}</h3>
+                  <p className="mt-0.5 mb-0 font-slab text-[12px] font-bold uppercase tracking-[1px] text-blue">
+                    {p.holder}
+                  </p>
                   <p className="mt-1.5 mb-0 text-[14px] leading-6 text-slate">{p.blurb}</p>
                 </div>
               </div>
@@ -120,7 +125,7 @@ export default function AboutPage() {
         <SectionHead
           tone="white"
           title="Adult volunteers"
-          lede="Troop 2/394 runs on parents. Every registered adult completes Youth Protection Training and a background check before their first campout — and training is free."
+          lede="Troop 2/394 runs on parents. Every registered adult completes Youth Protection Training and a background check before their first campout, and training is free."
         />
         <div className="mt-11 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {adultRoles.map((r, i) => (
@@ -151,7 +156,7 @@ export default function AboutPage() {
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <Reveal>
             <div className="overflow-hidden rounded-xl shadow-xl">
-              <Scene name="eagle" className="h-[380px] w-full" vivid />
+              <PhotoTile photo="sequoia-2" className="h-[380px]" />
             </div>
           </Reveal>
           <div>
@@ -163,7 +168,7 @@ export default function AboutPage() {
                   the Santa Clara Elks Lodge #2347, and formed for a simple reason: to give the
                   youth of {troop.city} the best Scouting experience possible. It has met on
                   Tuesday nights ever since. Troop 2394 was added when Scouts BSA opened to
-                  girls, and the two run as one linked program — Troop 2/394.
+                  girls, and the two run as one linked program, Troop 2/394.
                 </p>
                 <p>
                   Within its first five years the troop was already recognised as one of the
@@ -178,7 +183,7 @@ export default function AboutPage() {
                   ski trips, the Bear Paw snow campout near Bear Valley, the Pioneer District
                   Camporee, Yosemite in the rain, Moro Rock and the General Sherman tree in
                   Sequoia, wilderness survival on the Monterey coast, service projects at the Elks
-                  Lodge — and a week at Camp Hi-Sierra every single July.
+                  Lodge, and a week at Camp Hi-Sierra every single July.
                 </p>
                 <p className="mb-0">
                   What has not changed is the method. The troop&rsquo;s own operating guide still
@@ -193,10 +198,10 @@ export default function AboutPage() {
 
       <CTABand
         title="Come meet the troop"
-        body={`We meet ${troop.meeting.cadence.toLowerCase()} at ${troop.meeting.time}. Visitors are welcome any week — just walk in.`}
+        body={`We meet ${troop.meeting.cadence.toLowerCase()} at ${troop.meeting.time}. Visitors are welcome any week, just walk in.`}
         primary={{ label: "How to join", href: "/join" }}
         secondary={{ label: "Contact us", href: "/contact" }}
-        scene="trail"
+        photo="grant-hills"
       />
     </>
   );

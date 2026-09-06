@@ -9,10 +9,10 @@ import { IconChevron, IconClose, IconMenu, IconPhone } from "@/components/brand/
 
 /**
  * Two-row fixed header, matching scouting.org:
- *   row 1 — navy #005696 utility bar, 70px: lockup left, links + pills right
- *   row 2 — white nav bar, 50px: uppercase Roboto Slab 11px items with dropdowns
+ *   row 1, navy #005696 utility bar, 70px: lockup left, links + pills right
+ *   row 2, white nav bar, 50px: uppercase Roboto Slab 11px items with dropdowns
  * Dropdowns are click/hover-expanded (the original reports [collapsed] items,
- * i.e. an expandable submenu — not a scroll-driven mechanism).
+ * i.e. an expandable submenu, not a scroll-driven mechanism).
  */
 export function Header() {
   const pathname = usePathname();
@@ -28,7 +28,7 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close menus on route change — adjusted during render, which React prefers
+  // Close menus on route change, adjusted during render, which React prefers
   // over an effect for state that is derived from a prop-like value.
   const [lastPath, setLastPath] = useState(pathname);
   if (lastPath !== pathname) {
@@ -275,7 +275,7 @@ export function Header() {
         </div>
       </div>
 
-      {/* Spacer — the original reserves header height with #sc-navbar-fix-space */}
+      {/* Spacer, the original reserves header height with #sc-navbar-fix-space */}
       <div aria-hidden className="h-[70px] lg:h-[120px]" />
     </>
   );
