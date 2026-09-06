@@ -208,8 +208,10 @@ export const heroSlides = [
     body: "Youth leaders plan the meetings, the campouts, and the week at camp. Adults train, drive, and keep it safe.",
     cta: { label: "Join Troop 2/394", href: "/join" },
     secondary: { label: "Visit a Meeting", href: "/contact" },
-    photo: "sunset-beach" as const,
-    position: "center 60%",
+    // The whole troop, on the lodge steps at Camp Hi-Sierra. A visitor should
+    // see the actual people before they see the scenery.
+    photo: "troop-lodge" as const,
+    position: "center 40%",
   },
   {
     eyebrow: "A campout every month",
@@ -217,8 +219,8 @@ export const heroSlides = [
     body: "Sunset Beach in September, kayaking in October, Pinnacles in November. One trip a month, all year.",
     cta: { label: "See the Calendar", href: "/calendar" },
     secondary: { label: "Where We Go", href: "/outdoors" },
-    photo: "pinnacles" as const,
-    position: "center 40%",
+    photo: "rafting-run" as const,
+    position: "center 45%",
   },
   {
     eyebrow: "A week at Camp Hi-Sierra every July",
@@ -226,8 +228,8 @@ export const heroSlides = [
     body: "Merit badges, campfires, and the campwide games. Ask any Scout what they remember.",
     cta: { label: "Read the Stories", href: "/blog" },
     secondary: { label: "Our Program", href: "/program" },
-    photo: "hi-sierra" as const,
-    position: "center 45%",
+    photo: "camp-lake" as const,
+    position: "center 50%",
   },
 ];
 
