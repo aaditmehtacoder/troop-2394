@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { PageHero } from "@/components/site/PageHero";
 import { Section, SectionHead } from "@/components/site/Section";
 import { Reveal } from "@/components/site/Reveal";
@@ -194,6 +195,42 @@ export default function AboutPage() {
             </Reveal>
           </div>
         </div>
+
+        {/* The patch. "SCCC" dates it: Santa Clara County Council was the
+            troop's council until the 2013 merger, so the cloth is older than
+            the name on it. Worth a caption rather than leaving people to
+            wonder what the four letters stand for. */}
+        <Reveal delay={120}>
+          <div className="mt-16 grid items-center gap-10 rounded-xl bg-shell p-8 md:grid-cols-[minmax(0,320px)_1fr] md:p-12">
+            <Image
+              src="/images/brand/troop-patch-800.webp"
+              width={800}
+              height={580}
+              alt="The Troop 394 neckerchief patch: a campfire on a blue sky above green ground, under the words SCCC Troop 394, with a fleur-de-lis below the fire."
+              className="h-auto w-full max-w-[320px] justify-self-center drop-shadow-lg"
+              sizes="(max-width: 768px) 80vw, 320px"
+            />
+            <div>
+              <SectionHead align="left" title="The neckerchief patch" />
+              <div className="prose-troop mt-5">
+                <p>
+                  Every Scout in the troop wears this at their throat. The campfire has
+                  been the troop&rsquo;s mark since the beginning, and the four letters
+                  above it date the cloth: <strong className="text-navy">SCCC</strong> is
+                  the {troop.council.formerly}, which is what our council was called
+                  before it merged with the Monterey Bay Area Council in 2013 to become
+                  the {troop.council.name}.
+                </p>
+                <p className="mb-0">
+                  The design has outlasted the council&rsquo;s name, two charter
+                  organisations, and something close to thirty years of Scouts. It is the
+                  logo at the top of this page, redrawn so it stays sharp when it is the
+                  size of a postage stamp.
+                </p>
+              </div>
+            </div>
+          </div>
+        </Reveal>
       </Section>
 
       <CTABand

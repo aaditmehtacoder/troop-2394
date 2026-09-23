@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { rateLimit } from "@/lib/rate-limit";
 import { troop } from "@/data/troop";
+import { isConfigured, sendMail } from "@/lib/email";
+import { contactAcknowledgement, contactNotification } from "@/lib/email/templates";
 
 /**
  * The contact form actually sends.
@@ -16,14 +18,18 @@ import { troop } from "@/data/troop";
  *   2. reCAPTCHA v3, when RECAPTCHA_SECRET_KEY is set,
  *   3. a per-IP rate limit.
  *
- * Sending needs RESEND_API_KEY. Without it the route answers 501 and the form
- * falls back to opening the visitor's mail client, so the page still works on
- * a fresh clone with no keys.
+ * Two messages go out per submission: the enquiry to the troop, and an
+ * acknowledgement to whoever sent it. See `src/lib/email` for the providers.
+ *
+ * With no provider configured the route answers 501 and the form falls back to
+ * opening the visitor's mail client, so the page still works on a fresh clone
+ * with no keys.
  */
 
 const PER_HOUR = 5;
 const PER_DAY = 20;
 const MAX_MESSAGE = 4000;
+const MAX_FIELD = 200;
 
 /** Below this, reCAPTCHA thinks it is a bot. Google's own suggested default. */
 const SCORE_THRESHOLD = 0.5;
@@ -70,16 +76,26 @@ type Body = {
   website?: string;
 };
 
+/**
+ * A header is one line by definition. Anything that looks like a second line is
+ * someone trying to add their own headers to the message we build, so the
+ * newline goes rather than the whole submission.
+ */
+function oneLine(value: string, limit = MAX_FIELD): string {
+  return value.replace(/[\r\n]+/g, " ").trim().slice(0, limit);
+}
+
 export async function POST(request: Request) {
   const body = (await request.json().catch(() => ({}))) as Body;
 
   // 1. honeypot. Answer 200 so a bot cannot tell it was caught.
   if (body.website) return NextResponse.json({ ok: true });
 
-  const name = (body.name ?? "").trim();
-  const email = (body.email ?? "").trim();
+  const name = oneLine(body.name ?? "");
+  const email = oneLine(body.email ?? "");
+  const scoutAge = oneLine(body.scoutAge ?? "", 80);
+  const topic = oneLine(body.topic ?? "General") || "General";
   const message = (body.message ?? "").trim();
-  const topic = (body.topic ?? "General").trim();
 
   if (!name || !email || !message) {
     return NextResponse.json({ error: "Please fill in your name, email and message." }, { status: 400 });
@@ -117,41 +133,46 @@ export async function POST(request: Request) {
     );
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
+  if (!isConfigured()) {
     // The form knows what to do with this: open the visitor's mail client.
     return NextResponse.json({ error: "not_configured" }, { status: 501 });
   }
 
-  const from = process.env.CONTACT_FROM ?? "Troop 394 website <onboarding@resend.dev>";
-  const lines = [
-    `Name: ${name}`,
-    `Email: ${email}`,
-    body.scoutAge ? `Scout's age or grade: ${body.scoutAge.trim()}` : null,
-    `Topic: ${topic}`,
-    "",
-    message,
-  ].filter(Boolean);
+  const enquiry = { name, email, scoutAge: scoutAge || undefined, topic, message };
 
-  const send = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      from,
-      to: [troop.contact.email],
-      reply_to: email,
-      subject: `[${troop.name} website] ${topic}, from ${name}`,
-      text: lines.join("\n"),
-    }),
-    cache: "no-store",
+  // The one that matters. Reply-To is the visitor, so hitting reply in Gmail
+  // answers the family rather than the website.
+  const notification = contactNotification(enquiry);
+  const sent = await sendMail({
+    to: troop.contact.email,
+    replyTo: email,
+    subject: notification.subject,
+    text: notification.text,
+    html: notification.html,
   });
 
-  if (!send.ok) {
+  if (!sent.ok) {
+    if (sent.reason === "not_configured") {
+      return NextResponse.json({ error: "not_configured" }, { status: 501 });
+    }
+    console.error("[contact] send failed:", sent.detail);
     return NextResponse.json(
       { error: "The message did not send. Please email us directly." },
       { status: 502 },
     );
   }
 
-  return NextResponse.json({ ok: true });
+  // The acknowledgement is a courtesy. If it fails the troop still has the
+  // enquiry, so log it and tell the visitor their message went through.
+  const ack = contactAcknowledgement(enquiry);
+  const acked = await sendMail({
+    to: email,
+    replyTo: troop.contact.email,
+    subject: ack.subject,
+    text: ack.text,
+    html: ack.html,
+  });
+  if (!acked.ok) console.error("[contact] acknowledgement failed:", acked);
+
+  return NextResponse.json({ ok: true, acknowledged: acked.ok });
 }

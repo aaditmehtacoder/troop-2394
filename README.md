@@ -131,6 +131,58 @@ stuck client cannot run up a bill.
 JSON-file login system, kept in the repo but no longer routed: `/dashboard`
 redirects to `/members`.
 
+## Sending email
+
+The contact form posts to `/api/contact`, which sends two messages: the enquiry
+to the troop, and an acknowledgement to whoever wrote in. Both are built in
+`src/lib/email/templates.ts` and sent through `src/lib/email/index.ts`.
+
+### Set it up with the troop's Gmail
+
+The default is the troop's own account over SMTP. Nothing to sign up for and
+nothing to pay for, and sent mail lands in the troop's own Sent folder where
+the next committee can find it.
+
+1. Sign in as `troop394sc@gmail.com` and turn on **2-Step Verification** under
+   [Security](https://myaccount.google.com/security). App passwords do not
+   exist as an option until you do.
+2. Go to [App passwords](https://myaccount.google.com/apppasswords), create one,
+   and name it something like `Troop website`.
+3. Put the 16 characters in `.env.local`. Spaces are fine, they get stripped:
+
+   ```
+   GMAIL_USER=troop394sc@gmail.com
+   GMAIL_APP_PASSWORD=abcd efgh ijkl mnop
+   ```
+
+4. Check it, then send yourself a real one:
+
+   ```
+   npm run check:email
+   npm run check:email -- you@example.com
+   ```
+
+Set the same two variables in the Vercel project for production. An app
+password is not the account password: it only grants mail, and revoking it on
+that page cuts the website off immediately without touching the account.
+
+### The other two states
+
+| State | What happens |
+| --- | --- |
+| `RESEND_API_KEY` set, no Gmail pair | Sends through Resend instead. For if the troop moves to its own domain. |
+| Nothing set | `/api/contact` answers `501`, and the form falls back to opening the visitor's own mail client. The page still works. |
+
+### Looking at the emails
+
+`/api/email-preview` renders the troop's copy and `?t=ack` the visitor's, in
+development only. It is not a substitute for sending yourself a real one, since
+Gmail and Outlook both rewrite HTML on the way in.
+
+Three gates run before anything sends: a honeypot field, reCAPTCHA v3 when
+`RECAPTCHA_SECRET_KEY` is set, and a per-IP rate limit of 5 an hour and 20 a
+day.
+
 ## Design
 
 Design tokens were extracted from scouting.org with live `getComputedStyle()`
@@ -143,9 +195,25 @@ the interaction model is in `BEHAVIORS.md` alongside it.
 - Every button is a 28px pill in uppercase Roboto Slab, as on the original
 - Two-row fixed header: navy utility bar over a white nav bar with dropdowns
 
-**No image files.** The fleur-de-lis, troop badge, icons, and every landscape
-backdrop are original inline SVG, so the site hotlinks nothing, has no
-third-party image dependencies, and loads with zero image requests.
+### The logo
+
+The troop's mark is its neckerchief patch: a campfire under `SCCC TROOP 394`.
+`SCCC` is the Santa Clara County Council, which is what our council was called
+before the 2013 merger, so the cloth is older than the name on it.
+
+It ships twice, because one file cannot do both jobs:
+
+- **`TroopPatch` in `src/components/brand/Marks.tsx`** — the patch redrawn as
+  SVG, for the header, the footer and `app/icon.svg`. A photograph of
+  embroidery is mush at 32px. Pass `lettering={false}` below about 250px, where
+  the two lines of type close up into a smear; the wordmark beside it carries
+  the number. Its `patch` export holds the colours, sampled from a 300ppi scan.
+- **`public/images/brand/*`** — the scan itself, cut out and cleaned up, for the
+  About page and the Open Graph card, where the stitching is the point. The
+  original is kept at `docs/brand/troop-neckerchief-patch.pdf`.
+
+The fleur-de-lis, the icons, and every landscape backdrop are still original
+inline SVG, so nothing here is hotlinked.
 
 ## Stack
 

@@ -9,6 +9,13 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: ["127.0.0.1", "localhost"],
 
   /**
+   * Nodemailer opens raw TLS sockets and resolves a few things at runtime, so
+   * it is left to Node's own `require` rather than pulled through the server
+   * bundle. Next's docs call this out for exactly this shape of dependency.
+   */
+  serverExternalPackages: ["nodemailer"],
+
+  /**
    * No `output: "standalone"`. It is for self-hosting behind Docker, and on
    * Vercel it broke the build: Vercel applies its own config and then
    * onBuildComplete could not open .next/next-server.js.nft.json.

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { resourceLinks, troop } from "@/data/troop";
-import { TroopBadge, IconMail, IconPin } from "@/components/brand/Marks";
+import { TroopPatch, IconMail, IconPin } from "@/components/brand/Marks";
 import { photoCredits } from "@/data/photos";
 
 const columns = [
@@ -66,7 +66,7 @@ export function Footer() {
       <div className="shell grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-5">
         <div className="lg:col-span-2">
           <div className="flex items-center gap-3">
-            <TroopBadge className="h-14 w-14 shrink-0" />
+            <TroopPatch lettering={false} className="h-14 w-auto shrink-0" />
             <div>
               <div className="font-slab text-[20px] font-bold leading-tight">{troop.longName}</div>
               <div className="text-[12px] uppercase tracking-[1.6px] text-white/70">

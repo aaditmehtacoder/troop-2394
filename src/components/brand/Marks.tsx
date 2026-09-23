@@ -28,39 +28,145 @@ export function FleurDeLis({ className, ...props }: SVGProps<SVGSVGElement>) {
   );
 }
 
-/** Circular troop badge: fleur-de-lis over the troop number. */
-export function TroopBadge({
+/**
+ * The troop's real colours, read off the neckerchief patch itself.
+ *
+ * The patch is the only mark the troop has ever had ("the best thing we have
+ * for a logo", troop email, Sept 2026). These hex values were sampled from a
+ * 300ppi scan of it, so the drawing below and the site's accents agree with
+ * the cloth rather than with a guess.
+ */
+export const patch = {
+  red: "#A02113",
+  redDeep: "#74150B",
+  sky: "#4E9BB8",
+  skyLight: "#63AECA",
+  green: "#2A5F4A",
+  flame: "#C8391F",
+  flameBlue: "#22478A",
+  gold: "#D8912F",
+  log: "#7B2C18",
+  logDeep: "#521305",
+  stone: "#9A98A1",
+  stoneDeep: "#75737C",
+  ink: "#111014",
+} as const;
+
+/* The kerchief outline, and the ground as the part of it below the horizon.
+   GROUND's two curves are RIM's own lower edges, split at y=53, so the green
+   meets the rim exactly. That is why none of this needs a <clipPath>: a clip
+   needs an id, and a repeated id breaks the moment the mark renders twice. */
+const RIM = "M8 30C26 6 94 6 112 30C99 48.5 76.5 69 60 81.5C43.5 69 21 48.5 8 30Z";
+const GROUND = "M27.64 53H92.36C81.61 63.92 69.76 74.11 60 81.5C50.24 74.11 38.39 63.92 27.64 53Z";
+
+/** One flame tongue, tip up, base at the origin. Scaled and fanned out below. */
+const TONGUE = "M0 0C-3.2-4.4-3.5-9.8 0-16C3.5-9.8 3.2-4.4 0 0Z";
+
+/**
+ * Troop 2/394's neckerchief patch: SCCC · TROOP 394 over a campfire.
+ *
+ * Vector rather than the photograph because this runs at 32px in a favicon and
+ * 42px in the header, where a scan of embroidery is mush. The photo earns its
+ * place large, on the About page, where the stitching is the point.
+ *
+ * `lettering` off drops the two lines of type. Below roughly 80px they close
+ * up into a smear, so small lockups show the mark alone and let the wordmark
+ * beside it carry the number.
+ */
+export function TroopPatch({
   className,
-  number = "2/394",
-  numerals = true,
+  lettering = true,
   ...props
-}: SVGProps<SVGSVGElement> & { number?: string; numerals?: boolean }) {
-  // Below ~64px the numerals turn to mush, so small lockups render the mark
-  // alone and let the adjacent wordmark carry the number.
+}: SVGProps<SVGSVGElement> & { lettering?: boolean }) {
   return (
-    <svg viewBox="0 0 120 120" className={className} {...props} role="img" aria-label={`Troop ${number} badge`}>
-      <circle cx="60" cy="60" r="58" fill="#003f87" />
-      <circle cx="60" cy="60" r="54" fill="none" stroke="#ffffff" strokeWidth="1.5" opacity="0.65" />
-      <circle cx="60" cy="60" r="48" fill="none" stroke="#ce1126" strokeWidth="3" />
-      <g transform={`translate(60 ${numerals ? 15 : 24}) scale(${numerals ? 0.5 : 0.62}) translate(-50 0)`}>
-        <FleurDeLis width="100" height="122" style={{ color: "#ffffff" }} />
+    <svg
+      viewBox="0 0 120 88"
+      className={className}
+      {...props}
+      role="img"
+      aria-label="Troop 2/394 neckerchief patch"
+    >
+      {/* Sky and ground are filled out to the rim's centre line and the rim is
+          stroked over the top of them, so there is no seam to line up. */}
+      <path d={RIM} fill={patch.sky} />
+      <path d={GROUND} fill={patch.green} />
+
+      {/* campfire: stones, logs, then flames fanned from a shared pivot.
+          It carries about a third of the patch's width on the cloth, so it is
+          drawn that big here too — scaled down it just looks like a candle. */}
+      <g>
+        <ellipse cx="45" cy="59" rx="7" ry="3.8" fill={patch.stoneDeep} />
+        <ellipse cx="75" cy="59" rx="7" ry="3.8" fill={patch.stoneDeep} />
+        <ellipse cx="52.5" cy="60" rx="7.5" ry="4.2" fill={patch.stone} />
+        <ellipse cx="67.5" cy="60" rx="7.5" ry="4.2" fill={patch.stone} />
+        <ellipse cx="60" cy="59.5" rx="7" ry="4" fill={patch.stone} />
       </g>
-      {numerals && (
-        <text
-          x="60"
-          y="102"
+      <g>
+        <rect
+          x="-15"
+          y="-2.6"
+          width="30"
+          height="5.6"
+          rx="2.8"
+          fill={patch.log}
+          transform="translate(60 56) rotate(-10)"
+        />
+        <rect
+          x="-13.5"
+          y="-2.3"
+          width="27"
+          height="5"
+          rx="2.5"
+          fill={patch.logDeep}
+          transform="translate(60 57.6) rotate(9)"
+        />
+      </g>
+      <g fill={patch.flame}>
+        <path d={TONGUE} transform="translate(60 54) rotate(-52)" />
+        <path d={TONGUE} transform="translate(60 54) rotate(-30) scale(1.3)" />
+        <path d={TONGUE} transform="translate(60 54) scale(1.6)" />
+        <path d={TONGUE} transform="translate(60 54) rotate(30) scale(1.3)" />
+        <path d={TONGUE} transform="translate(60 54) rotate(52)" />
+      </g>
+      <g fill={patch.flameBlue}>
+        <path d={TONGUE} transform="translate(60 55) rotate(-34) scale(0.85)" />
+        <path d={TONGUE} transform="translate(60 55) scale(1.2)" />
+        <path d={TONGUE} transform="translate(60 55) rotate(34) scale(0.85)" />
+      </g>
+      <g fill={patch.gold}>
+        <path d={TONGUE} transform="translate(60 56) rotate(-15) scale(0.55)" />
+        <path d={TONGUE} transform="translate(60 56) scale(0.82)" />
+        <path d={TONGUE} transform="translate(60 56) rotate(15) scale(0.55)" />
+      </g>
+
+      {/* the universal badge of Scouting, sitting on the ground below the fire */}
+      <g transform="translate(60 63) scale(0.115) translate(-50 0)">
+        <FleurDeLis width="100" height="122" style={{ color: patch.ink }} />
+      </g>
+
+      {lettering && (
+        <g
+          fill={patch.red}
           textAnchor="middle"
-          fill="#ffffff"
-          fontFamily="Georgia, 'Roboto Slab', serif"
+          fontFamily="var(--font-slab), 'Roboto Slab', Georgia, serif"
           fontWeight="700"
-          fontSize="23"
-          letterSpacing="-0.2"
-          textLength="62"
-          lengthAdjust="spacingAndGlyphs"
         >
-          {number}
-        </text>
+          <text x="60" y="30" fontSize="9.5" letterSpacing="2.6">
+            SCCC
+          </text>
+          <text x="60" y="45.5" fontSize="14.5" letterSpacing="0.6">
+            TROOP 394
+          </text>
+        </g>
       )}
+
+      <path
+        d={RIM}
+        fill="none"
+        stroke={patch.red}
+        strokeWidth="6"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
@@ -77,7 +183,7 @@ export function TroopLockup({
   const sub = tone === "light" ? "rgba(255,255,255,0.78)" : "#515354";
   return (
     <span className={className} style={{ display: "inline-flex", alignItems: "center", gap: 12 }}>
-      <TroopBadge numerals={false} style={{ width: 42, height: 42, flexShrink: 0 }} />
+      <TroopPatch lettering={false} style={{ width: 54, height: 40, flexShrink: 0 }} />
       <span style={{ display: "flex", flexDirection: "column", lineHeight: 1.05 }}>
         <span
           style={{
