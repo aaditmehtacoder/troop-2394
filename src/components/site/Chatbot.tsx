@@ -100,7 +100,7 @@ export function Chatbot() {
             {turns.length === 0 ? (
               <div>
                 <p className="mt-0 mb-3 text-[14px] leading-6 text-mute">
-                  Ask anything about Troop 2/394. For anything it cannot answer, it will point you
+                  Ask anything about Troop 394. For anything it cannot answer, it will point you
                   to a real leader.
                 </p>
                 <ul className="m-0 list-none space-y-2 p-0">

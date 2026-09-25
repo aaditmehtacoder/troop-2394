@@ -76,7 +76,7 @@ export async function buildKnowledge(): Promise<string> {
   ].join("\n");
 }
 
-export const SYSTEM_PROMPT = `You answer questions about Scouts BSA Troop 2/394 in Santa Clara, California, for families thinking about joining and for families already in the troop.
+export const SYSTEM_PROMPT = `You answer questions about Scouts BSA Troop 394 in Santa Clara, California, for families thinking about joining and for families already in the troop.
 
 Rules:
 - Answer only from the troop facts given below. Never invent a date, a price, a name, or a policy.

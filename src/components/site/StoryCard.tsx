@@ -29,7 +29,12 @@ export function StoryCard({
   /** Off on the public sample, where the stories are examples, not a feed. */
   showDate?: boolean;
 }) {
-  const cover = coverFor({ location: post.location, title: post.title, coverUrl: post.coverUrl });
+  const cover = coverFor({
+    slug: post.slug,
+    location: post.location,
+    title: post.title,
+    coverUrl: post.coverUrl,
+  });
   const tone = kindTone[post.kind] ?? kindTone.News;
   const d = new Date(`${post.date}T12:00:00`);
 

@@ -1,5 +1,5 @@
 /**
- * Seed Supabase with the researched Troop 2/394 content.
+ * Seed Supabase with the researched Troop 394 content.
  *
  *   SUPABASE_SECRET_KEY=... node scripts/seed.mjs
  *
@@ -134,7 +134,7 @@ const announcements = [
   },
 ];
 
-console.log("Seeding Troop 2/394 content");
+console.log("Seeding Troop 394 content");
 await upsert("posts", posts, "slug");
 await upsert("events", events, "title,starts_on");
 await upsert("eagles", eagles, "name,year");

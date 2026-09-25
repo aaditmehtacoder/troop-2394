@@ -17,7 +17,7 @@ const columns = [
   {
     heading: "Families",
     links: [
-      { label: "Join Troop 2/394", href: "/join" },
+      { label: "Join Troop 394", href: "/join" },
       { label: "New Family Guide", href: "/resources#new-families" },
       { label: "Forms & Downloads", href: "/resources" },
       { label: "Dues & Fundraising", href: "/resources#dues" },

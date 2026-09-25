@@ -10,7 +10,7 @@ import { pageHeroPhoto } from "@/data/photos";
 
 export const metadata: Metadata = {
   title: "Contact Us",
-  description: `Get in touch with Scouts BSA Troop 2/394 in ${troop.city}, California, meeting times, directions, and who to email.`,
+  description: `Get in touch with Scouts BSA Troop 394 in ${troop.city}, California, meeting times, directions, and who to email.`,
 };
 
 export default function ContactPage() {
@@ -143,7 +143,7 @@ export default function ContactPage() {
 
       <CTABand
         title="Or just turn up"
-        body={`${troop.meeting.cadence}, ${troop.meeting.time}. That is genuinely the fastest way to find out whether Troop 2/394 fits your family.`}
+        body={`${troop.meeting.cadence}, ${troop.meeting.time}. That is genuinely the fastest way to find out whether Troop 394 fits your family.`}
         primary={{ label: "How to join", href: "/join" }}
         secondary={{ label: "See the calendar", href: "/calendar" }}
         photo="grant-lake"

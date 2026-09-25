@@ -8,12 +8,25 @@ import { CTABand } from "@/components/site/CTABand";
 import { FleurDeLis, IconCheck } from "@/components/brand/Marks";
 import { adultRoles, patrolStructure, troop, troopMission, youthPositions } from "@/data/troop";
 import { PhotoTile } from "@/components/photo/PhotoTile";
+import type { SceneName } from "@/components/brand/Scenes";
 import { pageHeroPhoto, photo } from "@/data/photos";
 
 export const metadata: Metadata = {
   title: "About Our Troop",
   description: `Who we are: ${troop.longName} of ${troop.city}, California. Patrols, youth leadership, adult volunteers, and troop history.`,
 };
+
+/** One backdrop per leader card, so a row of placeholders never repeats itself. */
+const leaderBackdrops: SceneName[] = [
+  "leadership",
+  "ridge",
+  "forest",
+  "lake",
+  "trail",
+  "camping",
+  "eagle",
+  "night",
+];
 
 export default function AboutPage() {
   return (
@@ -34,7 +47,7 @@ export default function AboutPage() {
               <div className="prose-troop mt-6 max-w-none">
                 <p>{troopMission}</p>
                 <p>
-                  In practice that means a Scout in Troop 2/394 spends {troop.meeting.day} evenings
+                  In practice that means a Scout in Troop 394 spends {troop.meeting.day} evenings
                   with their patrol, one weekend a month in the field, and a week each July at
                   summer camp. They will plan a menu, cook it over a fire, navigate with a map
                   and compass, teach a younger Scout the skill they learned last year, and stand
@@ -126,14 +139,26 @@ export default function AboutPage() {
         <SectionHead
           tone="white"
           title="Adult volunteers"
-          lede="Troop 2/394 runs on parents. Every registered adult completes Youth Protection Training and a background check before their first campout, and training is free."
+          lede="Troop 394 runs on parents. Every registered adult completes Youth Protection Training and a background check before their first campout, and training is free."
         />
         <div className="mt-11 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {adultRoles.map((r, i) => (
             <Reveal key={r.role} delay={i * 70}>
-              <div className="h-full rounded-lg bg-white/[0.07] p-6 ring-1 ring-white/15 transition hover:bg-white/[0.12]">
-                <h3 className="font-slab text-[16px] font-bold !text-white">{r.role}</h3>
-                <p className="mt-2 mb-0 text-[13.5px] leading-6 text-white/75">{r.blurb}</p>
+              {/* Picture beside the words on a phone, above them from four columns up. */}
+              <div className="flex h-full gap-4 rounded-lg bg-white/[0.07] p-4 ring-1 ring-white/15 transition hover:bg-white/[0.12] lg:flex-col lg:gap-0 lg:overflow-hidden lg:p-0">
+                <div className="w-24 shrink-0 sm:w-28 lg:w-full">
+                  <PhotoTile
+                    photo={r.photo}
+                    portrait
+                    scene={leaderBackdrops[i % leaderBackdrops.length]}
+                    position="50% 25%"
+                    className="aspect-[4/5] w-full rounded-md lg:rounded-none"
+                  />
+                </div>
+                <div className="min-w-0 self-center lg:self-auto lg:p-6">
+                  <h3 className="font-slab text-[16px] font-bold !text-white">{r.role}</h3>
+                  <p className="mt-2 mb-0 text-[13.5px] leading-6 text-white/75">{r.blurb}</p>
+                </div>
               </div>
             </Reveal>
           ))}
@@ -169,7 +194,7 @@ export default function AboutPage() {
                   the Santa Clara Elks Lodge #2347, and formed for a simple reason: to give the
                   youth of {troop.city} the best Scouting experience possible. It has met on
                   Tuesday nights ever since. Troop 2394 was added when Scouts BSA opened to
-                  girls, and the two run as one linked program, Troop 2/394.
+                  girls, and the two run as one linked program.
                 </p>
                 <p>
                   Within its first five years the troop was already recognised as one of the

@@ -1,7 +1,7 @@
 import type { SVGProps } from "react";
 
 /**
- * Original artwork for Troop 2/394. The fleur-de-lis is a centuries-old heraldic
+ * Original artwork for Troop 394. The fleur-de-lis is a centuries-old heraldic
  * charge used by Scouting worldwide; this is our own drawing of it, so the site
  * ships self-contained and hotlinks nothing.
  */
@@ -63,7 +63,7 @@ const GROUND = "M27.64 53H92.36C81.61 63.92 69.76 74.11 60 81.5C50.24 74.11 38.3
 const TONGUE = "M0 0C-3.2-4.4-3.5-9.8 0-16C3.5-9.8 3.2-4.4 0 0Z";
 
 /**
- * Troop 2/394's neckerchief patch: SCCC · TROOP 394 over a campfire.
+ * Troop 394's neckerchief patch: SCCC · TROOP 394 over a campfire.
  *
  * Vector rather than the photograph because this runs at 32px in a favicon and
  * 42px in the header, where a scan of embroidery is mush. The photo earns its
@@ -84,7 +84,7 @@ export function TroopPatch({
       className={className}
       {...props}
       role="img"
-      aria-label="Troop 2/394 neckerchief patch"
+      aria-label="Troop 394 neckerchief patch"
     >
       {/* Sky and ground are filled out to the rim's centre line and the rim is
           stroked over the top of them, so there is no seam to line up. */}
@@ -195,7 +195,7 @@ export function TroopLockup({
             whiteSpace: "nowrap",
           }}
         >
-          Troop 2/394
+          Troop 394
         </span>
         <span
           style={{

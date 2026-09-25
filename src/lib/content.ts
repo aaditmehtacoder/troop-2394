@@ -111,7 +111,7 @@ function rowToPost(r: PostRow): Post {
     slug: r.slug,
     title: r.title,
     date: r.event_date ?? r.created_at.slice(0, 10),
-    author: r.author ?? "Troop 2/394",
+    author: r.author ?? "Troop 394",
     kind: (r.kind as BlogPost["kind"]) ?? "Trip report",
     location: staticBySlug.get(r.slug)?.location ?? "",
     excerpt: r.excerpt ?? "",

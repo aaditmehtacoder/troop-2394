@@ -14,7 +14,7 @@ import { pageHeroPhoto } from "@/data/photos";
 
 export const metadata: Metadata = {
   title: "Members",
-  description: "The members area for Troop 2/394 families.",
+  description: "The members area for Troop 394 families.",
   robots: { index: false, follow: false },
 };
 

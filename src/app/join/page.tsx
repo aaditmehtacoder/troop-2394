@@ -10,8 +10,8 @@ import { PhotoTile } from "@/components/photo/PhotoTile";
 import { pageHeroPhoto } from "@/data/photos";
 
 export const metadata: Metadata = {
-  title: "Join Troop 2/394",
-  description: `How to join Scouts BSA Troop 2/394 in ${troop.city}, California, visit a meeting, come on a campout, and get registered. Costs, requirements, and answers to the questions every new family asks.`,
+  title: "Join Troop 394",
+  description: `How to join Scouts BSA Troop 394 in ${troop.city}, California, visit a meeting, come on a campout, and get registered. Costs, requirements, and answers to the questions every new family asks.`,
 };
 
 export default function JoinPage() {
@@ -19,7 +19,7 @@ export default function JoinPage() {
     <>
       <PageHero
         eyebrow={`${troop.city}, California`}
-        title="Join Troop 2/394"
+        title="Join Troop 394"
         lede={`Any ${troop.meeting.day}, ${troop.meeting.time}. No forms, no uniform, no commitment, walk in and watch a meeting.`}
         photo={pageHeroPhoto.join}
         crumb="Join"

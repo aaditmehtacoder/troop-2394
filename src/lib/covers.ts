@@ -19,10 +19,28 @@ const rules: [RegExp, PhotoKey][] = [
   [/uvas/i, "uvas"],
 ];
 
+/**
+ * The troop's three featured stories (FEATURED_SLUGS in lib/content.ts) each
+ * get one of the troop's own photographs of that place. Two of them are at
+ * Camp Hi-Sierra, and the rules above would give both the same picture.
+ */
+const bySlug: Record<string, PhotoKey> = {
+  "white-water-rafting-2026": "rafting-river",
+  "camp-hi-sierra-2025": "camp-lake",
+  "adopt-a-campsite-2026": "camp-pines",
+};
+
 export type Cover = Pick<Photo, "src" | "small" | "alt"> & { key?: PhotoKey };
 
-export function coverFor(item: { location?: string; title?: string; coverUrl?: string | null }): Cover | null {
+export function coverFor(item: {
+  slug?: string;
+  location?: string;
+  title?: string;
+  coverUrl?: string | null;
+}): Cover | null {
   if (item.coverUrl) return { src: item.coverUrl, small: item.coverUrl, alt: item.title ?? "" };
+  const pinned = item.slug ? bySlug[item.slug] : undefined;
+  if (pinned) return { ...photo(pinned), key: pinned };
   const hay = `${item.location ?? ""} ${item.title ?? ""}`;
   for (const [re, key] of rules) if (re.test(hay)) return { ...photo(key), key };
   return null;

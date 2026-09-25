@@ -33,7 +33,8 @@ export const metadata: Metadata = {
   },
   description,
   keywords: [
-    "Troop 2/394",
+    "Troop 394",
+    "Troop 2394",
     "Scouts BSA Santa Clara",
     "Boy Scouts Santa Clara",
     "Silicon Valley Monterey Bay Council",

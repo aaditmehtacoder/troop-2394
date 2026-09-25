@@ -442,14 +442,17 @@ export const pageHeroPhoto = {
   notFound: "archery",
 } as const satisfies Record<string, PhotoKey>;
 
-/** The home page mosaic: the places the troop actually goes, in its own words. */
-export const mosaic: { photo: PhotoKey; place: string; when: string; href: string; span?: "wide" | "tall" }[] = [
-  { photo: "rafting-run", place: "South Fork American River", when: "Rafting, every spring", href: "/outdoors", span: "wide" },
-  { photo: "scouts-camp", place: "Camp Hi-Sierra", when: "A week at summer camp, every July", href: "/outdoors", span: "tall" },
-  { photo: "archery", place: "The range at camp", when: "Shooting sports, every summer", href: "/program" },
-  { photo: "snow-tents", place: "The snow trip", when: "Winter camping, every year", href: "/outdoors" },
-  { photo: "blacksmithing", place: "The camp forge", when: "Metalwork and other merit badges", href: "/advancement" },
-  { photo: "coast-walk", place: "The Monterey coast", when: "Day hikes and kayaking", href: "/outdoors" },
-  { photo: "hi-sierra-gate", place: "Camp Hi-Sierra", when: "Every July since 2015", href: "/outdoors" },
-  { photo: "pancake-griddle", place: "The Elks Lodge", when: "The pancake breakfast the troop cooks every year", href: "/support", span: "wide" },
+/**
+ * The home page mosaic: the places the troop actually goes. Seven pictures in
+ * a fixed pattern (wide, tall, square...), so the order here is the layout;
+ * see PhotoMosaic. The rafting photo is the hero, so it is not repeated here.
+ */
+export const mosaic: { photo: PhotoKey; place: string; href: string; position?: string }[] = [
+  { photo: "troop-lodge", place: "The whole troop at Camp Hi-Sierra", href: "/about", position: "center 62%" },
+  { photo: "scouts-camp", place: "A week at summer camp", href: "/outdoors#summer-camp" },
+  { photo: "archery", place: "The archery range", href: "/program" },
+  { photo: "snow-tents", place: "The snow trip", href: "/outdoors" },
+  { photo: "blacksmithing", place: "The camp forge", href: "/advancement" },
+  { photo: "coast-walk", place: "The Monterey coast", href: "/outdoors" },
+  { photo: "sailing", place: "Sailing on the lake", href: "/outdoors#summer-camp" },
 ];

@@ -10,7 +10,7 @@ import { pageHeroPhoto } from "@/data/photos";
 export const metadata: Metadata = {
   title: "Support the Troop",
   description:
-    "Ways to support Scouts BSA Troop 2/394, camperships, gear, merit badge counseling, and volunteering your time.",
+    "Ways to support Scouts BSA Troop 394, camperships, gear, merit badge counseling, and volunteering your time.",
 };
 
 const ways = [
@@ -71,7 +71,7 @@ export default function SupportPage() {
     <>
       <PageHero
         eyebrow="Every dollar stays local"
-        title="Support Troop 2/394"
+        title="Support Troop 394"
         lede="This troop is run entirely by volunteers. What you give goes to camperships, gear, and getting Scouts outdoors, nothing else."
         photo={pageHeroPhoto.support}
         crumb="Support"
@@ -121,7 +121,7 @@ export default function SupportPage() {
         <SectionHead
           tone="white"
           title="Give time instead"
-          lede="Honestly, this is worth more than money. The constraint on how many Scouts Troop 2/394 can serve is adults, not dollars."
+          lede="Honestly, this is worth more than money. The constraint on how many Scouts Troop 394 can serve is adults, not dollars."
         />
         <div className="mt-11 grid gap-6 md:grid-cols-2">
           {nonMoney.map((n, i) => (
@@ -143,7 +143,7 @@ export default function SupportPage() {
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="h-sub">Also worth supporting</h2>
             <p className="mt-4 text-[15px] leading-7 text-slate">
-              Troop 2/394 is one unit inside a much larger organization. If you would rather give at
+              Troop 394 is one unit inside a much larger organization. If you would rather give at
               the council or national level, both do work we depend on, council camps, training,
               and the professional staff who keep units chartered.
             </p>
@@ -184,7 +184,7 @@ export default function SupportPage() {
 
       <CTABand
         title="Thank you"
-        body={`Troop 2/394 has been running on volunteer time and local generosity since ${troop.founded}. It genuinely does not work any other way.`}
+        body={`Troop 394 has been running on volunteer time and local generosity since ${troop.founded}. It genuinely does not work any other way.`}
         primary={{ label: "Contact us", href: "/contact" }}
         secondary={{ label: "About the troop", href: "/about" }}
         photo="half-dome"

@@ -1,5 +1,5 @@
 -- ===========================================================================
--- TROOP 2/394 DATABASE SCHEMA
+-- TROOP 394 DATABASE SCHEMA
 -- ===========================================================================
 -- Run this once in the Supabase SQL editor:
 --   Dashboard → SQL Editor → New query → paste → Run

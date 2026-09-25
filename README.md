@@ -1,6 +1,6 @@
-# Troop 2/394, Santa Clara, California
+# Troop 394, Santa Clara, California
 
-The website for **Scouts BSA Troop 2/394** (Troop 394 and linked girl Troop 2394),
+The website for **Scouts BSA Troop 394** (and its linked girl troop, Troop 2394),
 chartered by the Santa Clara Elks Lodge #2347 since March 1993.
 
 Built as a pixel-faithful reconstruction of scouting.org's design language,

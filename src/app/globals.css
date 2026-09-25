@@ -2,7 +2,7 @@
 @import "tw-animate-css";
 
 /* ============================================================================
-   Troop 2/394 · Santa Clara, design tokens
+   Troop 394 · Santa Clara, design tokens
    Extracted from scouting.org via getComputedStyle(). See
    docs/research/scouting-org/DESIGN_TOKENS.md for the audit trail.
    ========================================================================= */
@@ -240,14 +240,13 @@
    Photo-first layer: full-bleed photographs, slow motion, a little grain.
    ========================================================================= */
 
-/* Slow push-in on the active hero photo. */
+/* The hero photo settles into place once on load, then holds still. */
 @keyframes kenburns {
-  from { transform: scale(1.02) translate3d(0, 0, 0); }
-  to { transform: scale(1.12) translate3d(-1.5%, -1.5%, 0); }
+  from { transform: scale(1.08); }
+  to { transform: scale(1); }
 }
 .kenburns {
-  animation: kenburns 18s ease-in-out infinite alternate;
-  will-change: transform;
+  animation: kenburns 2.4s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 /* Page-load choreography: each line rises in turn. */
@@ -261,14 +260,6 @@
 .rise-3 { animation-delay: 0.36s; }
 .rise-4 { animation-delay: 0.5s; }
 .rise-5 { animation-delay: 0.64s; }
-
-/* Endless ticker of what is next. */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-.marquee { animation: marquee 48s linear infinite; }
-.marquee-wrap:hover .marquee { animation-play-state: paused; }
 
 /* Photos drift slightly slower than the page while a hero scrolls past. */
 @supports (animation-timeline: view()) {
@@ -288,9 +279,12 @@
 .photo-zoom:focus-visible img { transform: scale(1.06); }
 
 /* Dark veils that keep white type legible on any photo. */
+/* The hero's words sit bottom left, so it darkens from the left as well as
+   from the bottom: a bright sky or white water there would swallow them. */
 .veil-hero {
   background:
-    linear-gradient(180deg, rgb(0 24 56 / 0.42) 0%, rgb(0 24 56 / 0.12) 38%, rgb(0 24 56 / 0.78) 100%);
+    linear-gradient(90deg, rgb(0 24 56 / 0.62) 0%, rgb(0 24 56 / 0.26) 46%, rgb(0 24 56 / 0) 74%),
+    linear-gradient(180deg, rgb(0 24 56 / 0.3) 0%, rgb(0 24 56 / 0) 30%, rgb(0 24 56 / 0.74) 100%);
 }
 .veil-band {
   background: linear-gradient(180deg, rgb(0 24 56 / 0.62) 0%, rgb(0 24 56 / 0.72) 100%);
@@ -335,7 +329,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .kenburns,
-  .marquee,
   .drift {
     animation: none;
   }

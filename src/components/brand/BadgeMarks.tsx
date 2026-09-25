@@ -141,7 +141,7 @@ export const MarkFamily = (p: P) => (
   </Svg>
 );
 
-/* ------------------------------------------------- popular at Troop 2/394 --- */
+/* ------------------------------------------------- popular at Troop 394 --- */
 
 export const MarkSurvival = (p: P) => (
   <Svg {...p}>

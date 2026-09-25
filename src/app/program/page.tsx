@@ -10,7 +10,7 @@ import { pageHeroPhoto } from "@/data/photos";
 
 export const metadata: Metadata = {
   title: "Our Program",
-  description: `What Troop 2/394 actually does week to week, meetings, the patrol method, leadership development, and service in ${troop.city}.`,
+  description: `What Troop 394 actually does week to week, meetings, the patrol method, leadership development, and service in ${troop.city}.`,
 };
 
 // The shape of a Tuesday, from the troop's own meeting emails. Meetings start
@@ -148,7 +148,7 @@ export default function ProgramPage() {
       <Section id="leadership">
         <SectionHead
           title="Leadership development"
-          lede="Holding a position is the start, not the end. Troop 2/394 sends Scouts through a formal leadership track that runs from an in-troop course all the way to the national high adventure bases."
+          lede="Holding a position is the start, not the end. Troop 394 sends Scouts through a formal leadership track that runs from an in-troop course all the way to the national high adventure bases."
         />
         <div className="mt-11 grid gap-6 md:grid-cols-2">
           {leadershipTracks.map((t, i) => (
@@ -170,7 +170,7 @@ export default function ProgramPage() {
         <SectionHead
           tone="white"
           title="Service &amp; community"
-          lede={`"Do a Good Turn Daily" is the Scout slogan, and Troop 2/394 has always treated it as work rather than a motto, service projects for the Elks Lodge that charters us, for local institutions, and for whichever cause a Life Scout takes on for their Eagle project.`}
+          lede={`"Do a Good Turn Daily" is the Scout slogan, and Troop 394 has always treated it as work rather than a motto, service projects for the Elks Lodge that charters us, for local institutions, and for whichever cause a Life Scout takes on for their Eagle project.`}
         />
         <div className="mt-11 grid gap-6 md:grid-cols-3">
           {[
@@ -200,7 +200,7 @@ export default function ProgramPage() {
       <CTABand
         title="See a meeting for yourself"
         body="Reading about the patrol method is one thing. Watching a 13-year-old run a room of forty is another."
-        primary={{ label: "Join Troop 2/394", href: "/join" }}
+        primary={{ label: "Join Troop 394", href: "/join" }}
         secondary={{ label: "View the calendar", href: "/calendar" }}
         photo="sequoia-3"
       />

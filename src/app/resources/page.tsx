@@ -11,7 +11,7 @@ import { pageHeroPhoto } from "@/data/photos";
 export const metadata: Metadata = {
   title: "Resources",
   description:
-    "Forms, downloads, the new family guide, dues and fundraising, and every official Scouting link a Troop 2/394 family needs.",
+    "Forms, downloads, the new family guide, dues and fundraising, and every official Scouting link a Troop 394 family needs.",
 };
 
 const newFamilyChecklist = [
@@ -49,7 +49,7 @@ export default function ResourcesPage() {
   return (
     <>
       <PageHero
-        eyebrow="For Troop 2/394 families"
+        eyebrow="For Troop 394 families"
         title="Resources"
         lede="Everything you need in one place, forms, official links, dues, fundraising, and a checklist for brand new families."
         photo={pageHeroPhoto.resources}
@@ -113,7 +113,7 @@ export default function ResourcesPage() {
       <Section id="dues">
         <SectionHead
           title="Dues &amp; fundraising"
-          lede="Scouting is one of the least expensive youth activities there is, and no Scout in Troop 2/394 has ever been turned away over money."
+          lede="Scouting is one of the least expensive youth activities there is, and no Scout in Troop 394 has ever been turned away over money."
         />
 
         <div className="mt-11 grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
@@ -162,7 +162,7 @@ export default function ResourcesPage() {
         <SectionHead
           tone="white"
           title="Council &amp; district"
-          lede={`Troop 2/394 is chartered in the ${troop.district.name} of the ${troop.council.name}, which serves ${troop.district.serves}.`}
+          lede={`Troop 394 is chartered in the ${troop.district.name} of the ${troop.council.name}, which serves ${troop.district.serves}.`}
         />
         <div className="mx-auto mt-11 grid max-w-4xl gap-5 md:grid-cols-2">
           {[

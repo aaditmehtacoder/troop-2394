@@ -80,9 +80,9 @@ if (!to) {
 
 try {
   const info = await transport.sendMail({
-    from: `Troop 2/394 website <${user}>`,
+    from: `Troop 394 website <${user}>`,
     to,
-    subject: "Troop 2/394 website — mail test",
+    subject: "Troop 394 website — mail test",
     text: "If you are reading this, the website can send email. Nothing else to do.",
   });
   console.log(`  ✓ Test message sent to ${to} (${info.messageId})\n`);

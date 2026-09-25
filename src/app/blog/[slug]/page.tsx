@@ -25,7 +25,12 @@ export default async function PostPage({ params }: Params) {
 
   const all = await getPosts();
   const more = all.filter((p) => p.slug !== post.slug).slice(0, 3);
-  const cover = coverFor({ location: post.location, title: post.title, coverUrl: post.coverUrl });
+  const cover = coverFor({
+    slug: post.slug,
+    location: post.location,
+    title: post.title,
+    coverUrl: post.coverUrl,
+  });
   const eyebrow = `${post.kind} · ${formatFull(post.date)}`;
 
   return (

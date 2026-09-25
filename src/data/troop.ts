@@ -18,13 +18,18 @@
  * ==========================================================================
  */
 
+import type { PhotoKey } from "@/data/photos";
+
 export const troop = {
   number: "394",
-  /** The linked troops brand themselves together as "Troop 2/394". */
-  displayNumber: "2/394",
-  name: "Troop 2/394",
+  /**
+   * The troop goes by "Troop 394", not "Troop 394" (the troop's call,
+   * September 2026). Girl Troop 2394 is linked to it and meets with it.
+   */
+  displayNumber: "394",
+  name: "Troop 394",
   legalName: "Troop 394",
-  longName: "Scouts BSA Troop 2/394",
+  longName: "Scouts BSA Troop 394",
   city: "Santa Clara",
   state: "California",
   stateAbbr: "CA",
@@ -198,99 +203,20 @@ export const mainNav: NavItem[] = [
 ];
 
 /* -------------------------------------------------------------------------
-   HOME. HERO SLIDES
+   HOME. HERO
+   One photograph, one line, one next step. The rest of the page is pictures.
    ---------------------------------------------------------------------- */
 
-export const heroSlides = [
-  {
-    eyebrow: "Scouts BSA · Santa Clara · since 1993",
-    title: "The Scouts run this troop.",
-    body: "Youth leaders plan the meetings, the campouts, and the week at camp. Adults train, drive, and keep it safe.",
-    cta: { label: "Join Troop 2/394", href: "/join" },
-    secondary: { label: "Visit a Meeting", href: "/contact" },
-    // The whole troop, on the lodge steps at Camp Hi-Sierra. A visitor should
-    // see the actual people before they see the scenery.
-    photo: "troop-lodge" as const,
-    position: "center 40%",
-  },
-  {
-    eyebrow: "A campout every month",
-    title: "Real places. Real weekends.",
-    body: "Sunset Beach in September, kayaking in October, Pinnacles in November. One trip a month, all year.",
-    cta: { label: "See the Calendar", href: "/calendar" },
-    secondary: { label: "Where We Go", href: "/outdoors" },
-    photo: "rafting-run" as const,
-    position: "center 45%",
-  },
-  {
-    eyebrow: "A week at Camp Hi-Sierra every July",
-    title: "The outdoors is the classroom.",
-    body: "Merit badges, campfires, and the campwide games. Ask any Scout what they remember.",
-    cta: { label: "Read the Stories", href: "/blog" },
-    secondary: { label: "Our Program", href: "/program" },
-    photo: "camp-lake" as const,
-    position: "center 50%",
-  },
-];
-
-/* -------------------------------------------------------------------------
-   HOME, "TROOP 394 IS THE DIFFERENCE"
-   ---------------------------------------------------------------------- */
-
-export const differenceCards = [
-  {
-    title: "Lead something real",
-    body: "The Senior Patrol Leader is elected by the Scouts and runs the weekly meeting. Adults advise. They do not run it.",
-    scene: "leadership" as const,
-  },
-  {
-    title: "Get genuinely outdoors",
-    body: "A campout or special event every month, plus a full week of camp each summer. Patrols plan, pack and cook it themselves.",
-    scene: "camping" as const,
-  },
-  {
-    title: "Finish what you start",
-    body: "Courts of honor are quarterly, so no Scout waits months to be recognised. Every Eagle gets a court of honor of their own.",
-    scene: "eagle" as const,
-  },
-];
-
-export const differenceStats = [
-  // 1993 charter; seven Eagle Scouts
-  // announced on the troop list since April 2025; one outing every month.
-  { value: `${new Date().getFullYear() - troop.founded}`, label: "Years in Santa Clara" },
-  { value: "7", label: "Eagle Scouts since 2025" },
-  { value: "12", label: "Outings a year" },
-  { value: "2", label: "Troops, one for girls and one for boys" },
-];
-
-/* -------------------------------------------------------------------------
-   HOME. PROGRAM TILES
-   ---------------------------------------------------------------------- */
-
-export const programTiles = [
-  {
-    name: "Troop 394",
-    who: "Boys, grades 5 to 12",
-    href: "/program",
-    tone: "red" as const,
-    blurb: "Patrols, weekly meetings, an outing every month, and the trail to Eagle.",
-  },
-  {
-    name: "Troop 2394",
-    who: "Girls, grades 5 to 12",
-    href: "/join#linked-troop",
-    tone: "forest" as const,
-    blurb: "Same night, same place, same campouts. A troop of its own.",
-  },
-  {
-    name: "Adults",
-    who: "Parents and mentors",
-    href: "/about#adult-leaders",
-    tone: "blue" as const,
-    blurb: "Drive to a trailhead, counsel a merit badge, or sit on a board of review. Training is free.",
-  },
-];
+export const hero = {
+  title: "The Scouts run this troop.",
+  // Non-breaking spaces keep "grades 5 to 12" on one line.
+  body: `Girls and boys, grades 5 to 12, every ${troop.meeting.day} night.`,
+  cta: { label: "Come to a meeting", href: "/join" },
+  // The spring rafting trip on the South Fork of the American River. The raft
+  // sits right of centre, which leaves the water on the left for the words.
+  photo: "rafting-run" as const,
+  position: "62% 42%",
+};
 
 /* -------------------------------------------------------------------------
    OATH / LAW / MISSION
@@ -549,7 +475,15 @@ export const youthPositions = [
   },
 ];
 
-export const adultRoles = [
+/**
+ * Each role has a picture slot on /about. Until a leader's photo is in, the
+ * slot shows a placeholder figure. To add one: put the JPEG and its entry in
+ * src/data/photos.ts, then set `photo` to that key below. The alt text there
+ * takes a first name or the role, never a surname.
+ */
+export type AdultRole = { role: string; blurb: string; photo?: PhotoKey };
+
+export const adultRoles: AdultRole[] = [
   {
     role: "Chartered Organization Rep",
     blurb:

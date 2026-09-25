@@ -18,7 +18,7 @@ import { pageHeroPhoto } from "@/data/photos";
 export const metadata: Metadata = {
   title: "Advancement",
   description:
-    "The Trail to Eagle in Troop 2/394, ranks, merit badges, boards of review, and Eagle Scout projects.",
+    "The Trail to Eagle in Troop 394, ranks, merit badges, boards of review, and Eagle Scout projects.",
 };
 
 const meritBadgeGroups = [
@@ -42,7 +42,7 @@ const meritBadgeGroups = [
     ],
   },
   {
-    group: "Popular at Troop 2/394",
+    group: "Popular at Troop 394",
     badges: [
       "Wilderness Survival",
       "Orienteering",
@@ -165,7 +165,7 @@ export default function AdvancementPage() {
                   what they want to do next.
                 </p>
                 <p className="mb-0">
-                  Troop 2/394 holds boards of review on the{" "}
+                  Troop 394 holds boards of review on the{" "}
                   <strong className="text-navy">first {troop.meeting.day} of every month</strong>{" "}
                   so no Scout waits more than four weeks. Sign up with the Advancement Chair the
                   week before.
@@ -203,7 +203,7 @@ export default function AdvancementPage() {
         <SectionHead
           tone="white"
           title="The Trail to Eagle"
-          lede="Roughly six percent of Scouts reach Eagle. Every Life Scout in Troop 2/394 is assigned an Eagle mentor from the committee the day they earn Life, because the drop-off happens in the gap, not on the project."
+          lede="Roughly six percent of Scouts reach Eagle. Every Life Scout in Troop 394 is assigned an Eagle mentor from the committee the day they earn Life, because the drop-off happens in the gap, not on the project."
         />
 
         <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
@@ -222,7 +222,7 @@ export default function AdvancementPage() {
           ))}
         </div>
 
-        {/* Real Troop 2/394 Eagle projects, as reported by The Silicon Valley Voice. */}
+        {/* Real Troop 394 Eagle projects, as reported by The Silicon Valley Voice. */}
         <div className="mt-14">
           <Reveal>
             <h3 className="text-center font-slab text-[13px] font-bold uppercase tracking-[2px] text-white/70">

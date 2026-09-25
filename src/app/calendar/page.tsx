@@ -13,7 +13,7 @@ import { getEvents } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Calendar",
   description:
-    "Troop 2/394's 2026–2027 program year: weekly meetings, monthly campouts, courts of honor, service projects, summer camp, and high adventure.",
+    "Troop 394's 2026–2027 program year: weekly meetings, monthly campouts, courts of honor, service projects, summer camp, and high adventure.",
 };
 
 export default async function CalendarPage() {

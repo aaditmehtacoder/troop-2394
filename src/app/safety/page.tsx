@@ -10,7 +10,7 @@ import { pageHeroPhoto } from "@/data/photos";
 export const metadata: Metadata = {
   title: "Scouting Safely",
   description:
-    "Troop 2/394's safety commitment. Youth Protection Training, two-deep leadership, health forms, and how to report a concern.",
+    "Troop 394's safety commitment. Youth Protection Training, two-deep leadership, health forms, and how to report a concern.",
 };
 
 const commitments = [
@@ -28,7 +28,7 @@ const commitments = [
   },
   {
     t: "Parents may attend anything",
-    d: "There are no closed activities. A parent or guardian may observe any Troop 2/394 meeting or activity at any time, unannounced.",
+    d: "There are no closed activities. A parent or guardian may observe any Troop 394 meeting or activity at any time, unannounced.",
   },
   {
     t: "Digital contact stays in the open",
@@ -46,7 +46,7 @@ export default function SafetyPage() {
       <PageHero
         eyebrow="Non-negotiable"
         title="Scouting Safely"
-        lede="In Scouting we will not compromise the safety of our youth, volunteers, and employees. This page is the short version of what that means in Troop 2/394."
+        lede="In Scouting we will not compromise the safety of our youth, volunteers, and employees. This page is the short version of what that means in Troop 394."
         photo={pageHeroPhoto.safety}
         crumb="Safety"
       />
@@ -78,7 +78,7 @@ export default function SafetyPage() {
             <Reveal delay={70}>
               <div className="prose-troop mt-6">
                 <p>
-                  Youth Protection Training is required for every registered adult in Troop 2/394. Scoutmasters, committee members, merit badge counselors, and anyone driving to a
+                  Youth Protection Training is required for every registered adult in Troop 394. Scoutmasters, committee members, merit badge counselors, and anyone driving to a
                   campout or staying overnight.
                 </p>
                 <p>
@@ -223,7 +223,7 @@ export default function SafetyPage() {
           <Reveal delay={180}>
             <div className="h-full rounded-lg bg-white/[0.09] p-7 text-center ring-1 ring-white/20">
               <p className="mb-1 font-slab text-[11px] font-bold uppercase tracking-[1.6px] text-white/70">
-                Troop 2/394
+                Troop 394
               </p>
               <a
                 href={`mailto:${troop.contact.scoutmasterEmail}`}
@@ -259,7 +259,7 @@ export default function SafetyPage() {
 
       <CTABand
         title="Read the Guide to Safe Scouting"
-        body="Every activity Troop 2/394 runs is governed by it. It is worth twenty minutes of any Scout parent's time."
+        body="Every activity Troop 394 runs is governed by it. It is worth twenty minutes of any Scout parent's time."
         primary={{ label: "Health and Safety at Scouting America", href: "https://www.scouting.org/health-and-safety/gss/" }}
         secondary={{ label: "All resources", href: "/resources" }}
         photo="hi-sierra-2"

@@ -19,7 +19,7 @@ import { pageHeroPhoto } from "@/data/photos";
 export const metadata: Metadata = {
   title: "Outdoors",
   description:
-    "Troop 2/394's outdoor program, a campout every month, a week at Camp Hi-Sierra each July, high adventure, gear lists, and Leave No Trace.",
+    "Troop 394's outdoor program, a campout every month, a week at Camp Hi-Sierra each July, high adventure, gear lists, and Leave No Trace.",
 };
 
 const lnt = [
@@ -38,7 +38,7 @@ export default function OutdoorsPage() {
       <PageHero
         eyebrow="50+ nights a year under the stars"
         title="The Outdoors"
-        lede="Scouting happens outdoors. Troop 2/394 runs a campout every month of the year, a week of summer camp each July, and a high adventure trek each summer for older Scouts."
+        lede="Scouting happens outdoors. Troop 394 runs a campout every month of the year, a week of summer camp each July, and a high adventure trek each summer for older Scouts."
         photo={pageHeroPhoto.outdoors}
         crumb="Outdoors"
       />
@@ -257,7 +257,7 @@ export default function OutdoorsPage() {
       <Section id="leave-no-trace">
         <SectionHead
           title="Leave No Trace"
-          lede="Every Scout in Troop 2/394 learns the seven principles and is expected to live them on every outing, not just recite them for a rank requirement."
+          lede="Every Scout in Troop 394 learns the seven principles and is expected to live them on every outing, not just recite them for a rank requirement."
         />
         <ol className="mt-11 grid gap-5 md:grid-cols-2">
           {lnt.map((p, i) => (

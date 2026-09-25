@@ -1,4 +1,4 @@
-# Troop 2/394. Researched Facts & Sources
+# Troop 394. Researched Facts & Sources
 
 Researched 2026-08-27 from primary sources. Everything on the website traces
 back to a row in this table. Anything marked **CONFIRM** has a source conflict
@@ -9,7 +9,7 @@ or may be stale, resolve it before the site goes live.
 | Fact | Value | Source |
 |---|---|---|
 | Registered name | Troop 0394 | beascout.scouting.org |
-| Public branding | **Troop 2/394** (394 + linked girl troop 2394) | Troop 2/394 platform deck, Apr 22 2026 |
+| Public branding | **Troop 394**; linked girl Troop 2394 meets with it | The troop, Sept 2026, asking to drop "2/394" (earlier: "Troop 2/394", platform deck, Apr 22 2026) |
 | Founded | **March 1993** | troop's own About Us page; beascout |
 | Chartered organization | **Santa Clara Elks Lodge #2347**, 1680 Martin Ave (near Scott Blvd), Santa Clara CA 95050, (408) 727-6044 | troop About Us; beascout unit description; troop Facebook group |
 | **CONFIRM** | beascout's *registered organization* field reads **"Kiwanis Club of Santa Clara"**. This contradicts every other source. Worth a call to the council registrar. | beascout |
