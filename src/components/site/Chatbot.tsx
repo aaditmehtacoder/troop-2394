@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { apiErrorText } from "@/lib/api-error";
 
 type Turn = { role: "user" | "assistant"; content: string };
 
@@ -56,10 +57,17 @@ export function Chatbot() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: question, history: turns.slice(-8) }),
       });
-      const data = await res.json();
+      const data: unknown = await res.json().catch(() => null);
+      const reply = (data as { reply?: unknown } | null)?.reply;
 
-      if (!res.ok) setError(data.error ?? "Something went wrong. Try again in a moment.");
-      else setTurns([...next, { role: "assistant", content: data.reply }]);
+      if (res.ok && typeof reply === "string") setTurns([...next, { role: "assistant", content: reply }]);
+      else
+        setError(
+          apiErrorText(data, res.status, {
+            rateLimited: "That is a lot of questions at once. Try again in a minute.",
+            fallback: "Something went wrong. Try again in a moment.",
+          }),
+        );
     } catch {
       setError("Could not reach the troop assistant. Check your connection and try again.");
     } finally {

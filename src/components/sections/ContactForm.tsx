@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { IconCheck } from "@/components/brand/Marks";
 import { gmailComposeUrl } from "@/components/site/EmailActions";
 import { contactTopics } from "@/data/contact";
+import { apiErrorText } from "@/lib/api-error";
 import { troop } from "@/data/troop";
 
 type Status = "idle" | "sending" | "sent" | "error";
@@ -95,18 +96,20 @@ export function ContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, website, token: await captchaToken() }),
       });
-      const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
+      // Not every answer comes from our route: the firewall answers a
+      // rate-limited request itself, with an error object rather than a string.
+      const data: unknown = await res.json().catch(() => null);
 
-      if (res.ok && data.ok) {
+      if (res.ok && (data as { ok?: unknown } | null)?.ok === true) {
         setForm(initial);
         setStatus("sent");
         return;
       }
       setError(
-        data.error ??
-          (res.status === 429
-            ? "That is a lot of messages. Please try again a little later."
-            : `Your message did not send. Please email ${troop.contact.email} instead.`),
+        apiErrorText(data, res.status, {
+          rateLimited: "That is a lot of messages. Please try again in ten minutes.",
+          fallback: `Your message did not send. Please email ${troop.contact.email} instead.`,
+        }),
       );
       setStatus("error");
     } catch {
