@@ -23,7 +23,8 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "check": "npm run lint && npm run typecheck && npm run build",
+    "test": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/test-hooks.mjs --test \"tests/**/*.test.mjs\"",
+    "check": "npm run lint && npm run typecheck && npm test && npm run build",
     "check:email": "node scripts/check-email.mjs"
   },
   "dependencies": {

@@ -1,7 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IconCheck } from "@/components/brand/Marks";
+import { gmailComposeUrl } from "@/components/site/EmailActions";
+import { contactTopics } from "@/data/contact";
 import { troop } from "@/data/troop";
 
 type Status = "idle" | "sending" | "sent" | "error";
@@ -21,20 +23,26 @@ declare global {
  * The form posts to /api/contact, which checks reCAPTCHA and a rate limit and
  * then emails the troop.
  *
- * If the server has no mail key yet it answers 501, and we fall back to the old
- * behaviour of opening the visitor's own mail client. Either way the message
- * gets somewhere, which is the only thing the person filling it in cares about.
+ * It says "submitted" only when the server says the mail provider accepted the
+ * message. Anything else is an error, the fields stay filled in, and the visitor
+ * gets the troop's address plus a ready-made draft of what they wrote. It used
+ * to open their mail program and declare success, which on a computer with no
+ * mail program meant a cheerful message and nothing sent.
  */
+const initial = {
+  name: "",
+  email: "",
+  scoutAge: "",
+  topic: contactTopics[0] as string,
+  message: "",
+};
+
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    scoutAge: "",
-    topic: "Joining the troop",
-    message: "",
-  });
+  const [form, setForm] = useState(initial);
+  /** Blocks a second submit before React has re-rendered the disabled button. */
+  const inFlight = useRef(false);
   /** Honeypot. Real people never see it, so they never fill it in. */
   const [website, setWebsite] = useState("");
 
@@ -63,28 +71,21 @@ export function ContactForm() {
     });
   }
 
-  /** What we did before there was a server: hand the message to their mail app. */
-  function openMailClient() {
-    const subject = `[${troop.name} website] ${form.topic}, ${form.name}`;
-    const body = [
-      `Name: ${form.name}`,
-      `Email: ${form.email}`,
-      form.scoutAge ? `Scout's age / grade: ${form.scoutAge}` : null,
-      `Topic: ${form.topic}`,
-      "",
-      form.message,
-    ]
-      .filter(Boolean)
-      .join("\n");
-
-    window.location.href = `mailto:${troop.contact.email}?subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(body)}`;
-    setStatus("sent");
-  }
+  /** The visitor's own words, ready to send from their own mail if the form cannot. */
+  const draftSubject = `[${troop.name} website] ${form.topic}`;
+  const draftBody = [
+    `Name: ${form.name}`,
+    form.scoutAge ? `Scout's age / grade: ${form.scoutAge}` : null,
+    "",
+    form.message,
+  ]
+    .filter((line) => line !== null)
+    .join("\n");
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (inFlight.current) return;
+    inFlight.current = true;
     setError(null);
     setStatus("sending");
 
@@ -94,17 +95,27 @@ export function ContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, website, token: await captchaToken() }),
       });
+      const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
 
-      if (res.ok) return setStatus("sent");
-
-      // No mail key on the server yet: fall back rather than fail.
-      if (res.status === 501) return openMailClient();
-
-      const data = (await res.json().catch(() => ({}))) as { error?: string };
-      setError(data.error ?? "The message did not send. Please email us directly.");
+      if (res.ok && data.ok) {
+        setForm(initial);
+        setStatus("sent");
+        return;
+      }
+      setError(
+        data.error ??
+          (res.status === 429
+            ? "That is a lot of messages. Please try again a little later."
+            : `Your message did not send. Please email ${troop.contact.email} instead.`),
+      );
       setStatus("error");
     } catch {
-      openMailClient();
+      setError(
+        `We could not reach the website, so your message was not sent. Check your connection and try again, or email ${troop.contact.email}.`,
+      );
+      setStatus("error");
+    } finally {
+      inFlight.current = false;
     }
   };
 
@@ -164,12 +175,9 @@ export function ContactForm() {
             What&rsquo;s this about?
           </label>
           <select id="cf-topic" value={form.topic} onChange={set("topic")} className={field}>
-            <option>Joining the troop</option>
-            <option>Visiting a meeting</option>
-            <option>Volunteering as an adult</option>
-            <option>Merit badge counseling</option>
-            <option>Supporting the troop</option>
-            <option>Something else</option>
+            {contactTopics.map((t) => (
+              <option key={t}>{t}</option>
+            ))}
           </select>
         </div>
       </div>
@@ -210,29 +218,49 @@ export function ContactForm() {
         {status === "sending" ? "Sending\u2026" : "Send message"}
       </button>
 
-      {status === "sent" && (
-        <p
-          role="status"
-          className="mt-5 mb-0 flex items-center gap-2.5 rounded-lg bg-forest/10 px-4 py-3 text-[14px] text-forest"
-        >
-          <IconCheck className="h-5 w-5 shrink-0" />
-          Thank you. Your message is on its way to the troop, and someone will reply to the
-          address you gave.
-        </p>
-      )}
+      {/* Always in the DOM, so screen readers announce what lands in it. */}
+      <div role="status" aria-live="polite">
+        {status === "sent" && (
+          <p className="mt-5 mb-0 flex items-center gap-2.5 rounded-lg bg-forest/10 px-4 py-3 text-[14px] text-forest">
+            <IconCheck className="h-5 w-5 shrink-0" />
+            Thank you. Your message has been submitted to the troop, and a volunteer will reply to
+            the address you gave.
+          </p>
+        )}
+      </div>
 
-      {status === "error" && error && (
-        <p
-          role="alert"
-          className="mt-5 mb-0 rounded-lg bg-red/10 px-4 py-3 text-[14px] leading-6 text-red"
-        >
-          {error} You can always write to {troop.contact.email}.
-        </p>
-      )}
+      <div role="alert">
+        {status === "error" && error && (
+          <div className="mt-5 rounded-lg bg-red/10 px-4 py-3 text-[14px] leading-6 text-red">
+            <p className="m-0">{error}</p>
+            <p className="mt-2 mb-0 text-ink">
+              What you wrote is still in the form. To send it yourself:{" "}
+              <a
+                href={`mailto:${troop.contact.email}?subject=${encodeURIComponent(
+                  draftSubject,
+                )}&body=${encodeURIComponent(draftBody)}`}
+                className="text-blue underline underline-offset-4"
+              >
+                open it in your email program
+              </a>{" "}
+              or{" "}
+              <a
+                href={gmailComposeUrl(troop.contact.email, draftSubject, draftBody)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue underline underline-offset-4"
+              >
+                in Gmail
+              </a>
+              . It is not sent until you press Send there.
+            </p>
+          </div>
+        )}
+      </div>
 
       <p className="mt-5 mb-0 text-[12.5px] leading-5 text-mute">
-        Your message is emailed to the troop and nothing is stored on this website. You can also
-        write to{" "}
+        Your message is emailed to troop volunteers and nothing is stored on this website. You
+        can also write to{" "}
         <a
           href={`mailto:${troop.contact.email}`}
           className="text-blue underline underline-offset-4"

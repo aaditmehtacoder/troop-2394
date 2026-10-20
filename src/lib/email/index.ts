@@ -16,8 +16,8 @@ import { troop } from "@/data/troop";
  *              where the next committee can read it. This is the default.
  *   2. RESEND  an API key, for if the troop ever moves to its own domain and
  *              wants the deliverability of a real sending service.
- *   3. NONE    the contact form falls back to opening the visitor's own mail
- *              client, which is what it did before any of this existed.
+ *   3. NONE    nothing is sent; the contact form says so and offers the
+ *              troop's address instead of pretending.
  *
  * `server-only` at the top is load-bearing: it makes the build fail rather
  * than let this module, and the app password inside it, reach the browser.
@@ -33,10 +33,18 @@ export type Mail = {
   replyTo?: string;
 };
 
+/**
+ * `timeout` is its own reason because it is the one case where we do not know
+ * what happened: the provider may have taken the message just before the clock
+ * ran out. The caller must not retry it, or someone gets the enquiry twice.
+ */
 export type SendResult =
-  | { ok: true; provider: Exclude<Provider, "none"> }
+  | { ok: true; provider: Exclude<Provider, "none">; messageId: string }
   | { ok: false; reason: "not_configured" }
-  | { ok: false; reason: "send_failed"; detail: string };
+  | { ok: false; reason: "send_failed" | "timeout"; detail: string };
+
+/** Longer than any honest SMTP round trip, well inside the function's limit. */
+const SEND_TIMEOUT_MS = 25_000;
 
 /**
  * Google prints app passwords in four spaced groups ("abcd efgh ijkl mnop").
@@ -106,22 +114,54 @@ function gmailTransport(): Transporter {
   return transporter;
 }
 
+/**
+ * What Gmail said about each recipient. Nodemailer resolves rather than throws
+ * when only some recipients are refused, so a resolved promise is not proof of
+ * anything: at least one address has to have been accepted.
+ */
+export function gmailOutcome(info: {
+  messageId?: string;
+  accepted?: unknown[];
+  rejected?: unknown[];
+}): SendResult {
+  const accepted = info.accepted?.length ?? 0;
+  const rejected = info.rejected?.length ?? 0;
+  if (accepted === 0) {
+    return { ok: false, reason: "send_failed", detail: `gmail accepted no recipients (${rejected} rejected)` };
+  }
+  if (rejected > 0) console.warn(`[email] gmail rejected ${rejected} of ${accepted + rejected} recipients`);
+  return { ok: true, provider: "gmail", messageId: info.messageId ?? "unknown" };
+}
+
 async function sendViaGmail(mail: Mail): Promise<SendResult> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const clock = new Promise<"timeout">((resolve) => {
+    timer = setTimeout(() => resolve("timeout"), SEND_TIMEOUT_MS);
+  });
   try {
-    await gmailTransport().sendMail({
-      from: fromHeader(),
-      to: mail.to,
-      subject: mail.subject,
-      text: mail.text,
-      html: mail.html,
-      replyTo: mail.replyTo,
-    });
-    return { ok: true, provider: "gmail" };
+    const info = await Promise.race([
+      gmailTransport().sendMail({
+        from: fromHeader(),
+        to: mail.to,
+        subject: mail.subject,
+        text: mail.text,
+        html: mail.html,
+        replyTo: mail.replyTo,
+      }),
+      clock,
+    ]);
+    if (info === "timeout") {
+      transporter = null;
+      return { ok: false, reason: "timeout", detail: `gmail did not answer in ${SEND_TIMEOUT_MS}ms` };
+    }
+    return gmailOutcome(info);
   } catch (err) {
     // Reset the pool: a failure here is usually a dead socket or a rejected
     // password, and both want a fresh transport next time.
     transporter = null;
     return { ok: false, reason: "send_failed", detail: describe(err) };
+  } finally {
+    clearTimeout(timer);
   }
 }
 
@@ -146,12 +186,19 @@ async function sendViaResend(mail: Mail): Promise<SendResult> {
         html: mail.html,
       }),
       cache: "no-store",
+      signal: AbortSignal.timeout(SEND_TIMEOUT_MS),
     });
-    if (!res.ok) {
-      return { ok: false, reason: "send_failed", detail: `resend ${res.status}` };
+    // Resend answers errors as a JSON object with a 4xx/5xx; a 200 without an
+    // id is not an acceptance either.
+    const data = (await res.json().catch(() => ({}))) as { id?: string; name?: string };
+    if (!res.ok || !data.id) {
+      return { ok: false, reason: "send_failed", detail: `resend ${res.status} ${data.name ?? ""}`.trim() };
     }
-    return { ok: true, provider: "resend" };
+    return { ok: true, provider: "resend", messageId: data.id };
   } catch (err) {
+    if (err instanceof Error && err.name === "TimeoutError") {
+      return { ok: false, reason: "timeout", detail: `resend did not answer in ${SEND_TIMEOUT_MS}ms` };
+    }
     return { ok: false, reason: "send_failed", detail: describe(err) };
   }
 }

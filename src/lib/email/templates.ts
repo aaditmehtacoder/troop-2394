@@ -205,13 +205,17 @@ export function contactNotification(m: ContactMessage): { subject: string; text:
  * An acknowledgement, not a newsletter. A family who writes in on a Saturday
  * should not spend the weekend wondering whether the form worked, and the
  * meeting details are the thing they most likely wanted anyway.
+ *
+ * It goes to whatever address was typed into a public form, so it carries none
+ * of the visitor's own words: no name, no message. Otherwise anyone could use
+ * the troop's Gmail to deliver their text to a stranger's inbox.
  */
 export function contactAcknowledgement(m: ContactMessage): { subject: string; text: string; html: string } {
   const subject = `We got your message — ${troop.longName}`;
   const url = siteUrl();
 
   const text = [
-    `Hi ${m.name},`,
+    "Hello,",
     "",
     `Thanks for writing to ${troop.longName}. A volunteer reads every message and`,
     "will get back to you, usually within a few days.",
@@ -220,9 +224,7 @@ export function contactAcknowledgement(m: ContactMessage): { subject: string; te
     `  ${troop.meeting.day}s, ${troop.meeting.time}`,
     `  ${troop.meeting.venue}, ${troop.meeting.address}`,
     "",
-    "For your records, this is what you sent:",
-    "",
-    m.message,
+    `Your message was about: ${m.topic}.`,
     "",
     "—",
     `${troop.longName} · ${url}`,
@@ -234,7 +236,7 @@ export function contactAcknowledgement(m: ContactMessage): { subject: string; te
     title: subject,
     preheader: `Thanks for writing. A volunteer will reply, usually within a few days.`,
     body: `
-      <h1 style="margin:0 0 14px;font-family:Georgia,'Roboto Slab',serif;font-size:24px;line-height:1.25;color:${NAVY_DEEP};">Thanks, ${esc(m.name)} &mdash; we got it.</h1>
+      <h1 style="margin:0 0 14px;font-family:Georgia,'Roboto Slab',serif;font-size:24px;line-height:1.25;color:${NAVY_DEEP};">Thanks &mdash; we got your message.</h1>
 
       <p style="margin:0 0 14px;font-size:15px;line-height:1.65;color:${INK};">
         A volunteer reads every message that comes through the website and will get back to you, usually within a few days. We are all parents and Scouts here, so it is occasionally slower in a camping week.
@@ -256,11 +258,7 @@ export function contactAcknowledgement(m: ContactMessage): { subject: string; te
       </table>
 
       <div style="border-top:1px solid ${HAIR};margin:26px 0 0;padding-top:18px;">
-        <div style="font-size:12px;letter-spacing:1.3px;text-transform:uppercase;color:${MUTE};padding-bottom:8px;">What you sent</div>
-        <div style="font-size:13px;color:${MUTE};padding-bottom:6px;">Topic: ${esc(m.topic)}</div>
-        <div style="border-left:3px solid ${HAIR};padding-left:14px;color:${MUTE};">
-          ${paragraphs(m.message).replace(new RegExp(`color:${INK}`, "g"), `color:${MUTE}`)}
-        </div>
+        <div style="font-size:13px;color:${MUTE};">Your message was about: ${esc(m.topic)}</div>
       </div>
     `,
   });

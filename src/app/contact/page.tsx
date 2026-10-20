@@ -3,6 +3,7 @@ import { PageHero } from "@/components/site/PageHero";
 import { Section, SectionHead } from "@/components/site/Section";
 import { Reveal } from "@/components/site/Reveal";
 import { ContactForm } from "@/components/sections/ContactForm";
+import { EmailActions } from "@/components/site/EmailActions";
 import { CTABand } from "@/components/site/CTABand";
 import { IconClock, IconMail, IconPin } from "@/components/brand/Marks";
 import { troop } from "@/data/troop";
@@ -37,25 +38,11 @@ export default function ContactPage() {
             <Reveal delay={70}>
               <ul className="mt-8 space-y-6">
                 {[
-                  {
-                    Icon: IconMail,
-                    t: "General questions",
-                    v: troop.contact.email,
-                    href: `mailto:${troop.contact.email}`,
-                  },
-                  {
-                    Icon: IconMail,
-                    t: "New families",
-                    v: troop.contact.newMemberEmail,
-                    href: `mailto:${troop.contact.newMemberEmail}`,
-                  },
-                  {
-                    Icon: IconMail,
-                    t: "Scoutmaster",
-                    v: troop.contact.scoutmasterEmail,
-                    href: `mailto:${troop.contact.scoutmasterEmail}`,
-                  },
-                ].map(({ Icon, t, v, href }) => (
+                  // One inbox for now, so each line sets a subject the troop can sort by.
+                  { Icon: IconMail, t: "General questions", v: troop.contact.email, subject: "Question for Troop 394" },
+                  { Icon: IconMail, t: "New families", v: troop.contact.newMemberEmail, subject: "New family enquiry" },
+                  { Icon: IconMail, t: "Scoutmaster", v: troop.contact.scoutmasterEmail, subject: "For the Scoutmaster" },
+                ].map(({ Icon, t, v, subject }) => (
                   <li key={t} className="flex gap-4">
                     <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-navy text-white">
                       <Icon className="h-5 w-5" />
@@ -65,15 +52,20 @@ export default function ContactPage() {
                         {t}
                       </span>
                       <a
-                        href={href}
+                        href={`mailto:${v}?subject=${encodeURIComponent(subject)}`}
                         className="block break-words text-[15px] text-navy underline-offset-4 hover:underline"
                       >
                         {v}
                       </a>
+                      <EmailActions email={v} subject={subject} className="mt-0.5" />
                     </span>
                   </li>
                 ))}
               </ul>
+              <p className="mt-6 mb-0 text-[13px] leading-5 text-mute">
+                Clicking an address opens your computer&rsquo;s email program. If nothing happens,
+                you may not have one set up: copy the address, or write from Gmail instead.
+              </p>
             </Reveal>
 
             <Reveal delay={130}>
